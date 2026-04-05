@@ -16,7 +16,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <AuthProvider>
-      <BrowserRouter basename="/stock-dashboard">
+      <BrowserRouter basename="/WebPages/pages/stocksGame">
         <NavBar />
         <Routes>
           <Route path="/login" element={<LoginPage />} />
