@@ -1,0 +1,132 @@
+.page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.header {
+    h1 {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+}
+
+.subtitle {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.loading {
+    padding: 4rem;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.statCard {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.statLabel {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.statValue {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.statSub {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.section {
+    h2 {
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+}
+
+.chart {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1rem 0.5rem;
+}
+
+.tableWrap {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+
+    th {
+        text-align: left;
+        padding: 0.75rem 1rem;
+        color: var(--text-secondary);
+        font-weight: 500;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        border-bottom: 1px solid var(--border);
+    }
+
+    td {
+        padding: 0.85rem 1rem;
+        border-bottom: 1px solid var(--border-subtle);
+        color: var(--text-primary);
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    tr:hover td {
+        background: var(--bg-hover);
+    }
+}
+
+.ticker {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--accent);
+}
+
+.green {
+    color: var(--green);
+}
+
+.red {
+    color: var(--red);
+}
+
+.empty {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 2rem !important;
+}

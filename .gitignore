@@ -2,4 +2,7 @@
 .vscode/
 
 # Ignore macOS system files
-.DS_Store
+**/.DS_Store
+
+# Ignore node_modules folder
+node_modules
