@@ -1,0 +1,45 @@
+.moduleHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    background: transparent;
+}
+
+.title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0b1220;
+    line-height: 1.1;
+}
+
+/* link appears on the next line, left-aligned */
+.external {
+    font-size: 0.95rem;
+    color: #2563eb;
+    text-decoration: none;
+    margin-top: 4px;
+    align-self: flex-start;
+    transition: color 120ms ease, text-decoration-color 120ms ease;
+}
+
+.external:hover,
+.external:focus {
+    color: #1e40af;
+    text-decoration: underline;
+    outline: none;
+}
+
+/* on wider screens keep link left under the title with small indent */
+@media (min-width: 640px) {
+    .moduleHeader {
+        padding-right: 0;
+    }
+
+    .external {
+        margin-left: 0;
+    }
+}

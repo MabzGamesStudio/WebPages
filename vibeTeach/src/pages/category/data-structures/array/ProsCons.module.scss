@@ -1,0 +1,78 @@
+.card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(139, 147, 163, 0.06), 0 1px 2px rgba(16, 24, 40, 0.04);
+    color: #0f172a;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.prosconsCard {
+    margin: 16px auto;
+}
+
+.heading {
+    margin: 0 0 14px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #0b1220;
+}
+
+.columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    align-items: start;
+}
+
+/* column containers */
+.pros,
+.cons {
+    background: rgba(15, 23, 42, 0.02);
+    border-radius: 8px;
+    padding: 12px;
+}
+
+/* headings */
+.proHeading,
+.consHeading {
+    margin: 0 0 8px;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+/* shared list styling */
+.list {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: #253046;
+    line-height: 1.5;
+}
+
+/* subtle icon color tweaks */
+.proHeading {
+    color: #166534;
+}
+
+/* green */
+.consHeading {
+    color: #9b1c1c;
+}
+
+/* red */
+
+/* responsive: stack columns on small screens */
+@media (max-width: 640px) {
+    .columns {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    .pros,
+    .cons {
+        padding: 10px;
+    }
+}

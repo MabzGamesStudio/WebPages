@@ -1,0 +1,302 @@
+Data Structure modules, if these actually exist:
+
+Array
+Dynamic array (resizable array, e.g., ArrayList, vector)
+Hash table (separate chaining)
+Hash table (open addressing)
+Stack
+Queue
+Linked list (singly linked)
+Doubly linked list
+Bitset / bit array
+Tree (general concept represented here by K-ary tree / Binary search tree family)
+Binary search tree (BST)
+Self-balancing BST (AVL tree)
+Red–black tree
+Priority queue (binary heap)
+Graph (adjacency list)
+Set / unordered set (hash-based)
+Map / unordered map (hash-based)
+B-tree
+B+ tree
+Trie (prefix tree)
+Deque (double-ended queue)
+Circular buffer (ring buffer)
+Fenwick tree (Binary Indexed Tree)
+Segment tree
+Union–find (disjoint-set)
+Bloom filter
+Compressed sparse row (CSR) / Compressed sparse column (CSC)
+Adjacency matrix (graph)
+Inverted index (term → postings)
+Suffix array
+Suffix tree
+Suffix automaton
+Array-based string / rope variants (Rope)
+LSM tree (Log-structured merge tree)
+Persistent data structures (persistent trees, lists)
+Priority search tree
+Skip list
+Ordered map / tree-based map (e.g., std::map)
+Order-statistic tree (augmented BST)
+Quadtree
+Octree
+R-tree
+R*-tree
+k-d tree (k-dimensional tree)
+KD-tree with sliding midpoint rule
+Spatial hash
+External memory B-tree variants (buffer tree, etc.)
+CSR variants for sparse matrices (edge-centric CSR with metadata)
+Hash array mapped trie (HAMT)
+Count-min sketch
+HyperLogLog
+HyperLogLog++ variant
+Bloom filter variants (Counting Bloom filter, Cuckoo filter)
+Cuckoo hash table
+Robin Hood hash table
+Minimal perfect hash table
+Trie variants (Compressed trie / Radix tree / Patricia trie)
+Adaptive radix tree (ART)
+Compressed bitset (Roaring Bitmap)
+Columnar store layout (analytics)
+Inverted positional index (positional inverted index)
+FM-index
+FM-index with wavelet tree
+Wavelet tree
+Splay tree
+Treap (randomized BST)
+Skiplist-based ordered map
+Rope (balanced string)
+Piece table (text editing)
+Gap buffer (text editing)
+Zipper (functional list/tree navigator)
+Immutable vector (RRB-tree based)
+Hash-preserving stable table (Stable hash table)
+Circular linked list
+De Bruijn graph (bioinformatics)
+Suffix trie
+Burrows–Wheeler transform (index structure)
+Compressed suffix array
+Compressed suffix structures (CDAWG, etc.)
+Elias–Fano encoding
+Sparse table
+Range-minimum-query (RMQ) tree
+Range tree / Orthogonal range tree
+Segmented array / Chunked sequence (block list)
+Unrolled linked list
+XOR linked list
+Monotonic queue / deque
+Multigraph representations
+Edge list
+Edge-centric graph formats (WebGraph / compact representations)
+Graphlet index (subgraph queries)
+Reachability oracle (2-hop labeling)
+Temporal graph structures
+Dynamic graph indexes (mutable graphs)
+Probabilistic graphs
+Flow network (residual graph)
+Sparse bitmap index
+Run-length encoded array (RLE array)
+Packed array
+Sparse array
+Fixed-size circular array
+Segmented array
+Growable ring buffer
+Skip vector (layered arrays)
+Singly threaded list
+Left-child right-sibling tree representation
+Multiway tree (general m-ary tree)
+k-ary search tree
+K-ary tree
+Heap-ordered tree (d-heap tree)
+d-ary heap (e.g., ternary heap)
+Leftist heap
+Meldable heap
+Pairing heap
+Skew heap
+Fibonacci heap
+Strict Fibonacci heap (variant)
+Binomial heap
+Radix heap
+Min-max heap
+Min-max priority deque
+Tournament tree (selection tree)
+Bucket queue
+Calendar queue
+Ladder heap
+Soft heap
+Kinetic heap (kinetic data structures)
+Kinetic data structures (moving points)
+Bounding volume hierarchy (BVH)
+Sphere tree
+BSP tree (binary space partitioning tree)
+Voronoi diagram / Delaunay triangulation (geometric structures)
+Cover tree
+Metric tree (M-tree)
+Entropy-balanced tree (spatial)
+Grid file (multidimensional hashing)
+Navigable small-world graph (NSW) / HNSW (ANN indexes)
+HNSW (hierarchical NSW) index
+Count sketch
+K-minimum values (KMV) sketch
+t-digest (approximate quantiles)
+Reservoir sampling structure
+Top-k streaming summaries (Space-Saving)
+Frequent-items heap
+Lossy counting structure / Lossy counting heap
+Bloom filter cascade / Stable bloom filter / Bloomier filter
+Bloomier cascade (key→value sketch)
+Cuckoo filter (distinct listing*
+CHD (compressed hash dictionary)
+Dynamic perfect hash (FKS)
+Linear hashing
+Extendible hashing
+Hopcroft–Karp style adjacency hashing
+Sorted hash map (order-preserving hash)
+Bucketized / hopscotch hash table (Hopscotch hash table)
+Quotient filter
+Y-fast trie
+X-fast trie (implicitly near Y-fast family)
+Van Emde Boas tree (implicit via these tries) — grouped with y/x-fast tries
+Elias-delta encoded lists
+Bit-partitioned trie (for integers)
+Packed succinct structures (succinct data structures: rank/select bitvectors*
+Succinct data structures (bitvectors with rank/select)
+Balanced parentheses representation (for trees)
+Finger tree
+Rope specialized for UTF encodings
+Suffix array enhanced tree (SA-tree)
+Bε-tree (B-epsilon tree)
+Weight-balanced B-tree
+AVL+ tree (variant*
+LLRB tree (Left-leaning red–black)
+Scapegoat tree
+Weight-balanced tree (BB[alpha])
+Cartesian tree
+Range-minimum-query (RMQ) structures (more variants*
+Orthogonal range tree variants
+K-d-B-tree (mixed spatial index)
+K-d tree hybrids (various*
+Priority queue specializations (several listed above)
+Succinct tree encodings (other variants)
+Suffix automaton with links
+Prefix function table (KMP structure)
+Z-array (Z-algorithm structure)
+Aho–Corasick automaton (trie + failure links)
+Patricia automaton
+DAWG (Directed Acyclic Word Graph)
+q-gram index (n-gram index)
+String B-tree
+Positional inverted index (term positions)
+Compact directed acyclic word graph (CDAWG)
+Elias–Fano implementations (practical variants)
+Proof trace DAG (theorem provers)
+Decision diagram (BDD) — binary decision diagram
+Zero-suppressed BDD (ZDD*
+Constraint graph (SAT/SMT solving)
+Lattice (abstract interpretation)
+Transactional memory logs (write-ahead log structures)
+Versioned key-value store structures (MVCC index)
+Blockchain merkle tree (authenticated tree)
+Patricia Merkle trie (blockchains)
+Sparse merkle tree
+Minimal perfect hashing structures (various)
+Compressed graph formats (WebGraph*
+Compressed sparse fiber (for tensors)
+Sparse tensor formats (general)
+Edge-centric formats for large graphs
+Dynamic compressed structures (various research)
+Graph sketching / streaming graph summaries
+Probabilistic graph structures (research)
+Reachability / labeling oracles (various)
+Temporal / evolving graph indexes (research)
+Kinetic / moving-point-specific spatial indexes
+Navigation structures for ANN beyond HNSW
+Navigable small-world graphs (NSW variants)
+Grid-file family variants
+BVH specializations (ray tracing)
+Sphere-tree specializations
+Cover-tree variants (research)
+Metric-tree variants
+Orthogonal range indexing variants
+Fingerprint / hash sketches (various)
+Streaming heavy-hitters hybrid structures
+Online approximations (various)
+Lossless / lossy hybrid sketches
+Indexes with provenance / verifiable indexes
+Authenticated data structures beyond Merkle variants
+Succinct graph encodings (research)
+Compressed suffix automata variants
+CDAWG variants for large corpora
+Large-scale inverted index optimizations
+Column-store encoding hybrids
+Advanced columnar compression schemes
+Bit-partitioned column encodings
+Elias-family compression hybrids
+Rank/select dictionary variants
+Practical succinct indices for large data
+Research-only data structures (various experimental names)
+Very specialized academic variants (many)
+Obscure or deprecated structures (historical)
+Teaching-only toy structures
+Niche domain-specific structures not widely used
+Experimental hybrid heaps not in common libraries
+Rarely used spatial indexing variants
+Very specialized compressed graph representations
+Highly theoretical succinct constructs rarely implemented
+Research sketches with limited adoption
+Proof-of-concept data structures from papers
+Domain-specific transient structures
+One-off optimized in-memory formats with no reuse
+Legacy or superseded index structures
+Extremely niche variations (paper-level)
+Implementation-specific tuning variants
+Highly specialized academic-only tries
+Obscure perfect-hashing derivatives
+Tiny research heaps and queues
+Rare functional data-structure exotica
+Vintage linkage schemes (obscure)
+Historical compressed indices now replaced
+Discontinued or superseded DB engine internals
+Project-specific merkle variants
+Rarely-cited experimental buffers
+One-off edit buffers beyond gap/rope/piece-table
+Very obscure succinct encodings
+Paper-only compressed trees
+Edge-case geometric indices
+Esoteric monotone sequence encoders
+Obscure bit-partitioning schemes
+Rare streaming-approx sketches from single papers
+Lab-only parallel sparse tensor formats
+Obscure compact automata variants
+Single-use bioinformatics graphs with low adoption
+Esoteric B-tree derivatives in research
+Niche Bε-tree-like variants with little adoption
+Highly-specialized hash schemes from niche libraries
+Legacy hash table variants replaced by modern ones
+Obscure adjacency hashing variants with low adoption
+Rare compressed adjacency-index variants
+One-off graph indexing schemes for competitions
+Uncommon persistent structure variants
+Experimental functional navigators rarely reused
+Very specific embedded-system structures
+Rare hardware-accelerated layout formats
+Prototype-only succinct string indices
+Single-project inverted-index tweaks
+Experimental streaming-merging structures
+Obsolete perfect-hash experiments
+Low-adoption probabilistic key→value sketches
+One-off proof-trace formats
+Project-specific DAG encodings
+Rarely-implemented balanced-parentheses variants
+Niche rank/select hybrids with low use
+Obscure Elias-family hybrids
+Highly-specialized index research artifacts
+Extremely narrow domain structures
+Single-researcher data structures
+Teaching examples never used in production
+Conceptual-only structures with no implementation
+Paper proposals without reference implementations
+Hypothetical hybrid structures
+Named curiosities and thought-experiments

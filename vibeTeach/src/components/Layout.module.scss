@@ -1,0 +1,49 @@
+$app-bg: #f7f8fb;
+$header-bg: #1f2937;
+$accent: #10b981;
+$max-w: 1100px;
+
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: $app-bg;
+    color: #0f172a;
+}
+
+.header {
+    background: $header-bg;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .brand {
+        color: white;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .nav a {
+        color: rgba(255, 255, 255, 0.9);
+        margin-left: 1rem;
+        text-decoration: none;
+    }
+}
+
+.main {
+    flex: 1;
+    width: 100%;
+    max-width: $max-w;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.footer {
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #475569;
+    background: transparent;
+}

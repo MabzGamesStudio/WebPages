@@ -1,0 +1,40 @@
+.container {
+    padding: 1rem;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.card {
+    display: block;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 2px 8px rgba(2, 6, 23, 0.06);
+    transition: transform .12s ease, box-shadow .12s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 14px rgba(2, 6, 23, 0.08);
+    }
+
+    h2 {
+        margin: 0 0 .5rem 0;
+    }
+
+    p {
+        margin: 0;
+        color: #475569;
+        font-size: 0.95rem;
+    }
+}
