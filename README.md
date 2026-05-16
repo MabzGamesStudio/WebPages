@@ -1,1 +1,1 @@
-[Website Home Page](https://github.com/MabzGamesStudio/WebPages/index.html)
+[Website Home Page](https://MabzGamesStudio.github.io/WebPages/index.html)
