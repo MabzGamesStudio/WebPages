@@ -52,13 +52,11 @@ const MapView: React.FC<MapViewProps> = ({
                 fillOpacity = 0.8;
                 weight = 3;
                 color = '#00ff00';
-                console.log('Setting green for correct answer:', featureName);
             } else if (showAnswer && lastGuess && featureId === lastGuess && !isCorrect) {
                 fillColor = '#ff0000';
                 fillOpacity = 0.8;
                 weight = 3;
                 color = '#ff0000';
-                console.log('Setting red for wrong guess:', featureName);
             }
         }
 
@@ -75,8 +73,6 @@ const MapView: React.FC<MapViewProps> = ({
     const onEachFeature = (feature: IslandFeature, layer: L.Layer) => {
         const featureId = feature.properties.id || feature.properties['@id'] || feature.properties.name;
         const displayName = feature.properties.name || 'Unknown Island';
-
-        console.log('OnEachFeature - feature:', displayName, 'ID:', featureId);
 
         let tooltipTimeout: ReturnType<typeof setTimeout> | null = null;
 
@@ -109,10 +105,6 @@ const MapView: React.FC<MapViewProps> = ({
         if (mode === 'quiz') {
             layer.on({
                 click: (e) => {
-                    console.log('=== Map Click Event ===');
-                    console.log('Clicked feature:', displayName);
-                    console.log('Feature ID:', featureId);
-                    console.log('Calling onIslandClick with:', featureId);
                     onIslandClick(featureId);
                 }
             });
@@ -139,13 +131,11 @@ const MapView: React.FC<MapViewProps> = ({
     };
 
     useEffect(() => {
-        console.log('useEffect triggered:', { lastGuess, correctAnswer, isCorrect, showAnswer, mode });
         if (geoJsonRef.current) {
             geoJsonRef.current.eachLayer((layer: any) => {
                 if (layer.feature) {
                     const feature = layer.feature as IslandFeature;
                     const newStyle = getStyle(feature);
-                    console.log('Applying style to:', feature.properties.name, newStyle);
                     layer.setStyle(newStyle);
                 }
             });

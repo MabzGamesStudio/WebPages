@@ -86,16 +86,20 @@ const QuizGame: React.FC = () => {
         setLastGuess(null);
         setIsCorrect(false);
         setMode('quiz');
-        console.log('Quiz started! Islands to guess:', shuffled);
     };
 
     const handleContinue = () => {
         const nextIndex = currentIndex + 1;
-        console.log('handleContinue called, nextIndex:', nextIndex);
         if (nextIndex >= islandsToGuess.length) {
             setIsFinished(true);
             const timeTaken = Math.floor((Date.now() - (startTime || 0)) / 1000);
             const percent = Math.round((correctCount / islandsToGuess.length) * 100);
+
+            console.log('Quiz finished!', {
+                correctCount,
+                total: islandsToGuess.length,
+                percent
+            });
 
             if (townId) {
                 saveScore(townId, { bestPercent: percent, bestTime: timeTaken });
@@ -105,55 +109,48 @@ const QuizGame: React.FC = () => {
             setShowAnswer(false);
             setLastGuess(null);
             setIsCorrect(false);
-            console.log('Moving to next island, new index:', nextIndex);
         }
     };
 
     const handleIslandClick = (islandId: string) => {
-        console.log('=== Island Clicked ===');
-        console.log('islandId from click:', islandId);
-        console.log('Current island to guess:', islandsToGuess[currentIndex]);
-        console.log('Current index:', currentIndex);
-        console.log('Mode:', mode);
-        console.log('isFinished:', isFinished);
-        console.log('showAnswer:', showAnswer);
-
-        const clickedIsland = townIslands.find(f => {
-            const match = f.properties.id === islandId ||
-                f.properties['@id'] === islandId ||
-                f.properties.name === islandId;
-            if (match) {
-                console.log('Found matching island:', f.properties.name);
-            }
-            return match;
-        });
-
+        const clickedIsland = townIslands.find(f =>
+            f.properties.id === islandId ||
+            f.properties['@id'] === islandId ||
+            f.properties.name === islandId
+        );
         const clickedName = clickedIsland?.properties.name || islandId;
-        console.log('Clicked island name:', clickedName);
-        console.log('Comparing:', clickedName, '===', islandsToGuess[currentIndex]);
 
-        if (mode !== 'quiz' || isFinished || showAnswer || !islandsToGuess[currentIndex]) {
-            console.log('Returning early - conditions not met');
-            return;
-        }
+        if (mode !== 'quiz' || isFinished || showAnswer || !islandsToGuess[currentIndex]) return;
 
         const correct = clickedName === islandsToGuess[currentIndex];
-        console.log('Is correct?', correct);
+        const newCorrectCount = correct ? correctCount + 1 : correctCount;
 
+        setCorrectCount(newCorrectCount);
         setLastGuess(islandId);
         setIsCorrect(correct);
         setShowAnswer(true);
-        console.log('State updated - lastGuess:', islandId, 'isCorrect:', correct, 'showAnswer:', true);
 
         if (correct) {
-            console.log('Correct answer! Incrementing count');
-            setCorrectCount(prev => prev + 1);
+            // Store the new count in a variable that won't change
+            const finalCorrectCount = newCorrectCount;
             setTimeout(() => {
-                console.log('Timeout - calling handleContinue for correct answer');
-                handleContinue();
+                // Use the stored value
+                const nextIndex = currentIndex + 1;
+                if (nextIndex >= islandsToGuess.length) {
+                    const timeTaken = Math.floor((Date.now() - (startTime || 0)) / 1000);
+                    const percent = Math.round((finalCorrectCount / islandsToGuess.length) * 100);
+
+                    if (townId) {
+                        saveScore(townId, { bestPercent: percent, bestTime: timeTaken });
+                    }
+                    setIsFinished(true);
+                } else {
+                    setCurrentIndex(nextIndex);
+                    setShowAnswer(false);
+                    setLastGuess(null);
+                    setIsCorrect(false);
+                }
             }, 1000);
-        } else {
-            console.log('Incorrect answer - waiting for user to click continue');
         }
     };
 
