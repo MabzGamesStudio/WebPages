@@ -29,13 +29,13 @@ const AnimationSection: React.FC = () => {
     const [activeIndices, setActiveIndices] = useState<number[]>([]);
     const [animMessage, setAnimMessage] = useState<string>("");
     // separate state for each input
-    const [accessIndex, setAccessIndex] = useState<number | "">("");
-    const [searchValue, setSearchValue] = useState<number | "">("");
-    const [pushValue, setPushValue] = useState<number | "">("");
-    const [unshiftValue, setUnshiftValue] = useState<number | "">("");
-    const [insertIndex, setInsertIndex] = useState<number | "">("");
-    const [insertValue, setInsertValue] = useState<number | "">("");
-    const [deleteIndex, setDeleteIndex] = useState<number | "">("");
+    const [accessIndex, setAccessIndex] = useState<number | "">(0);
+    const [searchValue, setSearchValue] = useState<number | "">(20);
+    const [pushValue, setPushValue] = useState<number | "">(50);
+    const [unshiftValue, setUnshiftValue] = useState<number | "">(5);
+    const [insertIndex, setInsertIndex] = useState<number | "">(2);
+    const [insertValue, setInsertValue] = useState<number | "">(25);
+    const [deleteIndex, setDeleteIndex] = useState<number | "">(1);
 
     const [animationSpeed, setAnimationSpeed] = useState(5.0);
     const [animationFactor, setAnimationFactor] = useState(1.0);
