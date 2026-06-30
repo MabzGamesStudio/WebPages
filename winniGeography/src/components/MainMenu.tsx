@@ -4,13 +4,14 @@ import { getScore } from '../utils/storage';
 
 // Ensure these match the "town" property in your GeoJSON
 export const TOWNS = [
+    'Alton',
+    'Center Harbor',
     'Gilford',
     'Laconia',
-    'Alton',
+    'Meredith',
     'Moultonborough',
     'Tuftonboro',
     'Wolfeboro',
-    'Center Harbor',
     'All'
 ];
 
