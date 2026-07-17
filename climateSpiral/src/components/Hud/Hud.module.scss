@@ -1,0 +1,67 @@
+@use '../../styles/variables' as *;
+
+.panel {
+  position: absolute;
+  top: 96px;
+  left: $space-5;
+  background: rgba($bg-panel, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid $border-hairline;
+  border-radius: $radius-md;
+  padding: $space-4;
+  min-width: 200px;
+  pointer-events: none;
+}
+
+.city {
+  font-family: $font-display;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 $space-3 0;
+  color: $text-primary;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: $font-mono;
+  font-size: 12px;
+  color: $text-muted;
+  padding: 3px 0;
+}
+
+.value {
+  color: $text-primary;
+  font-size: 15px;
+}
+
+.anomalyPositive {
+  color: $warm;
+}
+
+.anomalyNegative {
+  color: $cold;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  margin-top: $space-3;
+  padding-top: $space-3;
+  border-top: 1px solid $border-hairline;
+}
+
+.legendBar {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, $cold, #e6e6e1, $warm);
+}
+
+.legendLabel {
+  font-family: $font-mono;
+  font-size: 10px;
+  color: $text-faint;
+}

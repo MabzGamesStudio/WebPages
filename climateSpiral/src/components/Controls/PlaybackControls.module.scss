@@ -1,0 +1,134 @@
+@use '../../styles/variables' as *;
+
+.dock {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  background: rgba($bg-panel, 0.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid $border-hairline;
+  border-radius: $radius-lg;
+  padding: $space-3 $space-4;
+}
+
+.transport {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.playBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba($amber, 0.4);
+  background: rgba($amber, 0.1);
+  color: $amber;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba($amber, 0.2);
+  }
+}
+
+.scrubGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.scrubLabels {
+  display: flex;
+  justify-content: space-between;
+  font-family: $font-mono;
+  font-size: 11px;
+  color: $text-muted;
+}
+
+.scrub {
+  width: 100%;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    $cold 0%,
+    $text-faint var(--progress, 50%),
+    $bg-panel-raised var(--progress, 50%)
+  );
+  cursor: pointer;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: $amber;
+    border: 2px solid $bg-void;
+    cursor: pointer;
+  }
+
+  &::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: $amber;
+    border: 2px solid $bg-void;
+    cursor: pointer;
+  }
+}
+
+.divider {
+  width: 1px;
+  align-self: stretch;
+  background: $border-hairline;
+}
+
+.speedGroup,
+.viewGroup {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+}
+
+.groupLabel {
+  font-family: $font-mono;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: $text-faint;
+  text-transform: uppercase;
+}
+
+.chip {
+  border: 1px solid $border-hairline;
+  background: transparent;
+  color: $text-muted;
+  font-family: $font-mono;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover {
+    color: $text-primary;
+    border-color: rgba($amber, 0.4);
+  }
+}
+
+.chipActive {
+  color: $bg-void;
+  background: $amber;
+  border-color: $amber;
+
+  &:hover {
+    color: $bg-void;
+  }
+}

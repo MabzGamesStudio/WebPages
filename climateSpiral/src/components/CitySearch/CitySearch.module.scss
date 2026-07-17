@@ -1,0 +1,94 @@
+@use '../../styles/variables' as *;
+
+.wrap {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+}
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  background: $bg-panel;
+  border: 1px solid $border-hairline;
+  border-radius: $radius-md;
+  padding: $space-2 $space-3;
+
+  &:focus-within {
+    border-color: rgba($amber, 0.5);
+  }
+}
+
+.icon {
+  color: $text-faint;
+  flex-shrink: 0;
+}
+
+.input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: $text-primary;
+  font-family: $font-body;
+  font-size: 14px;
+
+  &::placeholder {
+    color: $text-faint;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.results {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: $bg-panel-raised;
+  border: 1px solid $border-hairline;
+  border-radius: $radius-md;
+  overflow: hidden;
+  max-height: 280px;
+  overflow-y: auto;
+  z-index: 20;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+.resultItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: $text-primary;
+  padding: $space-2 $space-3;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba($amber, 0.08);
+  }
+}
+
+.resultName {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.resultMeta {
+  font-size: 11px;
+  color: $text-muted;
+  font-family: $font-mono;
+}
+
+.status {
+  padding: $space-2 $space-3;
+  font-size: 12px;
+  color: $text-muted;
+  font-family: $font-mono;
+}
