@@ -1,0 +1,1 @@
+import{n as e}from"./index-L1cLsO25.js";var t=e();function n({moduleId:e}){return(0,t.jsxs)(`div`,{children:[(0,t.jsx)(`h1`,{children:`Linked Lists Module`}),(0,t.jsx)(`p`,{children:`Category: data-structures`}),(0,t.jsxs)(`p`,{children:[`Module ID: `,e??`none`]})]})}export{n as default};
