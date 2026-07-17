@@ -11,21 +11,387 @@
     <link rel="icon" href="favicons/android-chrome-192x192.png" sizes="192x192">
     <link rel="icon" href="favicons/android-chrome-512x512.png" sizes="512x512">
     <link rel="apple-touch-icon" href="favicons/apple-touch-icon.png">
+    <style>
+        :root {
+            --bg: #0b0d12;
+            --panel: #14171f;
+            --panel-hover: #1a1e29;
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #e8ecf1;
+            --text-muted: #8891a0;
+            --accent: #ffb703;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        header {
+            padding: 40px 24px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin: 0 0 4px;
+            font-size: 28px;
+        }
+
+        .tagline {
+            color: var(--text-muted);
+            margin: 0 0 24px;
+            font-size: 14px;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search {
+            flex: 1;
+            min-width: 220px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+        }
+
+        .search input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .search input:focus {
+            outline: none;
+        }
+
+        .search svg {
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .sort-group {
+            display: flex;
+            gap: 6px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .sort-btn {
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .sort-btn:hover {
+            color: var(--text);
+        }
+
+        .sort-btn.active {
+            background: var(--accent);
+            color: #0b0d12;
+            font-weight: 600;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--text);
+            transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            background: var(--panel-hover);
+            border-color: rgba(255, 183, 3, 0.35);
+        }
+
+        .card-art {
+            position: relative;
+            aspect-ratio: 16 / 10;
+            width: 100%;
+        }
+
+        .card-art img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            background: rgba(11, 13, 18, 0.75);
+            backdrop-filter: blur(4px);
+            color: var(--accent);
+            padding: 3px 8px;
+            border-radius: 999px;
+        }
+
+        .card-body {
+            padding: 14px 16px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 60px 0;
+            font-size: 14px;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Investing</h1>
-    <a href="pages/investing/investing.html">Go to investing page</a>
-    <h1>Storage Logger</h1>
-    <a href="pages/storageLogger/privacy-policy.md">Go to Storage Logger privacy policy page</a>
-    <h1>Stocks Game</h1>
-    <a href="pages/stocksGame/index.html">Go to stocks game page</a>
-    <h1>Vibe Teach</h1>
-    <a href="pages/vibeTeach/index.html">Go to vibe teach page</a>
-    <h1>Winnipesaukee Island Map Quiz</h1>
-    <a href="pages/winniGeography/index.html">Go to Winnipesaukee island map quiz game</a>
-    <h1>Winnipesaukee Island Map Quiz</h1>
-    <a href="pages/tempSpiral/index.html">Go to weather spiral visualization</a>
+    <header>
+        <h1>Projects</h1>
+        <p class="tagline">A collection of small builds &mdash; games, tools, and visualizations.</p>
+        <div class="controls">
+            <div class="search">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+                    <path d="M20 20L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <input id="searchInput" type="text" placeholder="Search projects&hellip;" />
+            </div>
+            <div class="sort-group" id="sortGroup">
+                <button class="sort-btn active" data-sort="featured">Featured</button>
+                <button class="sort-btn" data-sort="new">New</button>
+                <button class="sort-btn" data-sort="name">Name</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="grid" id="grid"></div>
+        <p class="empty-state" id="emptyState" style="display: none;">No projects match your search.</p>
+    </main>
+
+    <script>
+        // To use a custom image instead of generated abstract art, set
+        // `image: "path/to/image.png"` on a project below.
+        const projects = [
+            {
+                title: "Investing",
+                description: "Notes and tools for tracking and reasoning about investments.",
+                url: "pages/investing/investing.html",
+                keywords: ["investing", "finance", "money"],
+                featured: 3,
+                added: "2024-01-01",
+                seed: 1
+            },
+            {
+                title: "Storage Logger",
+                description: "Privacy policy page for the Storage Logger app.",
+                url: "pages/storageLogger/privacy-policy.md",
+                keywords: ["storage", "logger", "privacy", "policy"],
+                featured: 1,
+                added: "2024-02-15",
+                seed: 2
+            },
+            {
+                title: "Stocks Game",
+                description: "A game for practicing stock trading decisions.",
+                url: "pages/stocksGame/index.html",
+                keywords: ["stocks", "game", "trading", "finance"],
+                featured: 2,
+                added: "2024-05-10",
+                seed: 3
+            },
+            {
+                title: "Vibe Teach",
+                description: "An interactive tool for teaching through vibes.",
+                url: "pages/vibeTeach/index.html",
+                keywords: ["teach", "education", "learning"],
+                featured: 2,
+                added: "2024-07-20",
+                seed: 4
+            },
+            {
+                title: "Winnipesaukee Island Map Quiz",
+                description: "A geography quiz game about the islands of Lake Winnipesaukee.",
+                url: "pages/winniGeography/index.html",
+                keywords: ["map", "quiz", "geography", "game", "winnipesaukee"],
+                featured: 1,
+                added: "2024-09-01",
+                seed: 5
+            },
+            {
+                title: "Weather Spiral Visualization",
+                description: "A rotating 3D spiral tracing a city's temperature anomaly over time.",
+                url: "pages/tempSpiral/index.html",
+                keywords: ["weather", "climate", "spiral", "visualization", "3d", "temperature"],
+                featured: 3,
+                added: "2025-07-17",
+                seed: 6
+            }
+        ];
+
+        // Deterministic abstract art: a few overlapping radial gradients per
+        // card, seeded per-project so each card gets a distinct look that
+        // stays stable across reloads.
+        function makeAbstractArt(seed) {
+            function rand(n) {
+                const x = Math.sin(seed * 999 + n * 37.13) * 10000;
+                return x - Math.floor(x);
+            }
+            const hueA = Math.floor(rand(1) * 360);
+            const hueB = (hueA + 90 + Math.floor(rand(2) * 90)) % 360;
+            const hueC = (hueA + 200 + Math.floor(rand(3) * 80)) % 360;
+            const x1 = Math.floor(rand(4) * 100);
+            const y1 = Math.floor(rand(5) * 100);
+            const x2 = Math.floor(rand(6) * 100);
+            const y2 = Math.floor(rand(7) * 100);
+            const x3 = Math.floor(rand(8) * 100);
+            const y3 = Math.floor(rand(9) * 100);
+            return `
+                radial-gradient(circle at ${x1}% ${y1}%, hsla(${hueA}, 80%, 60%, 0.85), transparent 60%),
+                radial-gradient(circle at ${x2}% ${y2}%, hsla(${hueB}, 80%, 55%, 0.75), transparent 55%),
+                radial-gradient(circle at ${x3}% ${y3}%, hsla(${hueC}, 75%, 45%, 0.9), transparent 65%),
+                linear-gradient(135deg, hsla(${hueA}, 40%, 10%, 1), hsla(${hueC}, 40%, 8%, 1))
+            `;
+        }
+
+        const grid = document.getElementById("grid");
+        const emptyState = document.getElementById("emptyState");
+        const searchInput = document.getElementById("searchInput");
+        const sortGroup = document.getElementById("sortGroup");
+        let currentSort = "featured";
+
+        function sortProjects(list) {
+            const copy = [...list];
+            if (currentSort === "featured") {
+                copy.sort((a, b) => b.featured - a.featured || a.title.localeCompare(b.title));
+            } else if (currentSort === "new") {
+                copy.sort((a, b) => new Date(b.added) - new Date(a.added));
+            } else if (currentSort === "name") {
+                copy.sort((a, b) => a.title.localeCompare(b.title));
+            }
+            return copy;
+        }
+
+        function filterProjects(query) {
+            const q = query.trim().toLowerCase();
+            if (!q) return projects;
+            return projects.filter((p) => {
+                const haystack = [p.title, p.description, ...p.keywords].join(" ").toLowerCase();
+                return haystack.includes(q);
+            });
+        }
+
+        function render() {
+            const filtered = sortProjects(filterProjects(searchInput.value));
+            grid.innerHTML = "";
+            emptyState.style.display = filtered.length === 0 ? "block" : "none";
+
+            filtered.forEach((p) => {
+                const card = document.createElement("a");
+                card.className = "card";
+                card.href = p.url;
+
+                const art = document.createElement("div");
+                art.className = "card-art";
+                if (p.image) {
+                    const img = document.createElement("img");
+                    img.src = p.image;
+                    img.alt = p.title;
+                    art.appendChild(img);
+                } else {
+                    art.style.background = makeAbstractArt(p.seed);
+                }
+
+                if (p.featured >= 3) {
+                    const badge = document.createElement("span");
+                    badge.className = "badge";
+                    badge.textContent = "Featured";
+                    art.appendChild(badge);
+                }
+
+                const body = document.createElement("div");
+                body.className = "card-body";
+                body.innerHTML = `
+                    <p class="card-title">${p.title}</p>
+                    <p class="card-desc">${p.description}</p>
+                `;
+
+                card.appendChild(art);
+                card.appendChild(body);
+                grid.appendChild(card);
+            });
+        }
+
+        searchInput.addEventListener("input", render);
+        sortGroup.addEventListener("click", (e) => {
+            const btn = e.target.closest(".sort-btn");
+            if (!btn) return;
+            currentSort = btn.dataset.sort;
+            [...sortGroup.children].forEach((b) => b.classList.toggle("active", b === btn));
+            render();
+        });
+
+        render();
+    </script>
 </body>
 
 </html>

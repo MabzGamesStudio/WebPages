@@ -7,7 +7,7 @@ const MONTHS_PER_SECOND_AT_1X = 6;
 export function usePlayback(totalFrames: number) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const [speed, setSpeed] = useState<PlaybackSpeed>(1);
+  const [speed, setSpeed] = useState<PlaybackSpeed>(2);
 
   const rafRef = useRef<number | undefined>(undefined);
   const lastTimeRef = useRef<number | undefined>(undefined);

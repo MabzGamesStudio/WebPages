@@ -17,7 +17,7 @@ const MONTH_NAMES = [
 
 export default function App() {
   const { dataset, loading, error, loadCity } = useClimateData();
-  const [view, setView] = useState<ViewPreset>('orbit');
+  const [view, setView] = useState<ViewPreset>('top');
 
   const spiralPoints = useMemo(
     () => (dataset ? buildSpiralPoints(dataset.points) : []),
@@ -30,7 +30,7 @@ export default function App() {
 
   const handleSelectCity = (city: CityResult) => {
     void loadCity(city);
-    setView('orbit');
+    setView('top');
   };
 
   const currentPoint = dataset?.points[currentIndex];
