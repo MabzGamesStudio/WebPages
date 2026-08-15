@@ -12,3 +12,35 @@ export const saveScore = (townId: string, score: ScoreRecord) => {
         localStorage.setItem(`winni_score_${townId}`, JSON.stringify(score));
     }
 };
+export interface DailyGuessResult {
+    guess: string;
+    greenIndices: number[];
+    hammingDistance: number;
+}
+
+export interface DailyScore {
+    seed: number;
+    won: boolean;
+    guesses: number;
+    guessResults?: DailyGuessResult[];
+    date: string;
+}
+
+export function saveDailyScore(seed: number, result: { won: boolean; guesses: number; guessResults?: DailyGuessResult[] }): void {
+    try {
+        const key = 'daily_scores';
+        const scores: DailyScore[] = JSON.parse(localStorage.getItem(key) || '[]');
+        const idx = scores.findIndex(s => s.seed === seed);
+        const entry: DailyScore = { seed, ...result, date: new Date().toISOString() };
+        if (idx >= 0) scores[idx] = entry;
+        else scores.push(entry);
+        localStorage.setItem(key, JSON.stringify(scores));
+    } catch { /* ignore */ }
+}
+
+export function getDailyScore(seed: number): DailyScore | null {
+    try {
+        const scores: DailyScore[] = JSON.parse(localStorage.getItem('daily_scores') || '[]');
+        return scores.find(s => s.seed === seed) || null;
+    } catch { return null; }
+}
