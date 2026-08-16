@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DailyMapView from './DailyMapView';
+import { getDailyIsland, getDailySeed, getDailyDateString } from '../utils/dailySeed';
 import { saveDailyScore, getDailyScore } from '../utils/storage';
 import geoDataUrl from '../../data/WinnipesaukeeIslands.geojson?url';
-import { getDailyIsland, getDailySeed, getDailyDateString } from '../utils/dailySeed';
 
 interface IslandFeature {
     type: 'Feature';
@@ -41,6 +41,16 @@ interface GuessResult {
 
 const MAX_GUESSES = 6;
 
+// --- Island stripping helpers ---
+function stripTrailingIsland(str: string): string {
+    return str.trim().replace(/\s+island$/i, '').trim();
+}
+
+function hasTrailingIsland(str: string): boolean {
+    return /\s*island$/i.test(str.trim());
+}
+
+// --- Distance / matching helpers ---
 function lcsLength(a: string, b: string): number {
     const m = a.length, n = b.length;
     let prev = new Array(n + 1).fill(0);
@@ -102,7 +112,6 @@ const DailyGame: React.FC = () => {
                 const target = getDailyIsland(data.features);
                 setTargetIsland(target);
 
-                // Restore progress on reload
                 const saved = getDailyScore(dailySeed);
                 if (saved?.guessResults && saved.guessResults.length > 0) {
                     setGuesses(saved.guessResults);
@@ -122,7 +131,8 @@ const DailyGame: React.FC = () => {
     const generateShareText = useMemo(() => {
         const header = `Lake Winnipesaukee Island Daily ${getDailyDateString()}`;
         const rows = guesses.map(g => {
-            const squares = g.guess.split('').map((_, i) => g.greenIndices.includes(i) ? '🟩' : '⬜').join('');
+            const stripped = stripTrailingIsland(g.guess);
+            const squares = stripped.split('').map((_, i) => g.greenIndices.includes(i) ? '🟩' : '⬜').join('');
             return `${squares} ${g.hammingDistance}`;
         });
         const result = won ? `🎉 ${guesses.length}/${MAX_GUESSES}` : `❌ X/${MAX_GUESSES}`;
@@ -150,16 +160,21 @@ const DailyGame: React.FC = () => {
         e.preventDefault();
         if (!targetIsland || gameOver || !currentGuess.trim()) return;
 
-        const guess = currentGuess.trim();
-        const answer = targetIsland.properties.name;
-        const greenIndices = getGreenIndices(guess, answer);
-        const distance = computeDistance(guess, answer);
+        const guessRaw = currentGuess.trim();
+        const answerRaw = targetIsland.properties.name;
 
-        const normalizedGuess = guess.toLowerCase().replace(/\s+/g, ' ').trim();
-        const normalizedAnswer = answer.toLowerCase().replace(/\s+/g, ' ').trim();
+        const guessStripped = stripTrailingIsland(guessRaw);
+        const answerStripped = stripTrailingIsland(answerRaw);
+
+        const greenIndices = getGreenIndices(guessStripped, answerStripped);
+        const distance = computeDistance(guessStripped, answerStripped);
+
+        const normalizedGuess = guessStripped.toLowerCase().replace(/\s+/g, ' ').trim();
+        const normalizedAnswer = answerStripped.toLowerCase().replace(/\s+/g, ' ').trim();
         const isCorrect = normalizedGuess === normalizedAnswer;
 
-        const result: GuessResult = { guess, greenIndices, hammingDistance: distance };
+
+        const result: GuessResult = { guess: guessRaw, greenIndices, hammingDistance: distance };
         const newGuesses = [...guesses, result];
         setGuesses(newGuesses);
         setCurrentGuess('');
@@ -172,7 +187,6 @@ const DailyGame: React.FC = () => {
             setGameOver(true);
             saveDailyScore(dailySeed, { won: false, guesses: MAX_GUESSES, guessResults: newGuesses });
         } else {
-            // Save mid-game progress so it survives reload
             saveDailyScore(dailySeed, { won: false, guesses: newGuesses.length, guessResults: newGuesses });
         }
     };
@@ -194,18 +208,26 @@ const DailyGame: React.FC = () => {
             </div>
 
             <div className="daily-guesses">
-                {guesses.map((g, idx) => (
-                    <div key={`${g.guess}-${idx}`} className="guess-row">
-                        <div className="guess-word">
-                            {g.guess.split('').map((char, cidx) => (
-                                <span key={cidx} className={g.greenIndices.includes(cidx) ? 'char-green' : 'char-gray'}>
-                                    {char}
-                                </span>
-                            ))}
+                {guesses.map((g, idx) => {
+                    const displayGuess = stripTrailingIsland(g.guess);
+                    const showIslandSuffix = hasTrailingIsland(targetIsland.properties.name) || hasTrailingIsland(g.guess);
+
+                    return (
+                        <div key={`${g.guess}-${idx}`} className="guess-row">
+                            <div className="guess-word">
+                                {displayGuess.split('').map((char, cidx) => (
+                                    <span key={cidx} className={g.greenIndices.includes(cidx) ? 'char-green' : 'char-gray'}>
+                                        {char === ' ' ? '\u00A0' : char}
+                                    </span>
+                                ))}
+                                {showIslandSuffix && (
+                                    <span className="island-suffix">Island</span>
+                                )}
+                            </div>
+                            <span className="hamming-badge" title="Minimum edits">{g.hammingDistance}</span>
                         </div>
-                        <span className="hamming-badge" title="Minimum edits">{g.hammingDistance}</span>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
 
             {!gameOver && (
@@ -217,7 +239,7 @@ const DailyGame: React.FC = () => {
                         placeholder="Type island name..."
                         autoComplete="off"
                         autoFocus
-                        maxLength={22}
+                        maxLength={15}
                     />
                     <button type="submit">Guess ({guesses.length}/{MAX_GUESSES})</button>
                 </form>
