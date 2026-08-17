@@ -60,3 +60,32 @@ export function getDailyDateString(): string {
     const d = String(now.getUTCDate()).padStart(2, '0');
     return `${y}-${m}-${d}`;
 }
+
+// Add to utils/dailySeed.ts
+
+export function getDailyTapSeed() {
+    // Uses the same daily seed but with a suffix to differentiate game modes
+    return getDailySeed() + '-tap';
+}
+
+export function getDailyTapIslands(features: any[], seed: string): any[] {
+    const validIslands = features.filter((f: any) => f.properties.name && f.properties.name.trim().length > 0);
+
+    // Pseudo-random shuffle based on the daily seed so everyone gets the same 3 islands
+    const shuffled = [...validIslands].sort((a, b) => {
+        const hashA = simpleHash(a.properties.name + seed);
+        const hashB = simpleHash(b.properties.name + seed);
+        return hashA - hashB;
+    });
+
+    return shuffled.slice(0, 3);
+}
+
+function simpleHash(str: string): number {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash = (hash << 5) - hash + str.charCodeAt(i);
+        hash |= 0;
+    }
+    return Math.abs(hash);
+}

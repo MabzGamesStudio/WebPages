@@ -392,3 +392,313 @@ body,
         }
     }
 }
+
+// --- Info Grid (Support & Contact) ---
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 2rem auto 0;
+    padding: 0 2rem;
+}
+
+.info-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    h2 {
+        margin-bottom: 1rem;
+        color: #2c3e50;
+        font-size: 1.25rem;
+    }
+}
+
+.lightning-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    .qr-code {
+        width: 128px;
+        height: 128px;
+        border-radius: 8px;
+        border: 1px solid #ecf0f1;
+        background: white;
+    }
+
+    .address-box {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        width: 100%;
+        background: #f8f9fa;
+        padding: 0.5rem;
+        border-radius: 4px;
+        border: 1px solid #bdc3c7;
+
+        code {
+            flex: 1;
+            font-size: 0.85rem;
+            color: #2c3e50;
+            word-break: break-all;
+            text-align: left;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .copy-btn {
+            background: #f1c40f;
+            color: #2c3e50;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            transition: background 0.2s;
+
+            &:hover {
+                background: #f39c12;
+            }
+
+            &.copied {
+                background: #27ae60;
+                color: white;
+            }
+        }
+    }
+}
+
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    p {
+        color: #7f8c8d;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .email-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+
+        .email-address {
+            flex: 1;
+            min-width: 200px;
+            background: #f8f9fa;
+            padding: 0.6rem 1rem;
+            border-radius: 4px;
+            border: 1px solid #bdc3c7;
+            color: #2c3e50;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+        }
+
+        .contact-btn {
+            padding: 0.6rem 1.2rem;
+            background: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.2s;
+
+            &:hover {
+                background: #2471a3;
+            }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .main-menu {
+        padding: 1rem;
+        /* Reduces wasted space on small screens */
+    }
+
+    .info-grid {
+        padding: 0 1rem;
+        /* Prevents horizontal overflow/cutoff */
+        margin-top: 1.5rem;
+    }
+
+    .email-row {
+        flex-direction: column;
+        align-items: stretch;
+
+        .contact-btn {
+            justify-content: center;
+            margin-top: 0.5rem;
+        }
+    }
+}
+
+/* --- Daily Island Tap Game --- */
+.daily-tap-game {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.tap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #2c3e50;
+    color: white;
+    height: 70px;
+}
+
+.tap-map-wrapper {
+    flex: 1;
+    width: 100%;
+    position: relative;
+    min-height: 300px;
+}
+
+.reveal-overlay {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    text-align: center;
+    animation: fadeIn 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.tap-controls {
+    padding: 1rem;
+    background: #ecf0f1;
+    border-top: 2px solid #bdc3c7;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+    min-height: 120px;
+    justify-content: center;
+}
+
+.confirm-btn {
+    padding: 0.8rem 1.5rem;
+    background: #2980b9;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+
+.confirm-btn:hover:not(:disabled) {
+    background: #2471a3;
+}
+
+.confirm-btn:disabled {
+    background: #95a5a6;
+    cursor: not-allowed;
+}
+
+.revealed-text {
+    color: #7f8c8d;
+    font-style: italic;
+    font-weight: 600;
+}
+
+.game-over-screen {
+    padding: 2rem;
+    text-align: center;
+    background: #ecf0f1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.share-text {
+    background: white;
+    padding: 1rem;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: left;
+    width: 100%;
+    max-width: 400px;
+    white-space: pre-wrap;
+    border: 1px solid #bdc3c7;
+    font-size: 0.9rem;
+}
+
+.tap-card {
+    border: 2px solid #2ecc71 !important;
+}
+
+.tap-card h2 {
+    color: #27ae60 !important;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.target-name {
+    color: #c0392b;
+    /* Matches the red highlight from your other game */
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+}
+
+.result-text {
+    font-size: 1.1rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.result-text small {
+    color: #7f8c8d;
+    font-size: 0.85rem;
+}
+
+.next-btn {
+    background: #27ae60 !important;
+    /* Green for next/finish */
+}
+
+.next-btn:hover {
+    background: #219150 !important;
+}

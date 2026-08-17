@@ -44,3 +44,14 @@ export function getDailyScore(seed: number): DailyScore | null {
         return scores.find(s => s.seed === seed) || null;
     } catch { return null; }
 }
+
+// Add to utils/storage.ts
+
+export function saveDailyTapScore(seed: string, scoreData: any) {
+    localStorage.setItem(`daily-tap-score-${seed}`, JSON.stringify(scoreData));
+}
+
+export function getDailyTapScore(seed: string) {
+    const data = localStorage.getItem(`daily-tap-score-${seed}`);
+    return data ? JSON.parse(data) : null;
+}
