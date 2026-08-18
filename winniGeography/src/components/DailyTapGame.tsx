@@ -263,12 +263,12 @@ const DailyTapGame: React.FC = () => {
                     <h2>Island Tap Complete!</h2>
                 </div>
                 <div className="game-over-screen">
-                    <h3>Total Score: <strong>{totalPoints} / 900 pts</strong></h3>
+                    <h3>Total Score: <strong>{totalPoints}</strong></h3>
                     <div className="share-text">{generateShareText}</div>
                     <button onClick={handleShare} className="share-btn">
                         {copied ? '✅ Copied!' : '📋 Share Score'}
                     </button>
-                    <button onClick={() => navigate('/')} className="back-btn" style={{ marginTop: '1rem' }}>
+                    <button onClick={() => navigate('/')} className="back-btn">
                         Back to Menu
                     </button>
                 </div>

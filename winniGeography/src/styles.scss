@@ -567,6 +567,23 @@ body,
     background: #2c3e50;
     color: white;
     height: 70px;
+
+    /* ADDED: Style for the back button */
+    .back-btn {
+        background: #34495e;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        text-decoration: none;
+        transition: background 0.2s;
+
+        &:hover {
+            background: #42566b;
+        }
+    }
 }
 
 .tap-map-wrapper {
@@ -640,6 +657,40 @@ body,
     justify-content: center;
     align-items: center;
     gap: 1rem;
+
+    /* ADDED: Style for the Share Score button */
+    .share-btn {
+        padding: 0.8rem 1.5rem;
+        background: #27ae60;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: background 0.2s;
+
+        &:hover {
+            background: #219150;
+        }
+    }
+
+    /* ADDED: Style for the Back to Menu button */
+    .back-btn {
+        padding: 0.8rem 1.5rem;
+        background: #34495e;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: background 0.2s;
+
+        &:hover {
+            background: #42566b;
+        }
+    }
 }
 
 .share-text {
