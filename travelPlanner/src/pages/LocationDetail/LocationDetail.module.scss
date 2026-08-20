@@ -1,0 +1,70 @@
+.detail {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.backLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    width: fit-content;
+
+    &:hover {
+        color: var(--accent);
+    }
+}
+
+.titleRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+    }
+}
+
+.pinIcon {
+    color: var(--accent);
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-top: -12px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 24px;
+    align-items: start;
+}
+
+.mainColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.sideColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sideColumn {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+}
