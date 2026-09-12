@@ -78,6 +78,26 @@ const QuizEngine: React.FC<EngineProps> = ({ config, data, selectedBatches, acti
         checkAnswers, nextItem, score, totalAttempted, isFinished, showValidationErrors
     } = useQuizState(config, data, selectedBatches, safeActiveOutputs, batchSize, settings);
 
+    useEffect(() => {
+        if (isFinished && totalAttempted > 0 && config.id) {
+            const historyEntry = {
+                moduleId: config.id,
+                activeOutputs: safeActiveOutputs,
+                batchSize: settings.batchSize,
+                score,
+                totalAttempted,
+                selectedBatches: selectedBatches || [], // ✅ Ensure it's never undefined
+                date: new Date().toISOString()
+            };
+
+            const storedHistory = localStorage.getItem(`memquiz_history_${config.id}`);
+            const history = storedHistory ? JSON.parse(storedHistory) : [];
+            history.push(historyEntry);
+
+            localStorage.setItem(`memquiz_history_${config.id}`, JSON.stringify(history.slice(-100)));
+        }
+    }, [isFinished, config.id, score, totalAttempted, safeActiveOutputs, settings.batchSize, selectedBatches]);
+
 
     const inputStackRef = useRef<HTMLDivElement>(null);
     useEffect(() => {

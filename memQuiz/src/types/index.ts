@@ -1,5 +1,5 @@
 export type GenericInputType = 'Text' | 'Options'; // Keep for legacy, but we'll use outputType now
-export type GenericOutputType = 'Text' | 'TextClose' | 'Number' | 'NumberClose' | 'Options';
+export type GenericOutputType = 'Text' | 'TextClose' | 'Number' | 'NumberClose' | 'Options' | 'Digits' | 'Sequence' | 'LongText' | 'LongTextClose';
 
 export interface ModuleConfig {
     id: string;

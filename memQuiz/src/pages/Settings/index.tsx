@@ -4,7 +4,6 @@ import styles from './Settings.module.scss';
 
 const Settings = () => {
     const { settings, updateSettings } = useSettings();
-    console.log(settings)
 
     return (
         <div>
@@ -16,6 +15,36 @@ const Settings = () => {
                     <button className="btn btn--secondary" onClick={() => updateSettings({ batchSize: Math.max(1, settings.batchSize - 1) })}>-</button>
                     <span className={styles.value}>{settings.batchSize}</span>
                     <button className="btn btn--secondary" onClick={() => updateSettings({ batchSize: settings.batchSize + 1 })}>+</button>
+                </div>
+            </div>
+
+            <div className="card">
+                <h3>Digits Batch Size</h3>
+                <p className={styles.desc}>Number of digits to recall per batch.</p>
+                <div className={styles.control}>
+                    <button className="btn btn--secondary" onClick={() => updateSettings({ batchDigits: Math.max(1, settings.batchDigits - 1) })}>-</button>
+                    <span className={styles.value}>{settings.batchDigits}</span>
+                    <button className="btn btn--secondary" onClick={() => updateSettings({ batchDigits: settings.batchDigits + 1 })}>+</button>
+                </div>
+            </div>
+
+            <div className="card">
+                <h3>Sequence Batch Size</h3>
+                <p className={styles.desc}>Number of sequence items to recall per batch.</p>
+                <div className={styles.control}>
+                    <button className="btn btn--secondary" onClick={() => updateSettings({ batchSequence: Math.max(1, settings.batchSequence - 1) })}>-</button>
+                    <span className={styles.value}>{settings.batchSequence}</span>
+                    <button className="btn btn--secondary" onClick={() => updateSettings({ batchSequence: settings.batchSequence + 1 })}>+</button>
+                </div>
+            </div>
+
+            <div className="card">
+                <h3>Long Text Batch Size (Words)</h3>
+                <p className={styles.desc}>Number of words to recall per batch.</p>
+                <div className={styles.control}>
+                    <button className="btn btn--secondary" onClick={() => updateSettings({ batchLongText: Math.max(1, settings.batchLongText - 1) })}>-</button>
+                    <span className={styles.value}>{settings.batchLongText}</span>
+                    <button className="btn btn--secondary" onClick={() => updateSettings({ batchLongText: settings.batchLongText + 1 })}>+</button>
                 </div>
             </div>
 
@@ -43,15 +72,9 @@ const Settings = () => {
                 <h3>Multiple Choice Options Count</h3>
                 <p className={styles.desc}>Number of choices to show for "Options" questions.</p>
                 <div className={styles.control}>
-                    <button
-                        className="btn btn--secondary"
-                        onClick={() => updateSettings({ optionsCount: Math.max(2, settings.optionsCount - 1) })}
-                    >-</button>
+                    <button className="btn btn--secondary" onClick={() => updateSettings({ optionsCount: Math.max(2, settings.optionsCount - 1) })}>-</button>
                     <span className={styles.value}>{settings.optionsCount}</span>
-                    <button
-                        className="btn btn--secondary"
-                        onClick={() => updateSettings({ optionsCount: settings.optionsCount + 1 })}
-                    >+</button>
+                    <button className="btn btn--secondary" onClick={() => updateSettings({ optionsCount: settings.optionsCount + 1 })}>+</button>
                 </div>
             </div>
         </div>

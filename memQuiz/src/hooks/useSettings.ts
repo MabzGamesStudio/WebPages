@@ -6,14 +6,20 @@ export interface Settings {
     batchSize: number;
     numberClosePercent: number;
     textCloseDistance: number;
-    optionsCount: number; // ✅ NEW
+    optionsCount: number;
+    batchDigits: number;
+    batchSequence: number;
+    batchLongText: number;
 }
 
 const defaultSettings: Settings = {
     batchSize: 7,
     numberClosePercent: 10,
     textCloseDistance: 3,
-    optionsCount: 4 // ✅ NEW (Default to 4 options)
+    optionsCount: 4,
+    batchDigits: 6,
+    batchSequence: 5,
+    batchLongText: 7
 };
 
 export const useSettings = () => {

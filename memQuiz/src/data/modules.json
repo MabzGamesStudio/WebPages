@@ -73,5 +73,276 @@
             ]
         },
         "dataFile": "countries-capitals.json"
+    },
+    {
+        "id": "e-digits",
+        "name": "Digits of e",
+        "tags": [
+            "math",
+            "memory"
+        ],
+        "inputType": "Text",
+        "defaultOutputs": [
+            "digits"
+        ],
+        "availableOutputTypes": {
+            "digits": [
+                "Digits"
+            ]
+        },
+        "dataFile": "e-digits.json"
+    },
+    {
+        "id": "golden-ratio-digits",
+        "name": "Digits of the Golden Ratio",
+        "tags": [
+            "math",
+            "memory"
+        ],
+        "inputType": "Text",
+        "defaultOutputs": [
+            "digits"
+        ],
+        "availableOutputTypes": {
+            "digits": [
+                "Digits"
+            ]
+        },
+        "dataFile": "golden-ratio-digits.json"
+    },
+    {
+        "id": "i-to-the-i-digits",
+        "name": "Digits of i^i",
+        "tags": [
+            "math",
+            "memory"
+        ],
+        "inputType": "Text",
+        "defaultOutputs": [
+            "digits"
+        ],
+        "availableOutputTypes": {
+            "digits": [
+                "Digits"
+            ]
+        },
+        "dataFile": "i-to-the-i-digits.json"
+    },
+    {
+        "id": "ln-2-digits",
+        "name": "Digits of ln(2)",
+        "tags": [
+            "math",
+            "memory"
+        ],
+        "inputType": "Text",
+        "defaultOutputs": [
+            "digits"
+        ],
+        "availableOutputTypes": {
+            "digits": [
+                "Digits"
+            ]
+        },
+        "dataFile": "ln-2-digits.json"
+    },
+    {
+        "id": "pi-digits",
+        "name": "Digits of Pi",
+        "tags": [
+            "math",
+            "memory"
+        ],
+        "inputType": "Text",
+        "defaultOutputs": [
+            "digits"
+        ],
+        "availableOutputTypes": {
+            "digits": [
+                "Digits"
+            ]
+        },
+        "dataFile": "pi-digits.json"
+    },
+    {
+        "id": "sqrt-2-digits",
+        "name": "Digits of sqrt(2)",
+        "tags": [
+            "math",
+            "memory"
+        ],
+        "inputType": "Text",
+        "defaultOutputs": [
+            "digits"
+        ],
+        "availableOutputTypes": {
+            "digits": [
+                "Digits"
+            ]
+        },
+        "dataFile": "sqrt-2-digits.json"
+    },
+    {
+        "id": "tau-digits",
+        "name": "Digits of Tau",
+        "tags": [
+            "math",
+            "memory"
+        ],
+        "inputType": "Text",
+        "defaultOutputs": [
+            "digits"
+        ],
+        "availableOutputTypes": {
+            "digits": [
+                "Digits"
+            ]
+        },
+        "dataFile": "tau-digits.json"
+    },
+    {
+        "id": "cube-sequence",
+        "name": "Cube Number Sequence",
+        "tags": [
+            "math",
+            "sequence"
+        ],
+        "inputType": "Text",
+        "defaultOutputs": [
+            "name"
+        ],
+        "availableOutputTypes": {
+            "name": [
+                "Sequence"
+            ]
+        },
+        "dataFile": "cube-sequence.json"
+    },
+    {
+        "id": "factorial-sequence",
+        "name": "Factorial Number Sequence",
+        "tags": [
+            "math",
+            "sequence"
+        ],
+        "inputType": "Text",
+        "defaultOutputs": [
+            "name"
+        ],
+        "availableOutputTypes": {
+            "name": [
+                "Sequence"
+            ]
+        },
+        "dataFile": "factorial-sequence.json"
+    },
+    {
+        "id": "fibonacci-sequence",
+        "name": "Fibonacci Number Sequence",
+        "tags": [
+            "math",
+            "sequence"
+        ],
+        "inputType": "Text",
+        "defaultOutputs": [
+            "name"
+        ],
+        "availableOutputTypes": {
+            "name": [
+                "Sequence"
+            ]
+        },
+        "dataFile": "fibonacci-sequence.json"
+    },
+    {
+        "id": "powers-of-2-sequence",
+        "name": "Powers of 2 Number Sequence",
+        "tags": [
+            "math",
+            "sequence"
+        ],
+        "inputType": "Text",
+        "defaultOutputs": [
+            "name"
+        ],
+        "availableOutputTypes": {
+            "name": [
+                "Sequence"
+            ]
+        },
+        "dataFile": "powers-of-2-sequence.json"
+    },
+    {
+        "id": "prime-sequence",
+        "name": "Prime Number Sequence",
+        "tags": [
+            "math",
+            "sequence"
+        ],
+        "inputType": "Text",
+        "defaultOutputs": [
+            "name"
+        ],
+        "availableOutputTypes": {
+            "name": [
+                "Sequence"
+            ]
+        },
+        "dataFile": "prime-sequence.json"
+    },
+    {
+        "id": "square-sequence",
+        "name": "Square Number Sequence",
+        "tags": [
+            "math",
+            "sequence"
+        ],
+        "inputType": "Text",
+        "defaultOutputs": [
+            "name"
+        ],
+        "availableOutputTypes": {
+            "name": [
+                "Sequence"
+            ]
+        },
+        "dataFile": "square-sequence.json"
+    },
+    {
+        "id": "triangle-sequence",
+        "name": "Triangle Number Sequence",
+        "tags": [
+            "math",
+            "sequence"
+        ],
+        "inputType": "Text",
+        "defaultOutputs": [
+            "name"
+        ],
+        "availableOutputTypes": {
+            "name": [
+                "Sequence"
+            ]
+        },
+        "dataFile": "triangle-sequence.json"
+    },
+    {
+        "id": "long-text-passage",
+        "name": "I Have a Dream Speech: MLK",
+        "tags": [
+            "language",
+            "memory"
+        ],
+        "inputType": "Text",
+        "defaultOutputs": [
+            "text"
+        ],
+        "availableOutputTypes": {
+            "text": [
+                "LongText",
+                "LongTextClose"
+            ]
+        },
+        "dataFile": "mlk-i-have-a-dream.json"
     }
 ]
