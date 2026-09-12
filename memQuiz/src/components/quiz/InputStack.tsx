@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { QuizField } from '../../types';
 import TextInput from '../ui/TextInput';
 import OptionsInput from './OptionsInput';
@@ -14,7 +14,7 @@ interface InputStackProps {
 }
 
 const InputStack = forwardRef<HTMLDivElement, InputStackProps>(
-    ({ fields, onUpdate, disabled, showErrors, inputType, feedback }, ref) => {
+    ({ fields, onUpdate, disabled, showErrors, feedback }, ref) => {
 
         // Helper to handle input changes with specific constraints
         const handleInputChange = (index: number, value: string, outputType: string) => {
@@ -53,7 +53,7 @@ const InputStack = forwardRef<HTMLDivElement, InputStackProps>(
                             ) : (
                                 <>
                                     <TextInput
-                                        type={field.outputType.startsWith('Number') || field.outputType === 'Digits' ? 'text' : 'text'}
+                                        type="text"
                                         inputMode={field.outputType === 'Digits' ? 'numeric' : undefined}
                                         value={field.userAnswer}
                                         onChange={(val) => handleInputChange(index, val, field.outputType)}

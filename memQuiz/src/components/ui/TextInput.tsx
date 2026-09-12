@@ -1,32 +1,43 @@
 import React from 'react';
-import styles from './TextInput.module.scss';
-interface Props {
-    type: 'text' | 'number';
+
+// ✅ Define only the props we actually use, plus inputMode
+interface TextInputProps {
     value: string;
-    onChange: (val: string) => void;
-    disabled?: boolean;
-    placeholder?: string;
+    onChange: (value: string) => void;
     isInvalid?: boolean;
-    isCloseButNotExact?: boolean; // ✅ NEW PROP
+    isCloseButNotExact?: boolean;
+    placeholder?: string;
+    disabled?: boolean;
+    type?: string;
+    inputMode?: React.InputHTMLAttributes<HTMLInputElement>['inputMode']; // ✅ Explicitly allow inputMode
+    className?: string;
 }
 
-const TextInput: React.FC<Props> = ({
-    type, value, onChange, disabled, placeholder, isInvalid, isCloseButNotExact
-}) => {
-    const classNames = [
-        styles['input-field'],
-        isInvalid ? styles['invalid'] : '',
-        isCloseButNotExact ? styles['close-but-not-exact'] : ''
-    ].filter(Boolean).join(' ');
+const TextInput = ({
+    value,
+    onChange,
+    isInvalid,
+    isCloseButNotExact,
+    placeholder,
+    disabled,
+    type = "text",
+    inputMode,
+    className
+}: TextInputProps) => {
+
+    const baseClass = "text-input";
+    const invalidClass = isInvalid ? "text-input--invalid" : "";
+    const closeClass = isCloseButNotExact ? "text-input--close" : "";
 
     return (
         <input
-            className={classNames}
             type={type}
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            disabled={disabled}
             placeholder={placeholder}
+            disabled={disabled}
+            inputMode={inputMode} // ✅ Pass it to the HTML input
+            className={`${baseClass} ${invalidClass} ${closeClass} ${className || ''}`}
         />
     );
 };

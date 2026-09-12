@@ -27,7 +27,7 @@ export const useQuizState = (
     const [totalAttempted, setTotalAttempted] = useState(0);
     const [feedback, setFeedback] = useState<'correct' | 'incorrect' | null>(null);
     const [showValidationErrors, setShowValidationErrors] = useState(false);
-    const advanceTimerRef = useRef<NodeJS.Timeout | null>(null);
+    const advanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const specialType = Object.values(activeOutputs).find(
         type => type === 'Digits' || type === 'Sequence' || type === 'LongText' || type === 'LongTextClose'
@@ -97,7 +97,6 @@ export const useQuizState = (
             if (specialType === 'LongText' || specialType === 'LongTextClose') {
                 const item = data[0];
                 const longText = String(item.text || item.value || item.name || '');
-                const promptStr = item.name !== longText ? String(item.name) : config.name;
                 const outKey = Object.keys(activeOutputs).find(k => activeOutputs[k] === specialType) || 'text';
 
                 const words = longText.split(/\s+/).filter(w => w.length > 0);

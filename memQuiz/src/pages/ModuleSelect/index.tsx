@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import modulesData from '../../data/modules.json';
-import { ModuleConfig, GenericOutputType } from '../../types';
+import { GenericOutputType } from '../../types';
 import { useSettings } from '../../hooks/useSettings';
 import TopBar from '../../components/layout/TopBar';
 import styles from './ModuleSelect.module.scss';
@@ -26,7 +26,7 @@ interface RecentSetting {
 const ModuleSelect = () => {
     const { moduleId } = useParams();
     const navigate = useNavigate();
-    const config = (modulesData as ModuleConfig[]).find(m => m.id === moduleId);
+    const config = (modulesData as any[]).find(m => m.id === moduleId);
     const { settings, updateSettings } = useSettings();
 
     const [dataLength, setDataLength] = useState(0);
@@ -73,10 +73,17 @@ const ModuleSelect = () => {
     }, [config, moduleId]);
 
     const initializeDefaultOutputs = () => {
+        if (!config) return;
+
         const initialOutputs: Record<string, GenericOutputType> = {};
-        Object.entries(config!.availableOutputTypes).forEach(([key, types]) => {
+
+        // ✅ Explicitly type the entries to avoid implicit any errors
+        Object.entries(config.availableOutputTypes).forEach(([key, types]: [string, any]) => {
             if (config!.defaultOutputs.includes(key)) {
-                initialOutputs[key] = types[0];
+                // Ensure we only assign if types exists and has items
+                if (Array.isArray(types) && types.length > 0) {
+                    initialOutputs[key] = types[0];
+                }
             }
         });
         setActiveOutputs(initialOutputs);
@@ -218,11 +225,12 @@ const ModuleSelect = () => {
                         <div key={key} className={styles['depth-row']}>
                             <span className={styles['depth-label']}>{key}</span>
                             <div className={styles['depth-options']}>
-                                {types.map(type => (
+                                {/* ✅ Cast types as string[] so .map knows what 'type' is */}
+                                {(types as string[]).map((type: string) => (
                                     <button
                                         key={type}
                                         className={`btn ${activeOutputs[key] === type ? 'btn--primary' : 'btn--secondary'}`}
-                                        onClick={() => selectOutputType(key, activeOutputs[key] === type ? null : type)}
+                                        onClick={() => selectOutputType(key, activeOutputs[key] === type ? null : type as GenericOutputType)}
                                     >
                                         {type}
                                     </button>

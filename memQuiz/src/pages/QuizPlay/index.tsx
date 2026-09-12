@@ -11,7 +11,7 @@ import styles from './QuizPlay.module.scss';
 const QuizPlay = () => {
     const { moduleId } = useParams();
     const navigate = useNavigate();
-    const config = (modulesData as ModuleConfig[]).find(m => m.id === moduleId);
+    const config = (modulesData as any[]).find(m => m.id === moduleId);
     const { settings } = useSettings();
 
     const [data, setData] = useState<DataItem[]>([]);

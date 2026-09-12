@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import modulesData from '../../data/modules.json';
-import { ModuleConfig } from '../../types';
 import TopBar from '../../components/layout/TopBar';
 import styles from './Home.module.scss';
 
@@ -13,7 +12,7 @@ const Home = () => {
             <p className={styles.subtitle}>Master any topic in bite-sized batches.</p>
 
             <div className={styles['module-grid']}>
-                {(modulesData as ModuleConfig[]).map(mod => (
+                {(modulesData as any[]).map(mod => (
                     <Link
                         to={`/module/${mod.id}`}
                         key={mod.id}
@@ -21,7 +20,7 @@ const Home = () => {
                     >
                         <h3>{mod.name}</h3>
                         <div className={styles.tags}>
-                            {mod.tags.map(tag => <span key={tag} className={styles.tag}>{tag}</span>)}
+                            {mod.tags.map((tag: string) => <span key={tag} className={styles.tag}>{tag}</span>)}
                         </div>
                     </Link>
                 ))}
