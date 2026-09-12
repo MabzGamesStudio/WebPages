@@ -1,0 +1,65 @@
+======================================================================
+PROJECT CONTEXT: MEM-QUIZ
+======================================================================
+
+PROJECT OVERVIEW:
+This is a static React + TypeScript + SCSS web application. It is a modular memorization and quiz game. 
+Users learn topics in "batches" (chunks) to prevent cognitive overload. 
+The app uses Hash Routing and builds statically to `../pages/memQuiz`.
+
+ARCHITECTURE & CORE CONCEPTS:
+1. DATA-DRIVEN UI: The UI does NOT hardcode logic for specific topics. It relies entirely on standardized Input/Output types defined in `src/types/index.ts`.
+2. STANDARDIZED I/O: 
+   - InputType: How the user answers (e.g., TEXT, MULTIPLE_CHOICE).
+   - OutputType: What the user is being asked to recall (e.g., NAME, CAPITAL, ATOMIC_NUMBER).
+3. BATCHING: Data JSON files contain ALL items for a topic in a flat array. The application logic slices this array into chunks.
+4. MODULE REGISTRY: `src/data/modules.json` acts as the manifest. It links a module ID to its configuration and its specific data file.
+
+FILE STRUCTURE:
+- src/types/index.ts: Contains enums for InputType, OutputType, Difficulty, and interfaces for QuizModuleConfig.
+- src/data/modules.json: The registry of all quiz modules.
+- src/data/*.json: The actual aggregated data for each module.
+- src/components/ui/: Generic, standardized UI components (TextInput, MultipleChoice, etc.) that render based on the InputType.
+- src/pages/QuizPlay/: The core game loop. It reads the module config, loads the data, applies batching, and maps the standardized I/O to the generic UI components.
+
+======================================================================
+INSTRUCTIONS: HOW TO ADD A NEW TOPIC/MODULE
+======================================================================
+
+When asked to add a new topic (e.g., "Solar System Planets" or "World Currencies"), follow these EXACT steps. DO NOT write custom UI components or custom game logic for the new topic. Rely on the standardized architecture.
+
+STEP 1: Define or Reuse I/O Types
+- Check `src/types/index.ts`. 
+- If the new topic requires new OutputTypes (e.g., `ORBITAL_PERIOD`, `CURRENCY_CODE`), add them to the `OutputType` enum.
+- If it requires a new InputType (e.g., `NUMBER_INPUT`), add it to the `InputType` enum.
+- *Note: Always try to reuse existing types (like `TEXT` or `NAME`) before creating new ones.*
+
+STEP 2: Create the Data JSON
+- Create a new file in `src/data/` (e.g., `src/data/solar-system.json`).
+- Create a flat JSON array of objects. 
+- CRITICAL: The keys inside each object MUST exactly match the string values of the `InputType` and `OutputType` enums. 
+  Example: If InputType is `TEXT` and OutputTypes are `NAME` and `ORBITAL_PERIOD`, the JSON object must look like:
+  `{ "id": 1, "TEXT": "Mars", "NAME": "Mars", "ORBITAL_PERIOD": 687 }`
+
+STEP 3: Register the Module
+- Open `src/data/modules.json`.
+- Add a new object to the array with the following structure:
+  {
+    "id": "solar-system",             // Unique kebab-case ID
+    "name": "Solar System Planets",   // Display name
+    "tags": ["astronomy", "science"], // For filtering/search
+    "inputType": "TEXT",              // Must match InputType enum
+    "availableOutputTypes": ["NAME", "ORBITAL_PERIOD"], // Must match OutputType enum
+    "defaultDifficulty": "EASY",      // EASY, MEDIUM, or HARD
+    "batchSize": 8,                   // Number of items per learning chunk
+    "dataFile": "solar-system.json"   // Filename in src/data/
+  }
+
+STEP 4: Verify Data Mapping (Mental Check)
+- Ensure that for every item in the new JSON, there is a value for the chosen `inputType` key, and values for the selected `availableOutputTypes` keys.
+- Ensure the `batchSize` makes logical sense for the total number of items.
+
+RULES FOR THE LLM:
+- DO NOT modify `src/pages/QuizPlay/index.tsx` or `src/components/ui/*` unless there is a fundamental bug. The generic components should automatically handle the new topic because they read from the JSON config.
+- DO NOT create topic-specific components (e.g., do not create a `PlanetCard.tsx`). Use the generic `TextInput.tsx` or `MultipleChoice.tsx`.
+- ONLY modify `src/types/index.ts` (if new enums are needed), `src/data/modules.json`, and create the new `src/data/[topic].json` file.

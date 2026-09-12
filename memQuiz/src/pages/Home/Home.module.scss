@@ -1,0 +1,54 @@
+// src/pages/Home/Home.module.scss
+
+.module-grid {
+    display: grid;
+    // Prevents cards from squishing too small
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.module-card {
+    // Reset default anchor styles to look like a clean card
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    // Ensure content doesn't overflow or overlap
+    overflow: hidden;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%; // Ensures equal height in grid row
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        border-color: var(--primary, #4f46e5); // Fallback if variable isn't loaded
+    }
+
+    h3 {
+        margin: 0 0 1rem 0;
+        font-size: 1.25rem;
+        line-height: 1.4;
+    }
+}
+
+.tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: auto; // Pushes tags to bottom of card
+}
+
+.tag {
+    background: #e0e7ff;
+    color: #3730a3;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    white-space: nowrap; // Prevents tag text from breaking awkwardly
+}

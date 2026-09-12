@@ -1,0 +1,1300 @@
+[
+    {
+        "id": 1,
+        "name": "Hydrogen",
+        "twoLetter": "H",
+        "atomicNumber": 1,
+        "atomicWeight": 1.008,
+        "yearDiscovered": 1766,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Hydrogen"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Helium",
+        "twoLetter": "He",
+        "atomicNumber": 2,
+        "atomicWeight": 4.0026,
+        "yearDiscovered": 1868,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Helium"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Lithium",
+        "twoLetter": "Li",
+        "atomicNumber": 3,
+        "atomicWeight": 6.94,
+        "yearDiscovered": 1817,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Lithium"
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Beryllium",
+        "twoLetter": "Be",
+        "atomicNumber": 4,
+        "atomicWeight": 9.0122,
+        "yearDiscovered": 1798,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Beryllium"
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Boron",
+        "twoLetter": "B",
+        "atomicNumber": 5,
+        "atomicWeight": 10.81,
+        "yearDiscovered": 1808,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Boron"
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Carbon",
+        "twoLetter": "C",
+        "atomicNumber": 6,
+        "atomicWeight": 12.011,
+        "yearDiscovered": "Ancient",
+        "sources": [
+            "https://en.wikipedia.org/wiki/Carbon"
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Nitrogen",
+        "twoLetter": "N",
+        "atomicNumber": 7,
+        "atomicWeight": 14.007,
+        "yearDiscovered": 1772,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Nitrogen"
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Oxygen",
+        "twoLetter": "O",
+        "atomicNumber": 8,
+        "atomicWeight": 15.999,
+        "yearDiscovered": 1774,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Oxygen"
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Fluorine",
+        "twoLetter": "F",
+        "atomicNumber": 9,
+        "atomicWeight": 18.998,
+        "yearDiscovered": 1886,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Fluorine"
+        ]
+    },
+    {
+        "id": 10,
+        "name": "Neon",
+        "twoLetter": "Ne",
+        "atomicNumber": 10,
+        "atomicWeight": 20.180,
+        "yearDiscovered": 1898,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Neon"
+        ]
+    },
+    {
+        "id": 11,
+        "name": "Sodium",
+        "twoLetter": "Na",
+        "atomicNumber": 11,
+        "atomicWeight": 22.990,
+        "yearDiscovered": 1807,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Sodium"
+        ]
+    },
+    {
+        "id": 12,
+        "name": "Magnesium",
+        "twoLetter": "Mg",
+        "atomicNumber": 12,
+        "atomicWeight": 24.305,
+        "yearDiscovered": 1808,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Magnesium"
+        ]
+    },
+    {
+        "id": 13,
+        "name": "Aluminum",
+        "twoLetter": "Al",
+        "atomicNumber": 13,
+        "atomicWeight": 26.982,
+        "yearDiscovered": 1825,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Aluminium"
+        ]
+    },
+    {
+        "id": 14,
+        "name": "Silicon",
+        "twoLetter": "Si",
+        "atomicNumber": 14,
+        "atomicWeight": 28.085,
+        "yearDiscovered": 1824,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Silicon"
+        ]
+    },
+    {
+        "id": 15,
+        "name": "Phosphorus",
+        "twoLetter": "P",
+        "atomicNumber": 15,
+        "atomicWeight": 30.974,
+        "yearDiscovered": 1669,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Phosphorus"
+        ]
+    },
+    {
+        "id": 16,
+        "name": "Sulfur",
+        "twoLetter": "S",
+        "atomicNumber": 16,
+        "atomicWeight": 32.06,
+        "yearDiscovered": "Ancient",
+        "sources": [
+            "https://en.wikipedia.org/wiki/Sulfur"
+        ]
+    },
+    {
+        "id": 17,
+        "name": "Chlorine",
+        "twoLetter": "Cl",
+        "atomicNumber": 17,
+        "atomicWeight": 35.45,
+        "yearDiscovered": 1774,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Chlorine"
+        ]
+    },
+    {
+        "id": 18,
+        "name": "Argon",
+        "twoLetter": "Ar",
+        "atomicNumber": 18,
+        "atomicWeight": 39.948,
+        "yearDiscovered": 1894,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Argon"
+        ]
+    },
+    {
+        "id": 19,
+        "name": "Potassium",
+        "twoLetter": "K",
+        "atomicNumber": 19,
+        "atomicWeight": 39.098,
+        "yearDiscovered": 1807,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Potassium"
+        ]
+    },
+    {
+        "id": 20,
+        "name": "Calcium",
+        "twoLetter": "Ca",
+        "atomicNumber": 20,
+        "atomicWeight": 40.078,
+        "yearDiscovered": 1808,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Calcium"
+        ]
+    },
+    {
+        "id": 21,
+        "name": "Scandium",
+        "twoLetter": "Sc",
+        "atomicNumber": 21,
+        "atomicWeight": 44.956,
+        "yearDiscovered": 1879,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Scandium"
+        ]
+    },
+    {
+        "id": 22,
+        "name": "Titanium",
+        "twoLetter": "Ti",
+        "atomicNumber": 22,
+        "atomicWeight": 47.867,
+        "yearDiscovered": 1791,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Titanium"
+        ]
+    },
+    {
+        "id": 23,
+        "name": "Vanadium",
+        "twoLetter": "V",
+        "atomicNumber": 23,
+        "atomicWeight": 50.942,
+        "yearDiscovered": 1801,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Vanadium"
+        ]
+    },
+    {
+        "id": 24,
+        "name": "Chromium",
+        "twoLetter": "Cr",
+        "atomicNumber": 24,
+        "atomicWeight": 51.996,
+        "yearDiscovered": 1797,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Chromium"
+        ]
+    },
+    {
+        "id": 25,
+        "name": "Manganese",
+        "twoLetter": "Mn",
+        "atomicNumber": 25,
+        "atomicWeight": 54.938,
+        "yearDiscovered": 1774,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Manganese"
+        ]
+    },
+    {
+        "id": 26,
+        "name": "Iron",
+        "twoLetter": "Fe",
+        "atomicNumber": 26,
+        "atomicWeight": 55.845,
+        "yearDiscovered": "Ancient",
+        "sources": [
+            "https://en.wikipedia.org/wiki/Iron"
+        ]
+    },
+    {
+        "id": 27,
+        "name": "Cobalt",
+        "twoLetter": "Co",
+        "atomicNumber": 27,
+        "atomicWeight": 58.933,
+        "yearDiscovered": 1735,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Cobalt"
+        ]
+    },
+    {
+        "id": 28,
+        "name": "Nickel",
+        "twoLetter": "Ni",
+        "atomicNumber": 28,
+        "atomicWeight": 58.693,
+        "yearDiscovered": 1751,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Nickel"
+        ]
+    },
+    {
+        "id": 29,
+        "name": "Copper",
+        "twoLetter": "Cu",
+        "atomicNumber": 29,
+        "atomicWeight": 63.546,
+        "yearDiscovered": "Ancient",
+        "sources": [
+            "https://en.wikipedia.org/wiki/Copper"
+        ]
+    },
+    {
+        "id": 30,
+        "name": "Zinc",
+        "twoLetter": "Zn",
+        "atomicNumber": 30,
+        "atomicWeight": 65.38,
+        "yearDiscovered": 1746,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Zinc"
+        ]
+    },
+    {
+        "id": 31,
+        "name": "Gallium",
+        "twoLetter": "Ga",
+        "atomicNumber": 31,
+        "atomicWeight": 69.723,
+        "yearDiscovered": 1875,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Gallium"
+        ]
+    },
+    {
+        "id": 32,
+        "name": "Germanium",
+        "twoLetter": "Ge",
+        "atomicNumber": 32,
+        "atomicWeight": 72.630,
+        "yearDiscovered": 1886,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Germanium"
+        ]
+    },
+    {
+        "id": 33,
+        "name": "Arsenic",
+        "twoLetter": "As",
+        "atomicNumber": 33,
+        "atomicWeight": 74.922,
+        "yearDiscovered": "Ancient",
+        "sources": [
+            "https://en.wikipedia.org/wiki/Arsenic"
+        ]
+    },
+    {
+        "id": 34,
+        "name": "Selenium",
+        "twoLetter": "Se",
+        "atomicNumber": 34,
+        "atomicWeight": 78.971,
+        "yearDiscovered": 1817,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Selenium"
+        ]
+    },
+    {
+        "id": 35,
+        "name": "Bromine",
+        "twoLetter": "Br",
+        "atomicNumber": 35,
+        "atomicWeight": 79.904,
+        "yearDiscovered": 1826,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Bromine"
+        ]
+    },
+    {
+        "id": 36,
+        "name": "Krypton",
+        "twoLetter": "Kr",
+        "atomicNumber": 36,
+        "atomicWeight": 83.798,
+        "yearDiscovered": 1898,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Krypton"
+        ]
+    },
+    {
+        "id": 37,
+        "name": "Rubidium",
+        "twoLetter": "Rb",
+        "atomicNumber": 37,
+        "atomicWeight": 85.468,
+        "yearDiscovered": 1861,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Rubidium"
+        ]
+    },
+    {
+        "id": 38,
+        "name": "Strontium",
+        "twoLetter": "Sr",
+        "atomicNumber": 38,
+        "atomicWeight": 87.62,
+        "yearDiscovered": 1790,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Strontium"
+        ]
+    },
+    {
+        "id": 39,
+        "name": "Yttrium",
+        "twoLetter": "Y",
+        "atomicNumber": 39,
+        "atomicWeight": 88.906,
+        "yearDiscovered": 1794,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Yttrium"
+        ]
+    },
+    {
+        "id": 40,
+        "name": "Zirconium",
+        "twoLetter": "Zr",
+        "atomicNumber": 40,
+        "atomicWeight": 91.224,
+        "yearDiscovered": 1789,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Zirconium"
+        ]
+    },
+    {
+        "id": 41,
+        "name": "Niobium",
+        "twoLetter": "Nb",
+        "atomicNumber": 41,
+        "atomicWeight": 92.906,
+        "yearDiscovered": 1801,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Niobium"
+        ]
+    },
+    {
+        "id": 42,
+        "name": "Molybdenum",
+        "twoLetter": "Mo",
+        "atomicNumber": 42,
+        "atomicWeight": 95.95,
+        "yearDiscovered": 1778,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Molybdenum"
+        ]
+    },
+    {
+        "id": 43,
+        "name": "Technetium",
+        "twoLetter": "Tc",
+        "atomicNumber": 43,
+        "atomicWeight": 98,
+        "yearDiscovered": 1937,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Technetium"
+        ]
+    },
+    {
+        "id": 44,
+        "name": "Ruthenium",
+        "twoLetter": "Ru",
+        "atomicNumber": 44,
+        "atomicWeight": 101.07,
+        "yearDiscovered": 1844,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Ruthenium"
+        ]
+    },
+    {
+        "id": 45,
+        "name": "Rhodium",
+        "twoLetter": "Rh",
+        "atomicNumber": 45,
+        "atomicWeight": 102.91,
+        "yearDiscovered": 1803,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Rhodium"
+        ]
+    },
+    {
+        "id": 46,
+        "name": "Palladium",
+        "twoLetter": "Pd",
+        "atomicNumber": 46,
+        "atomicWeight": 106.42,
+        "yearDiscovered": 1803,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Palladium"
+        ]
+    },
+    {
+        "id": 47,
+        "name": "Silver",
+        "twoLetter": "Ag",
+        "atomicNumber": 47,
+        "atomicWeight": 107.87,
+        "yearDiscovered": "Ancient",
+        "sources": [
+            "https://en.wikipedia.org/wiki/Silver"
+        ]
+    },
+    {
+        "id": 48,
+        "name": "Cadmium",
+        "twoLetter": "Cd",
+        "atomicNumber": 48,
+        "atomicWeight": 112.41,
+        "yearDiscovered": 1817,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Cadmium"
+        ]
+    },
+    {
+        "id": 49,
+        "name": "Indium",
+        "twoLetter": "In",
+        "atomicNumber": 49,
+        "atomicWeight": 114.82,
+        "yearDiscovered": 1863,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Indium"
+        ]
+    },
+    {
+        "id": 50,
+        "name": "Tin",
+        "twoLetter": "Sn",
+        "atomicNumber": 50,
+        "atomicWeight": 118.71,
+        "yearDiscovered": "Ancient",
+        "sources": [
+            "https://en.wikipedia.org/wiki/Tin"
+        ]
+    },
+    {
+        "id": 51,
+        "name": "Antimony",
+        "twoLetter": "Sb",
+        "atomicNumber": 51,
+        "atomicWeight": 121.76,
+        "yearDiscovered": "Ancient",
+        "sources": [
+            "https://en.wikipedia.org/wiki/Antimony"
+        ]
+    },
+    {
+        "id": 52,
+        "name": "Tellurium",
+        "twoLetter": "Te",
+        "atomicNumber": 52,
+        "atomicWeight": 127.60,
+        "yearDiscovered": 1782,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Tellurium"
+        ]
+    },
+    {
+        "id": 53,
+        "name": "Iodine",
+        "twoLetter": "I",
+        "atomicNumber": 53,
+        "atomicWeight": 126.90,
+        "yearDiscovered": 1811,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Iodine"
+        ]
+    },
+    {
+        "id": 54,
+        "name": "Xenon",
+        "twoLetter": "Xe",
+        "atomicNumber": 54,
+        "atomicWeight": 131.29,
+        "yearDiscovered": 1898,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Xenon"
+        ]
+    },
+    {
+        "id": 55,
+        "name": "Cesium",
+        "twoLetter": "Cs",
+        "atomicNumber": 55,
+        "atomicWeight": 132.91,
+        "yearDiscovered": 1860,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Cesium"
+        ]
+    },
+    {
+        "id": 56,
+        "name": "Barium",
+        "twoLetter": "Ba",
+        "atomicNumber": 56,
+        "atomicWeight": 137.33,
+        "yearDiscovered": 1808,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Barium"
+        ]
+    },
+    {
+        "id": 57,
+        "name": "Lanthanum",
+        "twoLetter": "La",
+        "atomicNumber": 57,
+        "atomicWeight": 138.91,
+        "yearDiscovered": 1839,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Lanthanum"
+        ]
+    },
+    {
+        "id": 58,
+        "name": "Cerium",
+        "twoLetter": "Ce",
+        "atomicNumber": 58,
+        "atomicWeight": 140.12,
+        "yearDiscovered": 1803,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Cerium"
+        ]
+    },
+    {
+        "id": 59,
+        "name": "Praseodymium",
+        "twoLetter": "Pr",
+        "atomicNumber": 59,
+        "atomicWeight": 140.91,
+        "yearDiscovered": 1885,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Praseodymium"
+        ]
+    },
+    {
+        "id": 60,
+        "name": "Neodymium",
+        "twoLetter": "Nd",
+        "atomicNumber": 60,
+        "atomicWeight": 144.24,
+        "yearDiscovered": 1885,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Neodymium"
+        ]
+    },
+    {
+        "id": 61,
+        "name": "Promethium",
+        "twoLetter": "Pm",
+        "atomicNumber": 61,
+        "atomicWeight": 145,
+        "yearDiscovered": 1945,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Promethium"
+        ]
+    },
+    {
+        "id": 62,
+        "name": "Samarium",
+        "twoLetter": "Sm",
+        "atomicNumber": 62,
+        "atomicWeight": 150.36,
+        "yearDiscovered": 1879,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Samarium"
+        ]
+    },
+    {
+        "id": 63,
+        "name": "Europium",
+        "twoLetter": "Eu",
+        "atomicNumber": 63,
+        "atomicWeight": 151.96,
+        "yearDiscovered": 1901,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Europium"
+        ]
+    },
+    {
+        "id": 64,
+        "name": "Gadolinium",
+        "twoLetter": "Gd",
+        "atomicNumber": 64,
+        "atomicWeight": 157.25,
+        "yearDiscovered": 1880,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Gadolinium"
+        ]
+    },
+    {
+        "id": 65,
+        "name": "Terbium",
+        "twoLetter": "Tb",
+        "atomicNumber": 65,
+        "atomicWeight": 158.93,
+        "yearDiscovered": 1843,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Terbium"
+        ]
+    },
+    {
+        "id": 66,
+        "name": "Dysprosium",
+        "twoLetter": "Dy",
+        "atomicNumber": 66,
+        "atomicWeight": 162.50,
+        "yearDiscovered": 1886,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Dysprosium"
+        ]
+    },
+    {
+        "id": 67,
+        "name": "Holmium",
+        "twoLetter": "Ho",
+        "atomicNumber": 67,
+        "atomicWeight": 164.93,
+        "yearDiscovered": 1878,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Holmium"
+        ]
+    },
+    {
+        "id": 68,
+        "name": "Erbium",
+        "twoLetter": "Er",
+        "atomicNumber": 68,
+        "atomicWeight": 167.26,
+        "yearDiscovered": 1843,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Erbium"
+        ]
+    },
+    {
+        "id": 69,
+        "name": "Thulium",
+        "twoLetter": "Tm",
+        "atomicNumber": 69,
+        "atomicWeight": 168.93,
+        "yearDiscovered": 1879,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Thulium"
+        ]
+    },
+    {
+        "id": 70,
+        "name": "Ytterbium",
+        "twoLetter": "Yb",
+        "atomicNumber": 70,
+        "atomicWeight": 173.05,
+        "yearDiscovered": 1878,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Ytterbium"
+        ]
+    },
+    {
+        "id": 71,
+        "name": "Lutetium",
+        "twoLetter": "Lu",
+        "atomicNumber": 71,
+        "atomicWeight": 174.97,
+        "yearDiscovered": 1907,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Lutetium"
+        ]
+    },
+    {
+        "id": 72,
+        "name": "Hafnium",
+        "twoLetter": "Hf",
+        "atomicNumber": 72,
+        "atomicWeight": 178.49,
+        "yearDiscovered": 1923,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Hafnium"
+        ]
+    },
+    {
+        "id": 73,
+        "name": "Tantalum",
+        "twoLetter": "Ta",
+        "atomicNumber": 73,
+        "atomicWeight": 180.95,
+        "yearDiscovered": 1802,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Tantalum"
+        ]
+    },
+    {
+        "id": 74,
+        "name": "Tungsten",
+        "twoLetter": "W",
+        "atomicNumber": 74,
+        "atomicWeight": 183.84,
+        "yearDiscovered": 1783,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Tungsten"
+        ]
+    },
+    {
+        "id": 75,
+        "name": "Rhenium",
+        "twoLetter": "Re",
+        "atomicNumber": 75,
+        "atomicWeight": 186.21,
+        "yearDiscovered": 1925,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Rhenium"
+        ]
+    },
+    {
+        "id": 76,
+        "name": "Osmium",
+        "twoLetter": "Os",
+        "atomicNumber": 76,
+        "atomicWeight": 190.23,
+        "yearDiscovered": 1803,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Osmium"
+        ]
+    },
+    {
+        "id": 77,
+        "name": "Iridium",
+        "twoLetter": "Ir",
+        "atomicNumber": 77,
+        "atomicWeight": 192.22,
+        "yearDiscovered": 1803,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Iridium"
+        ]
+    },
+    {
+        "id": 78,
+        "name": "Platinum",
+        "twoLetter": "Pt",
+        "atomicNumber": 78,
+        "atomicWeight": 195.08,
+        "yearDiscovered": 1735,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Platinum"
+        ]
+    },
+    {
+        "id": 79,
+        "name": "Gold",
+        "twoLetter": "Au",
+        "atomicNumber": 79,
+        "atomicWeight": 196.97,
+        "yearDiscovered": "Ancient",
+        "sources": [
+            "https://en.wikipedia.org/wiki/Gold"
+        ]
+    },
+    {
+        "id": 80,
+        "name": "Mercury",
+        "twoLetter": "Hg",
+        "atomicNumber": 80,
+        "atomicWeight": 200.59,
+        "yearDiscovered": "Ancient",
+        "sources": [
+            "https://en.wikipedia.org/wiki/Mercury_(element)"
+        ]
+    },
+    {
+        "id": 81,
+        "name": "Thallium",
+        "twoLetter": "Tl",
+        "atomicNumber": 81,
+        "atomicWeight": 204.38,
+        "yearDiscovered": 1861,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Thallium"
+        ]
+    },
+    {
+        "id": 82,
+        "name": "Lead",
+        "twoLetter": "Pb",
+        "atomicNumber": 82,
+        "atomicWeight": 207.2,
+        "yearDiscovered": "Ancient",
+        "sources": [
+            "https://en.wikipedia.org/wiki/Lead"
+        ]
+    },
+    {
+        "id": 83,
+        "name": "Bismuth",
+        "twoLetter": "Bi",
+        "atomicNumber": 83,
+        "atomicWeight": 208.98,
+        "yearDiscovered": 1753,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Bismuth"
+        ]
+    },
+    {
+        "id": 84,
+        "name": "Polonium",
+        "twoLetter": "Po",
+        "atomicNumber": 84,
+        "atomicWeight": 209,
+        "yearDiscovered": 1898,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Polonium"
+        ]
+    },
+    {
+        "id": 85,
+        "name": "Astatine",
+        "twoLetter": "At",
+        "atomicNumber": 85,
+        "atomicWeight": 210,
+        "yearDiscovered": 1940,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Astatine"
+        ]
+    },
+    {
+        "id": 86,
+        "name": "Radon",
+        "twoLetter": "Rn",
+        "atomicNumber": 86,
+        "atomicWeight": 222,
+        "yearDiscovered": 1900,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Radon"
+        ]
+    },
+    {
+        "id": 87,
+        "name": "Francium",
+        "twoLetter": "Fr",
+        "atomicNumber": 87,
+        "atomicWeight": 223,
+        "yearDiscovered": 1939,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Francium"
+        ]
+    },
+    {
+        "id": 88,
+        "name": "Radium",
+        "twoLetter": "Ra",
+        "atomicNumber": 88,
+        "atomicWeight": 226,
+        "yearDiscovered": 1898,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Radium"
+        ]
+    },
+    {
+        "id": 89,
+        "name": "Actinium",
+        "twoLetter": "Ac",
+        "atomicNumber": 89,
+        "atomicWeight": 227,
+        "yearDiscovered": 1899,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Actinium"
+        ]
+    },
+    {
+        "id": 90,
+        "name": "Thorium",
+        "twoLetter": "Th",
+        "atomicNumber": 90,
+        "atomicWeight": 232.04,
+        "yearDiscovered": 1828,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Thorium"
+        ]
+    },
+    {
+        "id": 91,
+        "name": "Protactinium",
+        "twoLetter": "Pa",
+        "atomicNumber": 91,
+        "atomicWeight": 231.04,
+        "yearDiscovered": 1913,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Protactinium"
+        ]
+    },
+    {
+        "id": 92,
+        "name": "Uranium",
+        "twoLetter": "U",
+        "atomicNumber": 92,
+        "atomicWeight": 238.03,
+        "yearDiscovered": 1789,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Uranium"
+        ]
+    },
+    {
+        "id": 93,
+        "name": "Neptunium",
+        "twoLetter": "Np",
+        "atomicNumber": 93,
+        "atomicWeight": 237,
+        "yearDiscovered": 1940,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Neptunium"
+        ]
+    },
+    {
+        "id": 94,
+        "name": "Plutonium",
+        "twoLetter": "Pu",
+        "atomicNumber": 94,
+        "atomicWeight": 244,
+        "yearDiscovered": 1940,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Plutonium"
+        ]
+    },
+    {
+        "id": 95,
+        "name": "Americium",
+        "twoLetter": "Am",
+        "atomicNumber": 95,
+        "atomicWeight": 243,
+        "yearDiscovered": 1944,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Americium"
+        ]
+    },
+    {
+        "id": 96,
+        "name": "Curium",
+        "twoLetter": "Cm",
+        "atomicNumber": 96,
+        "atomicWeight": 247,
+        "yearDiscovered": 1944,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Curium"
+        ]
+    },
+    {
+        "id": 97,
+        "name": "Berkelium",
+        "twoLetter": "Bk",
+        "atomicNumber": 97,
+        "atomicWeight": 247,
+        "yearDiscovered": 1949,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Berkelium"
+        ]
+    },
+    {
+        "id": 98,
+        "name": "Californium",
+        "twoLetter": "Cf",
+        "atomicNumber": 98,
+        "atomicWeight": 251,
+        "yearDiscovered": 1950,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Californium"
+        ]
+    },
+    {
+        "id": 99,
+        "name": "Einsteinium",
+        "twoLetter": "Es",
+        "atomicNumber": 99,
+        "atomicWeight": 252,
+        "yearDiscovered": 1952,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Einsteinium"
+        ]
+    },
+    {
+        "id": 100,
+        "name": "Fermium",
+        "twoLetter": "Fm",
+        "atomicNumber": 100,
+        "atomicWeight": 257,
+        "yearDiscovered": 1952,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Fermium"
+        ]
+    },
+    {
+        "id": 101,
+        "name": "Mendelevium",
+        "twoLetter": "Md",
+        "atomicNumber": 101,
+        "atomicWeight": 258,
+        "yearDiscovered": 1955,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Mendelevium"
+        ]
+    },
+    {
+        "id": 102,
+        "name": "Nobelium",
+        "twoLetter": "No",
+        "atomicNumber": 102,
+        "atomicWeight": 259,
+        "yearDiscovered": 1958,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Nobelium"
+        ]
+    },
+    {
+        "id": 103,
+        "name": "Lawrencium",
+        "twoLetter": "Lr",
+        "atomicNumber": 103,
+        "atomicWeight": 266,
+        "yearDiscovered": 1961,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Lawrencium"
+        ]
+    },
+    {
+        "id": 104,
+        "name": "Rutherfordium",
+        "twoLetter": "Rf",
+        "atomicNumber": 104,
+        "atomicWeight": 267,
+        "yearDiscovered": 1969,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Rutherfordium"
+        ]
+    },
+    {
+        "id": 105,
+        "name": "Dubnium",
+        "twoLetter": "Db",
+        "atomicNumber": 105,
+        "atomicWeight": 268,
+        "yearDiscovered": 1967,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Dubnium"
+        ]
+    },
+    {
+        "id": 106,
+        "name": "Seaborgium",
+        "twoLetter": "Sg",
+        "atomicNumber": 106,
+        "atomicWeight": 269,
+        "yearDiscovered": 1974,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Seaborgium"
+        ]
+    },
+    {
+        "id": 107,
+        "name": "Bohrium",
+        "twoLetter": "Bh",
+        "atomicNumber": 107,
+        "atomicWeight": 270,
+        "yearDiscovered": 1981,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Bohrium"
+        ]
+    },
+    {
+        "id": 108,
+        "name": "Hassium",
+        "twoLetter": "Hs",
+        "atomicNumber": 108,
+        "atomicWeight": 277,
+        "yearDiscovered": 1984,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Hassium"
+        ]
+    },
+    {
+        "id": 109,
+        "name": "Meitnerium",
+        "twoLetter": "Mt",
+        "atomicNumber": 109,
+        "atomicWeight": 278,
+        "yearDiscovered": 1982,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Meitnerium"
+        ]
+    },
+    {
+        "id": 110,
+        "name": "Darmstadtium",
+        "twoLetter": "Ds",
+        "atomicNumber": 110,
+        "atomicWeight": 281,
+        "yearDiscovered": 1994,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Darmstadtium"
+        ]
+    },
+    {
+        "id": 111,
+        "name": "Roentgenium",
+        "twoLetter": "Rg",
+        "atomicNumber": 111,
+        "atomicWeight": 282,
+        "yearDiscovered": 1994,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Roentgenium"
+        ]
+    },
+    {
+        "id": 112,
+        "name": "Copernicium",
+        "twoLetter": "Cn",
+        "atomicNumber": 112,
+        "atomicWeight": 285,
+        "yearDiscovered": 1996,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Copernicium"
+        ]
+    },
+    {
+        "id": 113,
+        "name": "Nihonium",
+        "twoLetter": "Nh",
+        "atomicNumber": 113,
+        "atomicWeight": 286,
+        "yearDiscovered": 2004,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Nihonium"
+        ]
+    },
+    {
+        "id": 114,
+        "name": "Flerovium",
+        "twoLetter": "Fl",
+        "atomicNumber": 114,
+        "atomicWeight": 289,
+        "yearDiscovered": 1999,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Flerovium"
+        ]
+    },
+    {
+        "id": 115,
+        "name": "Moscovium",
+        "twoLetter": "Mc",
+        "atomicNumber": 115,
+        "atomicWeight": 290,
+        "yearDiscovered": 2003,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Moscovium"
+        ]
+    },
+    {
+        "id": 116,
+        "name": "Livermorium",
+        "twoLetter": "Lv",
+        "atomicNumber": 116,
+        "atomicWeight": 293,
+        "yearDiscovered": 2000,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Livermorium"
+        ]
+    },
+    {
+        "id": 117,
+        "name": "Tennessine",
+        "twoLetter": "Ts",
+        "atomicNumber": 117,
+        "atomicWeight": 294,
+        "yearDiscovered": 2010,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Tennessine"
+        ]
+    },
+    {
+        "id": 118,
+        "name": "Oganesson",
+        "twoLetter": "Og",
+        "atomicNumber": 118,
+        "atomicWeight": 294,
+        "yearDiscovered": 2002,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Oganesson"
+        ]
+    }
+]

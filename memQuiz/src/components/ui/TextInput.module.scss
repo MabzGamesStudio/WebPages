@@ -1,0 +1,60 @@
+@import '../../styles/variables';
+
+.input-field {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    /* Bigger padding */
+    font-size: 1.25rem;
+    /* Bigger font */
+    font-weight: 500;
+    border: 2px solid $border;
+    border-radius: $radius;
+    outline: none;
+    transition: all 0.2s ease;
+    background-color: #ffffff;
+    color: $text;
+
+    &:focus {
+        border-color: $primary;
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    &:disabled {
+        background-color: #f1f5f9;
+        cursor: not-allowed;
+        color: #94a3b8;
+    }
+
+    &::placeholder {
+        color: #cbd5e1;
+        font-weight: 400;
+    }
+
+    // Red styling for unfilled fields when trying to submit
+    &.invalid {
+        border-color: $error;
+        color: $error;
+        background-color: #fef2f2;
+
+        &::placeholder {
+            color: #fca5a5;
+        }
+    }
+
+    &.invalid {
+        border-color: $error;
+        color: $error;
+        background-color: #fef2f2;
+    }
+
+    // ✅ NEW: Highlight non-exact but accepted answers
+    &.close-but-not-exact {
+        border-color: #f59e0b; // Amber/warning color
+        background-color: #fffbeb;
+        color: #92400e;
+
+        &:disabled {
+            opacity: 1; // Keep visible even when disabled during feedback
+        }
+    }
+}

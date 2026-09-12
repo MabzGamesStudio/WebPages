@@ -1,0 +1,26 @@
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border, #e2e8f0);
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.left,
+.right {
+    display: flex;
+    gap: 0.5rem;
+    min-width: 100px; // Ensures title stays centered even if one side is empty
+}
+
+.right {
+    justify-content: flex-end;
+}

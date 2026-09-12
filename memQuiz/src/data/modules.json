@@ -1,0 +1,77 @@
+[
+    {
+        "id": "periodic-table",
+        "name": "Periodic Table Elements",
+        "tags": [
+            "chemistry",
+            "science"
+        ],
+        "inputType": "Text",
+        "defaultOutputs": [
+            "name",
+            "atomicNumber"
+        ],
+        "availableOutputTypes": {
+            "name": [
+                "Text",
+                "TextClose",
+                "Options"
+            ],
+            "atomicNumber": [
+                "Number",
+                "NumberClose",
+                "Options"
+            ],
+            "atomicWeight": [
+                "Number",
+                "NumberClose",
+                "Options"
+            ],
+            "yearDiscovered": [
+                "Number",
+                "NumberClose",
+                "Options"
+            ]
+        },
+        "dataFile": "periodic-table.json"
+    },
+    {
+        "id": "countries-capitals",
+        "name": "Countries and Capitals",
+        "tags": [
+            "geography"
+        ],
+        "inputType": "Text",
+        "defaultOutputs": [
+            "capital"
+        ],
+        "availableOutputTypes": {
+            "capital": [
+                "Text",
+                "TextClose",
+                "Options"
+            ],
+            "currency": [
+                "Text",
+                "TextClose",
+                "Options"
+            ],
+            "primaryLanguage": [
+                "Text",
+                "TextClose",
+                "Options"
+            ],
+            "areaSqMi": [
+                "Number",
+                "NumberClose",
+                "Options"
+            ],
+            "population": [
+                "Number",
+                "NumberClose",
+                "Options"
+            ]
+        },
+        "dataFile": "countries-capitals.json"
+    }
+]

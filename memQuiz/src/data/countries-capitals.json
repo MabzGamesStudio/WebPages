@@ -1,0 +1,2746 @@
+[
+    {
+        "id": 1,
+        "name": "Afghanistan",
+        "capital": "Kabul",
+        "currency": "Afghan afghani",
+        "primaryLanguage": "Pashto, Dari",
+        "areaSqMi": 251772,
+        "population": 41128771,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Afghanistan",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Albania",
+        "capital": "Tirana",
+        "currency": "Albanian lek",
+        "primaryLanguage": "Albanian",
+        "areaSqMi": 11100,
+        "population": 2837743,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Albania",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Algeria",
+        "capital": "Algiers",
+        "currency": "Algerian dinar",
+        "primaryLanguage": "Arabic",
+        "areaSqMi": 919595,
+        "population": 45606480,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Algeria",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Andorra",
+        "capital": "Andorra la Vella",
+        "currency": "Euro",
+        "primaryLanguage": "Catalan",
+        "areaSqMi": 181,
+        "population": 79824,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Andorra",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Angola",
+        "capital": "Luanda",
+        "currency": "Angolan kwanza",
+        "primaryLanguage": "Portuguese",
+        "areaSqMi": 481354,
+        "population": 35588987,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Angola",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Antigua and Barbuda",
+        "capital": "Saint John's",
+        "currency": "East Caribbean dollar",
+        "primaryLanguage": "English",
+        "areaSqMi": 171,
+        "population": 93219,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Antigua_and_Barbuda",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Argentina",
+        "capital": "Buenos Aires",
+        "currency": "Argentine peso",
+        "primaryLanguage": "Spanish",
+        "areaSqMi": 1073514,
+        "population": 45808747,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Argentina",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Armenia",
+        "capital": "Yerevan",
+        "currency": "Armenian dram",
+        "primaryLanguage": "Armenian",
+        "areaSqMi": 11506,
+        "population": 2777970,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Armenia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Australia",
+        "capital": "Canberra",
+        "currency": "Australian dollar",
+        "primaryLanguage": "English",
+        "areaSqMi": 2969907,
+        "population": 26009680,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Australia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 10,
+        "name": "Austria",
+        "capital": "Vienna",
+        "currency": "Euro",
+        "primaryLanguage": "German",
+        "areaSqMi": 32376,
+        "population": 9043070,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Austria",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 11,
+        "name": "Azerbaijan",
+        "capital": "Baku",
+        "currency": "Azerbaijani manat",
+        "primaryLanguage": "Azerbaijani",
+        "areaSqMi": 33436,
+        "population": 10358074,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Azerbaijan",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 12,
+        "name": "Bahamas",
+        "capital": "Nassau",
+        "currency": "Bahamian dollar",
+        "primaryLanguage": "English",
+        "areaSqMi": 5358,
+        "population": 409984,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Bahamas",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 13,
+        "name": "Bahrain",
+        "capital": "Manama",
+        "currency": "Bahraini dinar",
+        "primaryLanguage": "Arabic",
+        "areaSqMi": 293,
+        "population": 1472233,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Bahrain",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 14,
+        "name": "Bangladesh",
+        "capital": "Dhaka",
+        "currency": "Bangladeshi taka",
+        "primaryLanguage": "Bengali",
+        "areaSqMi": 56977,
+        "population": 171186372,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Bangladesh",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 15,
+        "name": "Barbados",
+        "capital": "Bridgetown",
+        "currency": "Barbadian dollar",
+        "primaryLanguage": "English",
+        "areaSqMi": 166,
+        "population": 281995,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Barbados",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 16,
+        "name": "Belarus",
+        "capital": "Minsk",
+        "currency": "Belarusian ruble",
+        "primaryLanguage": "Belarusian, Russian",
+        "areaSqMi": 80155,
+        "population": 9449323,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Belarus",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 17,
+        "name": "Belgium",
+        "capital": "Brussels",
+        "currency": "Euro",
+        "primaryLanguage": "Dutch, French, German",
+        "areaSqMi": 11787,
+        "population": 11686140,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Belgium",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 18,
+        "name": "Belize",
+        "capital": "Belmopan",
+        "currency": "Belize dollar",
+        "primaryLanguage": "English",
+        "areaSqMi": 8867,
+        "population": 405272,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Belize",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 19,
+        "name": "Benin",
+        "capital": "Porto-Novo",
+        "currency": "West African CFA franc",
+        "primaryLanguage": "French",
+        "areaSqMi": 44310,
+        "population": 13352864,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Benin",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 20,
+        "name": "Bhutan",
+        "capital": "Thimphu",
+        "currency": "Bhutanese ngultrum",
+        "primaryLanguage": "Dzongkha",
+        "areaSqMi": 14824,
+        "population": 782455,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Bhutan",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 21,
+        "name": "Bolivia",
+        "capital": "Sucre",
+        "currency": "Bolivian boliviano",
+        "primaryLanguage": "Spanish, Quechua, Aymara",
+        "areaSqMi": 424164,
+        "population": 12224110,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Bolivia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 22,
+        "name": "Bosnia and Herzegovina",
+        "capital": "Sarajevo",
+        "currency": "Bosnia and Herzegovina convertible mark",
+        "primaryLanguage": "Bosnian, Croatian, Serbian",
+        "areaSqMi": 19767,
+        "population": 3233526,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Bosnia_and_Herzegovina",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 23,
+        "name": "Botswana",
+        "capital": "Gaborone",
+        "currency": "Botswana pula",
+        "primaryLanguage": "English, Tswana",
+        "areaSqMi": 224607,
+        "population": 2630296,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Botswana",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 24,
+        "name": "Brazil",
+        "capital": "Brasília",
+        "currency": "Brazilian real",
+        "primaryLanguage": "Portuguese",
+        "areaSqMi": 3287956,
+        "population": 215313498,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Brazil",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 25,
+        "name": "Brunei",
+        "capital": "Bandar Seri Begawan",
+        "currency": "Brunei dollar",
+        "primaryLanguage": "Malay",
+        "areaSqMi": 2226,
+        "population": 449002,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Brunei",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 26,
+        "name": "Bulgaria",
+        "capital": "Sofia",
+        "currency": "Bulgarian lev",
+        "primaryLanguage": "Bulgarian",
+        "areaSqMi": 42823,
+        "population": 6885898,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Bulgaria",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 27,
+        "name": "Burkina Faso",
+        "capital": "Ouagadougou",
+        "currency": "West African CFA franc",
+        "primaryLanguage": "French",
+        "areaSqMi": 105869,
+        "population": 22673762,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Burkina_Faso",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 28,
+        "name": "Burundi",
+        "capital": "Gitega",
+        "currency": "Burundian franc",
+        "primaryLanguage": "Kirundi, French",
+        "areaSqMi": 10745,
+        "population": 12696478,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Burundi",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 29,
+        "name": "Cabo Verde",
+        "capital": "Praia",
+        "currency": "Cape Verdean escudo",
+        "primaryLanguage": "Portuguese",
+        "areaSqMi": 1557,
+        "population": 593149,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Cabo_Verde",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 30,
+        "name": "Cambodia",
+        "capital": "Phnom Penh",
+        "currency": "Cambodian riel",
+        "primaryLanguage": "Khmer",
+        "areaSqMi": 69898,
+        "population": 16767842,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Cambodia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 31,
+        "name": "Cameroon",
+        "capital": "Yaoundé",
+        "currency": "Central African CFA franc",
+        "primaryLanguage": "French, English",
+        "areaSqMi": 183569,
+        "population": 28647293,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Cameroon",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 32,
+        "name": "Canada",
+        "capital": "Ottawa",
+        "currency": "Canadian dollar",
+        "primaryLanguage": "English, French",
+        "areaSqMi": 3855100,
+        "population": 38929902,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Canada",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 33,
+        "name": "Central African Republic",
+        "capital": "Bangui",
+        "currency": "Central African CFA franc",
+        "primaryLanguage": "French, Sango",
+        "areaSqMi": 240831,
+        "population": 5579144,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Central_African_Republic",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 34,
+        "name": "Chad",
+        "capital": "N'Djamena",
+        "currency": "Central African CFA franc",
+        "primaryLanguage": "French, Arabic",
+        "areaSqMi": 495755,
+        "population": 17723315,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Chad",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 35,
+        "name": "Chile",
+        "capital": "Santiago",
+        "currency": "Chilean peso",
+        "primaryLanguage": "Spanish",
+        "areaSqMi": 292260,
+        "population": 19603733,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Chile",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 36,
+        "name": "China",
+        "capital": "Beijing",
+        "currency": "Chinese yuan",
+        "primaryLanguage": "Mandarin",
+        "areaSqMi": 3705407,
+        "population": 1412175000,
+        "sources": [
+            "https://en.wikipedia.org/wiki/China",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 37,
+        "name": "Colombia",
+        "capital": "Bogotá",
+        "currency": "Colombian peso",
+        "primaryLanguage": "Spanish",
+        "areaSqMi": 440831,
+        "population": 51874024,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Colombia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 38,
+        "name": "Comoros",
+        "capital": "Moroni",
+        "currency": "Comorian franc",
+        "primaryLanguage": "Comorian, Arabic, French",
+        "areaSqMi": 719,
+        "population": 852075,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Comoros",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 39,
+        "name": "Congo, Democratic Republic of the",
+        "capital": "Kinshasa",
+        "currency": "Congolese franc",
+        "primaryLanguage": "French",
+        "areaSqMi": 905567,
+        "population": 99010212,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Democratic_Republic_of_the_Congo",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 40,
+        "name": "Congo, Republic of the",
+        "capital": "Brazzaville",
+        "currency": "Central African CFA franc",
+        "primaryLanguage": "French",
+        "areaSqMi": 132047,
+        "population": 5970424,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Republic_of_the_Congo",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 41,
+        "name": "Costa Rica",
+        "capital": "San José",
+        "currency": "Costa Rican colón",
+        "primaryLanguage": "Spanish",
+        "areaSqMi": 19730,
+        "population": 5180829,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Costa_Rica",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 42,
+        "name": "Croatia",
+        "capital": "Zagreb",
+        "currency": "Euro",
+        "primaryLanguage": "Croatian",
+        "areaSqMi": 21829,
+        "population": 3871833,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Croatia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 43,
+        "name": "Cuba",
+        "capital": "Havana",
+        "currency": "Cuban peso",
+        "primaryLanguage": "Spanish",
+        "areaSqMi": 42426,
+        "population": 11326616,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Cuba",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 44,
+        "name": "Cyprus",
+        "capital": "Nicosia",
+        "currency": "Euro",
+        "primaryLanguage": "Greek, Turkish",
+        "areaSqMi": 3572,
+        "population": 1251488,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Cyprus",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 45,
+        "name": "Czech Republic",
+        "capital": "Prague",
+        "currency": "Czech koruna",
+        "primaryLanguage": "Czech",
+        "areaSqMi": 30450,
+        "population": 10510751,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Czech_Republic",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 46,
+        "name": "Denmark",
+        "capital": "Copenhagen",
+        "currency": "Danish krone",
+        "primaryLanguage": "Danish",
+        "areaSqMi": 16573,
+        "population": 5856733,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Denmark",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 47,
+        "name": "Djibouti",
+        "capital": "Djibouti",
+        "currency": "Djiboutian franc",
+        "primaryLanguage": "French, Arabic",
+        "areaSqMi": 8958,
+        "population": 1120849,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Djibouti",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 48,
+        "name": "Dominica",
+        "capital": "Roseau",
+        "currency": "East Caribbean dollar",
+        "primaryLanguage": "English",
+        "areaSqMi": 290,
+        "population": 72737,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Dominica",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 49,
+        "name": "Dominican Republic",
+        "capital": "Santo Domingo",
+        "currency": "Dominican peso",
+        "primaryLanguage": "Spanish",
+        "areaSqMi": 18705,
+        "population": 11117873,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Dominican_Republic",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 50,
+        "name": "Ecuador",
+        "capital": "Quito",
+        "currency": "United States dollar",
+        "primaryLanguage": "Spanish",
+        "areaSqMi": 109483,
+        "population": 18001000,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Ecuador",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 51,
+        "name": "Egypt",
+        "capital": "Cairo",
+        "currency": "Egyptian pound",
+        "primaryLanguage": "Arabic",
+        "areaSqMi": 386662,
+        "population": 110990103,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Egypt",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 52,
+        "name": "El Salvador",
+        "capital": "San Salvador",
+        "currency": "United States dollar",
+        "primaryLanguage": "Spanish",
+        "areaSqMi": 8124,
+        "population": 6336392,
+        "sources": [
+            "https://en.wikipedia.org/wiki/El_Salvador",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 53,
+        "name": "Equatorial Guinea",
+        "capital": "Malabo",
+        "currency": "Central African CFA franc",
+        "primaryLanguage": "Spanish, French, Portuguese",
+        "areaSqMi": 10831,
+        "population": 1674908,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Equatorial_Guinea",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 54,
+        "name": "Eritrea",
+        "capital": "Asmara",
+        "currency": "Eritrean nakfa",
+        "primaryLanguage": "Tigrinya, Arabic, English",
+        "areaSqMi": 45406,
+        "population": 3684032,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Eritrea",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 55,
+        "name": "Estonia",
+        "capital": "Tallinn",
+        "currency": "Euro",
+        "primaryLanguage": "Estonian",
+        "areaSqMi": 17462,
+        "population": 1331057,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Estonia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 56,
+        "name": "Eswatini",
+        "capital": "Mbabane",
+        "currency": "Swazi lilangeni",
+        "primaryLanguage": "English, Swazi",
+        "areaSqMi": 6704,
+        "population": 1201670,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Eswatini",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 57,
+        "name": "Ethiopia",
+        "capital": "Addis Ababa",
+        "currency": "Ethiopian birr",
+        "primaryLanguage": "Amharic",
+        "areaSqMi": 426400,
+        "population": 123379924,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Ethiopia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 58,
+        "name": "Fiji",
+        "capital": "Suva",
+        "currency": "Fijian dollar",
+        "primaryLanguage": "English, Fijian, Hindi",
+        "areaSqMi": 7056,
+        "population": 924610,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Fiji",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 59,
+        "name": "Finland",
+        "capital": "Helsinki",
+        "currency": "Euro",
+        "primaryLanguage": "Finnish, Swedish",
+        "areaSqMi": 130128,
+        "population": 5540720,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Finland",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 60,
+        "name": "France",
+        "capital": "Paris",
+        "currency": "Euro",
+        "primaryLanguage": "French",
+        "areaSqMi": 213011,
+        "population": 67390000,
+        "sources": [
+            "https://en.wikipedia.org/wiki/France",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 61,
+        "name": "Gabon",
+        "capital": "Libreville",
+        "currency": "Central African CFA franc",
+        "primaryLanguage": "French",
+        "areaSqMi": 103347,
+        "population": 2388992,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Gabon",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 62,
+        "name": "Gambia",
+        "capital": "Banjul",
+        "currency": "Gambian dalasi",
+        "primaryLanguage": "English",
+        "areaSqMi": 4363,
+        "population": 2705992,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Gambia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 63,
+        "name": "Georgia",
+        "capital": "Tbilisi",
+        "currency": "Georgian lari",
+        "primaryLanguage": "Georgian",
+        "areaSqMi": 26911,
+        "population": 3728282,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Georgia_(country)",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 64,
+        "name": "Germany",
+        "capital": "Berlin",
+        "currency": "Euro",
+        "primaryLanguage": "German",
+        "areaSqMi": 137847,
+        "population": 83294633,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Germany",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 65,
+        "name": "Ghana",
+        "capital": "Accra",
+        "currency": "Ghanaian cedi",
+        "primaryLanguage": "English",
+        "areaSqMi": 92098,
+        "population": 33475870,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Ghana",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 66,
+        "name": "Greece",
+        "capital": "Athens",
+        "currency": "Euro",
+        "primaryLanguage": "Greek",
+        "areaSqMi": 50949,
+        "population": 10423054,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Greece",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 67,
+        "name": "Grenada",
+        "capital": "St. George's",
+        "currency": "East Caribbean dollar",
+        "primaryLanguage": "English",
+        "areaSqMi": 133,
+        "population": 125444,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Grenada",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 68,
+        "name": "Guatemala",
+        "capital": "Guatemala City",
+        "currency": "Guatemalan quetzal",
+        "primaryLanguage": "Spanish",
+        "areaSqMi": 42042,
+        "population": 17109746,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Guatemala",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 69,
+        "name": "Guinea",
+        "capital": "Conakry",
+        "currency": "Guinean franc",
+        "primaryLanguage": "French",
+        "areaSqMi": 94926,
+        "population": 13859341,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Guinea",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 70,
+        "name": "Guinea-Bissau",
+        "capital": "Bissau",
+        "currency": "West African CFA franc",
+        "primaryLanguage": "Portuguese",
+        "areaSqMi": 13943,
+        "population": 2105566,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Guinea-Bissau",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 71,
+        "name": "Guyana",
+        "capital": "Georgetown",
+        "currency": "Guyanese dollar",
+        "primaryLanguage": "English",
+        "areaSqMi": 83000,
+        "population": 813834,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Guyana",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 72,
+        "name": "Haiti",
+        "capital": "Port-au-Prince",
+        "currency": "Haitian gourde",
+        "primaryLanguage": "French, Haitian Creole",
+        "areaSqMi": 10641,
+        "population": 11584996,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Haiti",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 73,
+        "name": "Honduras",
+        "capital": "Tegucigalpa",
+        "currency": "Honduran lempira",
+        "primaryLanguage": "Spanish",
+        "areaSqMi": 43433,
+        "population": 10432861,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Honduras",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 74,
+        "name": "Hungary",
+        "capital": "Budapest",
+        "currency": "Hungarian forint",
+        "primaryLanguage": "Hungarian",
+        "areaSqMi": 35919,
+        "population": 9689000,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Hungary",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 75,
+        "name": "Iceland",
+        "capital": "Reykjavík",
+        "currency": "Icelandic króna",
+        "primaryLanguage": "Icelandic",
+        "areaSqMi": 39768,
+        "population": 376248,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Iceland",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 76,
+        "name": "India",
+        "capital": "New Delhi",
+        "currency": "Indian rupee",
+        "primaryLanguage": "Hindi, English",
+        "areaSqMi": 1269346,
+        "population": 1428627663,
+        "sources": [
+            "https://en.wikipedia.org/wiki/India",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 77,
+        "name": "Indonesia",
+        "capital": "Jakarta",
+        "currency": "Indonesian rupiah",
+        "primaryLanguage": "Indonesian",
+        "areaSqMi": 735358,
+        "population": 275501339,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Indonesia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 78,
+        "name": "Iran",
+        "capital": "Tehran",
+        "currency": "Iranian rial",
+        "primaryLanguage": "Persian",
+        "areaSqMi": 636372,
+        "population": 88550570,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Iran",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 79,
+        "name": "Iraq",
+        "capital": "Baghdad",
+        "currency": "Iraqi dinar",
+        "primaryLanguage": "Arabic, Kurdish",
+        "areaSqMi": 169235,
+        "population": 44496122,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Iraq",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 80,
+        "name": "Ireland",
+        "capital": "Dublin",
+        "currency": "Euro",
+        "primaryLanguage": "Irish, English",
+        "areaSqMi": 27133,
+        "population": 5127170,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Ireland",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 81,
+        "name": "Israel",
+        "capital": "Jerusalem",
+        "currency": "Israeli new shekel",
+        "primaryLanguage": "Hebrew",
+        "areaSqMi": 8557,
+        "population": 9550600,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Israel",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 82,
+        "name": "Italy",
+        "capital": "Rome",
+        "currency": "Euro",
+        "primaryLanguage": "Italian",
+        "areaSqMi": 116348,
+        "population": 59037474,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Italy",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 83,
+        "name": "Jamaica",
+        "capital": "Kingston",
+        "currency": "Jamaican dollar",
+        "primaryLanguage": "English",
+        "areaSqMi": 4244,
+        "population": 2825544,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Jamaica",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 84,
+        "name": "Japan",
+        "capital": "Tokyo",
+        "currency": "Japanese yen",
+        "primaryLanguage": "Japanese",
+        "areaSqMi": 145936,
+        "population": 125700000,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Japan",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 85,
+        "name": "Jordan",
+        "capital": "Amman",
+        "currency": "Jordanian dinar",
+        "primaryLanguage": "Arabic",
+        "areaSqMi": 34495,
+        "population": 11285869,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Jordan",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 86,
+        "name": "Kazakhstan",
+        "capital": "Astana",
+        "currency": "Kazakhstani tenge",
+        "primaryLanguage": "Kazakh, Russian",
+        "areaSqMi": 1052085,
+        "population": 19606633,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Kazakhstan",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 87,
+        "name": "Kenya",
+        "capital": "Nairobi",
+        "currency": "Kenyan shilling",
+        "primaryLanguage": "English, Swahili",
+        "areaSqMi": 224081,
+        "population": 54027487,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Kenya",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 88,
+        "name": "Kiribati",
+        "capital": "Tarawa",
+        "currency": "Australian dollar",
+        "primaryLanguage": "English, Gilbertese",
+        "areaSqMi": 313,
+        "population": 131232,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Kiribati",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 89,
+        "name": "Kuwait",
+        "capital": "Kuwait City",
+        "currency": "Kuwaiti dinar",
+        "primaryLanguage": "Arabic",
+        "areaSqMi": 6880,
+        "population": 4270571,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Kuwait",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 90,
+        "name": "Kyrgyzstan",
+        "capital": "Bishkek",
+        "currency": "Kyrgyzstani som",
+        "primaryLanguage": "Kyrgyz, Russian",
+        "areaSqMi": 76641,
+        "population": 6899700,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Kyrgyzstan",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 91,
+        "name": "Laos",
+        "capital": "Vientiane",
+        "currency": "Lao kip",
+        "primaryLanguage": "Lao",
+        "areaSqMi": 91429,
+        "population": 7529475,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Laos",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 92,
+        "name": "Latvia",
+        "capital": "Riga",
+        "currency": "Euro",
+        "primaryLanguage": "Latvian",
+        "areaSqMi": 24948,
+        "population": 1886198,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Latvia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 93,
+        "name": "Lebanon",
+        "capital": "Beirut",
+        "currency": "Lebanese pound",
+        "primaryLanguage": "Arabic",
+        "areaSqMi": 4036,
+        "population": 5353930,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Lebanon",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 94,
+        "name": "Lesotho",
+        "capital": "Maseru",
+        "currency": "Lesotho loti",
+        "primaryLanguage": "Sesotho, English",
+        "areaSqMi": 11720,
+        "population": 2305825,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Lesotho",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 95,
+        "name": "Liberia",
+        "capital": "Monrovia",
+        "currency": "Liberian dollar",
+        "primaryLanguage": "English",
+        "areaSqMi": 43000,
+        "population": 5302681,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Liberia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 96,
+        "name": "Libya",
+        "capital": "Tripoli",
+        "currency": "Libyan dinar",
+        "primaryLanguage": "Arabic",
+        "areaSqMi": 679362,
+        "population": 6812341,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Libya",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 97,
+        "name": "Liechtenstein",
+        "capital": "Vaduz",
+        "currency": "Swiss franc",
+        "primaryLanguage": "German",
+        "areaSqMi": 62,
+        "population": 39327,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Liechtenstein",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 98,
+        "name": "Lithuania",
+        "capital": "Vilnius",
+        "currency": "Euro",
+        "primaryLanguage": "Lithuanian",
+        "areaSqMi": 25212,
+        "population": 2810761,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Lithuania",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 99,
+        "name": "Luxembourg",
+        "capital": "Luxembourg",
+        "currency": "Euro",
+        "primaryLanguage": "Luxembourgish, French, German",
+        "areaSqMi": 998,
+        "population": 645397,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Luxembourg",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 100,
+        "name": "Madagascar",
+        "capital": "Antananarivo",
+        "currency": "Malagasy ariary",
+        "primaryLanguage": "Malagasy, French",
+        "areaSqMi": 226658,
+        "population": 29611714,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Madagascar",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 101,
+        "name": "Malawi",
+        "capital": "Lilongwe",
+        "currency": "Malawian kwacha",
+        "primaryLanguage": "English, Chichewa",
+        "areaSqMi": 45747,
+        "population": 20405317,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Malawi",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 102,
+        "name": "Malaysia",
+        "capital": "Kuala Lumpur",
+        "currency": "Malaysian ringgit",
+        "primaryLanguage": "Malay",
+        "areaSqMi": 127724,
+        "population": 33938221,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Malaysia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 103,
+        "name": "Maldives",
+        "capital": "Malé",
+        "currency": "Maldivian rufiyaa",
+        "primaryLanguage": "Dhivehi",
+        "areaSqMi": 115,
+        "population": 521021,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Maldives",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 104,
+        "name": "Mali",
+        "capital": "Bamako",
+        "currency": "West African CFA franc",
+        "primaryLanguage": "French",
+        "areaSqMi": 478841,
+        "population": 22593590,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Mali",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 105,
+        "name": "Malta",
+        "capital": "Valletta",
+        "currency": "Euro",
+        "primaryLanguage": "Maltese, English",
+        "areaSqMi": 122,
+        "population": 519562,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Malta",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 106,
+        "name": "Marshall Islands",
+        "capital": "Majuro",
+        "currency": "United States dollar",
+        "primaryLanguage": "Marshallese, English",
+        "areaSqMi": 70,
+        "population": 41569,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Marshall_Islands",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 107,
+        "name": "Mauritania",
+        "capital": "Nouakchott",
+        "currency": "Mauritanian ouguiya",
+        "primaryLanguage": "Arabic",
+        "areaSqMi": 397955,
+        "population": 4736139,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Mauritania",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 108,
+        "name": "Mauritius",
+        "capital": "Port Louis",
+        "currency": "Mauritian rupee",
+        "primaryLanguage": "English, French",
+        "areaSqMi": 790,
+        "population": 1265711,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Mauritius",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 109,
+        "name": "Mexico",
+        "capital": "Mexico City",
+        "currency": "Mexican peso",
+        "primaryLanguage": "Spanish",
+        "areaSqMi": 761606,
+        "population": 128455567,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Mexico",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 110,
+        "name": "Micronesia",
+        "capital": "Palikir",
+        "currency": "United States dollar",
+        "primaryLanguage": "English",
+        "areaSqMi": 271,
+        "population": 115023,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Micronesia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 111,
+        "name": "Moldova",
+        "capital": "Chișinău",
+        "currency": "Moldovan leu",
+        "primaryLanguage": "Romanian",
+        "areaSqMi": 13012,
+        "population": 2597100,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Moldova",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 112,
+        "name": "Monaco",
+        "capital": "Monaco",
+        "currency": "Euro",
+        "primaryLanguage": "French",
+        "areaSqMi": 0.81,
+        "population": 39242,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Monaco",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 113,
+        "name": "Mongolia",
+        "capital": "Ulaanbaatar",
+        "currency": "Mongolian tögrög",
+        "primaryLanguage": "Mongolian",
+        "areaSqMi": 603909,
+        "population": 3398366,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Mongolia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 114,
+        "name": "Montenegro",
+        "capital": "Podgorica",
+        "currency": "Euro",
+        "primaryLanguage": "Montenegrin",
+        "areaSqMi": 5333,
+        "population": 626485,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Montenegro",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 115,
+        "name": "Morocco",
+        "capital": "Rabat",
+        "currency": "Moroccan dirham",
+        "primaryLanguage": "Arabic, Berber",
+        "areaSqMi": 172414,
+        "population": 37457971,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Morocco",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 116,
+        "name": "Mozambique",
+        "capital": "Maputo",
+        "currency": "Mozambican metical",
+        "primaryLanguage": "Portuguese",
+        "areaSqMi": 309500,
+        "population": 32969518,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Mozambique",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 117,
+        "name": "Myanmar",
+        "capital": "Naypyidaw",
+        "currency": "Myanmar kyat",
+        "primaryLanguage": "Burmese",
+        "areaSqMi": 261228,
+        "population": 54179306,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Myanmar",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 118,
+        "name": "Namibia",
+        "capital": "Windhoek",
+        "currency": "Namibian dollar",
+        "primaryLanguage": "English",
+        "areaSqMi": 318696,
+        "population": 2604172,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Namibia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 119,
+        "name": "Nauru",
+        "capital": "Yaren",
+        "currency": "Australian dollar",
+        "primaryLanguage": "Nauruan, English",
+        "areaSqMi": 8.1,
+        "population": 12780,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Nauru",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 120,
+        "name": "Nepal",
+        "capital": "Kathmandu",
+        "currency": "Nepalese rupee",
+        "primaryLanguage": "Nepali",
+        "areaSqMi": 56827,
+        "population": 30547580,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Nepal",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 121,
+        "name": "Netherlands",
+        "capital": "Amsterdam",
+        "currency": "Euro",
+        "primaryLanguage": "Dutch",
+        "areaSqMi": 16040,
+        "population": 17564014,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Netherlands",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 122,
+        "name": "New Zealand",
+        "capital": "Wellington",
+        "currency": "New Zealand dollar",
+        "primaryLanguage": "English, Māori",
+        "areaSqMi": 103483,
+        "population": 5124100,
+        "sources": [
+            "https://en.wikipedia.org/wiki/New_Zealand",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 123,
+        "name": "Nicaragua",
+        "capital": "Managua",
+        "currency": "Nicaraguan córdoba",
+        "primaryLanguage": "Spanish",
+        "areaSqMi": 50336,
+        "population": 6948392,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Nicaragua",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 124,
+        "name": "Niger",
+        "capital": "Niamey",
+        "currency": "West African CFA franc",
+        "primaryLanguage": "French",
+        "areaSqMi": 489191,
+        "population": 26207977,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Niger",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 125,
+        "name": "Nigeria",
+        "capital": "Abuja",
+        "currency": "Nigerian naira",
+        "primaryLanguage": "English",
+        "areaSqMi": 356669,
+        "population": 223804632,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Nigeria",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 126,
+        "name": "North Korea",
+        "capital": "Pyongyang",
+        "currency": "North Korean won",
+        "primaryLanguage": "Korean",
+        "areaSqMi": 46540,
+        "population": 26069416,
+        "sources": [
+            "https://en.wikipedia.org/wiki/North_Korea",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 127,
+        "name": "North Macedonia",
+        "capital": "Skopje",
+        "currency": "Macedonian denar",
+        "primaryLanguage": "Macedonian",
+        "areaSqMi": 9928,
+        "population": 2085679,
+        "sources": [
+            "https://en.wikipedia.org/wiki/North_Macedonia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 128,
+        "name": "Norway",
+        "capital": "Oslo",
+        "currency": "Norwegian krone",
+        "primaryLanguage": "Norwegian",
+        "areaSqMi": 148729,
+        "population": 5457127,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Norway",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 129,
+        "name": "Oman",
+        "capital": "Muscat",
+        "currency": "Omani rial",
+        "primaryLanguage": "Arabic",
+        "areaSqMi": 119500,
+        "population": 4576298,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Oman",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 130,
+        "name": "Pakistan",
+        "capital": "Islamabad",
+        "currency": "Pakistani rupee",
+        "primaryLanguage": "Urdu, English",
+        "areaSqMi": 340509,
+        "population": 235824862,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Pakistan",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 131,
+        "name": "Palau",
+        "capital": "Ngerulmud",
+        "currency": "United States dollar",
+        "primaryLanguage": "Palauan, English",
+        "areaSqMi": 179,
+        "population": 18058,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Palau",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 132,
+        "name": "Palestine",
+        "capital": "Ramallah",
+        "currency": "Israeli new shekel",
+        "primaryLanguage": "Arabic",
+        "areaSqMi": 2343,
+        "population": 5250808,
+        "sources": [
+            "https://en.wikipedia.org/wiki/State_of_Palestine",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 133,
+        "name": "Panama",
+        "capital": "Panama City",
+        "currency": "Panamanian balboa, United States dollar",
+        "primaryLanguage": "Spanish",
+        "areaSqMi": 29158,
+        "population": 4381579,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Panama",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 134,
+        "name": "Papua New Guinea",
+        "capital": "Port Moresby",
+        "currency": "Papua New Guinean kina",
+        "primaryLanguage": "English, Tok Pisin, Hiri Motu",
+        "areaSqMi": 178700,
+        "population": 10142619,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Papua_New_Guinea",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 135,
+        "name": "Paraguay",
+        "capital": "Asunción",
+        "currency": "Paraguayan guaraní",
+        "primaryLanguage": "Spanish, Guaraní",
+        "areaSqMi": 156411,
+        "population": 6780744,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Paraguay",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 136,
+        "name": "Peru",
+        "capital": "Lima",
+        "currency": "Peruvian sol",
+        "primaryLanguage": "Spanish",
+        "areaSqMi": 496225,
+        "population": 33715471,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Peru",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 137,
+        "name": "Philippines",
+        "capital": "Manila",
+        "currency": "Philippine peso",
+        "primaryLanguage": "Filipino, English",
+        "areaSqMi": 115831,
+        "population": 115559009,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Philippines",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 138,
+        "name": "Poland",
+        "capital": "Warsaw",
+        "currency": "Polish złoty",
+        "primaryLanguage": "Polish",
+        "areaSqMi": 120728,
+        "population": 37747000,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Poland",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 139,
+        "name": "Portugal",
+        "capital": "Lisbon",
+        "currency": "Euro",
+        "primaryLanguage": "Portuguese",
+        "areaSqMi": 35560,
+        "population": 10305564,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Portugal",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 140,
+        "name": "Puerto Rico",
+        "capital": "San Juan",
+        "currency": "United States dollar",
+        "primaryLanguage": "Spanish, English",
+        "areaSqMi": 3515,
+        "population": 3285874,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Puerto_Rico",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 141,
+        "name": "Qatar",
+        "capital": "Doha",
+        "currency": "Qatari riyal",
+        "primaryLanguage": "Arabic",
+        "areaSqMi": 4448,
+        "population": 2881053,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Qatar",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 142,
+        "name": "Romania",
+        "capital": "Bucharest",
+        "currency": "Romanian leu",
+        "primaryLanguage": "Romanian",
+        "areaSqMi": 92043,
+        "population": 19186201,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Romania",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 143,
+        "name": "Russia",
+        "capital": "Moscow",
+        "currency": "Russian ruble",
+        "primaryLanguage": "Russian",
+        "areaSqMi": 6601668,
+        "population": 144104080,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Russia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 144,
+        "name": "Rwanda",
+        "capital": "Kigali",
+        "currency": "Rwandan franc",
+        "primaryLanguage": "Kinyarwanda, French, English",
+        "areaSqMi": 10169,
+        "population": 13776698,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Rwanda",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 145,
+        "name": "Saint Kitts and Nevis",
+        "capital": "Basseterre",
+        "currency": "East Caribbean dollar",
+        "primaryLanguage": "English",
+        "areaSqMi": 104,
+        "population": 47755,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Saint_Kitts_and_Nevis",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 146,
+        "name": "Saint Lucia",
+        "capital": "Castries",
+        "currency": "East Caribbean dollar",
+        "primaryLanguage": "English",
+        "areaSqMi": 239,
+        "population": 180251,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Saint_Lucia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 147,
+        "name": "Saint Vincent and the Grenadines",
+        "capital": "Kingstown",
+        "currency": "East Caribbean dollar",
+        "primaryLanguage": "English",
+        "areaSqMi": 150,
+        "population": 104332,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Saint_Vincent_and_the_Grenadines",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 148,
+        "name": "Samoa",
+        "capital": "Apia",
+        "currency": "Samoan tālā",
+        "primaryLanguage": "Samoan, English",
+        "areaSqMi": 1093,
+        "population": 222382,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Samoa",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 149,
+        "name": "San Marino",
+        "capital": "San Marino",
+        "currency": "Euro",
+        "primaryLanguage": "Italian",
+        "areaSqMi": 24,
+        "population": 33642,
+        "sources": [
+            "https://en.wikipedia.org/wiki/San_Marino",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 150,
+        "name": "Sao Tome and Principe",
+        "capital": "São Tomé",
+        "currency": "São Tomé and Príncipe dobra",
+        "primaryLanguage": "Portuguese",
+        "areaSqMi": 386,
+        "population": 227679,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Sao_Tome_and_Principe",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 151,
+        "name": "Saudi Arabia",
+        "capital": "Riyadh",
+        "currency": "Saudi riyal",
+        "primaryLanguage": "Arabic",
+        "areaSqMi": 830000,
+        "population": 36408820,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Saudi_Arabia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 152,
+        "name": "Senegal",
+        "capital": "Dakar",
+        "currency": "West African CFA franc",
+        "primaryLanguage": "French",
+        "areaSqMi": 75955,
+        "population": 17316449,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Senegal",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 153,
+        "name": "Serbia",
+        "capital": "Belgrade",
+        "currency": "Serbian dinar",
+        "primaryLanguage": "Serbian",
+        "areaSqMi": 34116,
+        "population": 6834326,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Serbia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 154,
+        "name": "Seychelles",
+        "capital": "Victoria",
+        "currency": "Seychellois rupee",
+        "primaryLanguage": "Seychellois Creole, English, French",
+        "areaSqMi": 176,
+        "population": 107118,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Seychelles",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 155,
+        "name": "Sierra Leone",
+        "capital": "Freetown",
+        "currency": "Sierra Leonean leone",
+        "primaryLanguage": "English",
+        "areaSqMi": 27923,
+        "population": 8605721,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Sierra_Leone",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 156,
+        "name": "Singapore",
+        "capital": "Singapore",
+        "currency": "Singapore dollar",
+        "primaryLanguage": "English, Malay, Mandarin, Tamil",
+        "areaSqMi": 278,
+        "population": 5637000,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Singapore",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 157,
+        "name": "Slovakia",
+        "capital": "Bratislava",
+        "currency": "Euro",
+        "primaryLanguage": "Slovak",
+        "areaSqMi": 18933,
+        "population": 5459642,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Slovakia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 158,
+        "name": "Slovenia",
+        "capital": "Ljubljana",
+        "currency": "Euro",
+        "primaryLanguage": "Slovene",
+        "areaSqMi": 7827,
+        "population": 2119675,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Slovenia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 159,
+        "name": "Solomon Islands",
+        "capital": "Honiara",
+        "currency": "Solomon Islands dollar",
+        "primaryLanguage": "English",
+        "areaSqMi": 10947,
+        "population": 724273,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Solomon_Islands",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 160,
+        "name": "Somalia",
+        "capital": "Mogadishu",
+        "currency": "Somali shilling",
+        "primaryLanguage": "Somali, Arabic",
+        "areaSqMi": 246201,
+        "population": 17597511,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Somalia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 161,
+        "name": "South Africa",
+        "capital": "Pretoria",
+        "currency": "South African rand",
+        "primaryLanguage": "Afrikaans, English, Zulu, Xhosa, etc.",
+        "areaSqMi": 471445,
+        "population": 60414495,
+        "sources": [
+            "https://en.wikipedia.org/wiki/South_Africa",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 162,
+        "name": "South Korea",
+        "capital": "Seoul",
+        "currency": "South Korean won",
+        "primaryLanguage": "Korean",
+        "areaSqMi": 38690,
+        "population": 51784059,
+        "sources": [
+            "https://en.wikipedia.org/wiki/South_Korea",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 163,
+        "name": "South Sudan",
+        "capital": "Juba",
+        "currency": "South Sudanese pound",
+        "primaryLanguage": "English",
+        "areaSqMi": 248777,
+        "population": 11088796,
+        "sources": [
+            "https://en.wikipedia.org/wiki/South_Sudan",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 164,
+        "name": "Spain",
+        "capital": "Madrid",
+        "currency": "Euro",
+        "primaryLanguage": "Spanish",
+        "areaSqMi": 195365,
+        "population": 47450795,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Spain",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 165,
+        "name": "Sri Lanka",
+        "capital": "Sri Jayawardenepura Kotte",
+        "currency": "Sri Lankan rupee",
+        "primaryLanguage": "Sinhala, Tamil",
+        "areaSqMi": 25381,
+        "population": 22181000,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Sri_Lanka",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 166,
+        "name": "Sudan",
+        "capital": "Khartoum",
+        "currency": "Sudanese pound",
+        "primaryLanguage": "Arabic, English",
+        "areaSqMi": 728215,
+        "population": 46874204,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Sudan",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 167,
+        "name": "Suriname",
+        "capital": "Paramaribo",
+        "currency": "Surinamese dollar",
+        "primaryLanguage": "Dutch",
+        "areaSqMi": 63252,
+        "population": 618040,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Suriname",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 168,
+        "name": "Sweden",
+        "capital": "Stockholm",
+        "currency": "Swedish krona",
+        "primaryLanguage": "Swedish",
+        "areaSqMi": 173860,
+        "population": 10487338,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Sweden",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 169,
+        "name": "Switzerland",
+        "capital": "Bern",
+        "currency": "Swiss franc",
+        "primaryLanguage": "German, French, Italian, Romansh",
+        "areaSqMi": 15940,
+        "population": 8740472,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Switzerland",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 170,
+        "name": "Syria",
+        "capital": "Damascus",
+        "currency": "Syrian pound",
+        "primaryLanguage": "Arabic",
+        "areaSqMi": 71498,
+        "population": 22125249,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Syria",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 171,
+        "name": "Taiwan",
+        "capital": "Taipei",
+        "currency": "New Taiwan dollar",
+        "primaryLanguage": "Mandarin",
+        "areaSqMi": 13892,
+        "population": 23570000,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Taiwan",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 172,
+        "name": "Tajikistan",
+        "capital": "Dushanbe",
+        "currency": "Tajikistani somoni",
+        "primaryLanguage": "Tajik",
+        "areaSqMi": 54836,
+        "population": 9952787,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Tajikistan",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 173,
+        "name": "Tanzania",
+        "capital": "Dodoma",
+        "currency": "Tanzanian shilling",
+        "primaryLanguage": "Swahili, English",
+        "areaSqMi": 364193,
+        "population": 65497748,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Tanzania",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 174,
+        "name": "Thailand",
+        "capital": "Bangkok",
+        "currency": "Thai baht",
+        "primaryLanguage": "Thai",
+        "areaSqMi": 198120,
+        "population": 71697030,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Thailand",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 175,
+        "name": "Timor-Leste",
+        "capital": "Dili",
+        "currency": "United States dollar",
+        "primaryLanguage": "Tetum, Portuguese",
+        "areaSqMi": 5765,
+        "population": 1343873,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Timor-Leste",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 176,
+        "name": "Togo",
+        "capital": "Lomé",
+        "currency": "West African CFA franc",
+        "primaryLanguage": "French",
+        "areaSqMi": 21925,
+        "population": 8848699,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Togo",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 177,
+        "name": "Tonga",
+        "capital": "Nuku'alofa",
+        "currency": "Tongan paʻanga",
+        "primaryLanguage": "Tongan, English",
+        "areaSqMi": 289,
+        "population": 106760,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Tonga",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 178,
+        "name": "Trinidad and Tobago",
+        "capital": "Port of Spain",
+        "currency": "Trinidad and Tobago dollar",
+        "primaryLanguage": "English",
+        "areaSqMi": 1980,
+        "population": 1534937,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Trinidad_and_Tobago",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 179,
+        "name": "Tunisia",
+        "capital": "Tunis",
+        "currency": "Tunisian dinar",
+        "primaryLanguage": "Arabic",
+        "areaSqMi": 63170,
+        "population": 12356117,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Tunisia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 180,
+        "name": "Turkey",
+        "capital": "Ankara",
+        "currency": "Turkish lira",
+        "primaryLanguage": "Turkish",
+        "areaSqMi": 302556,
+        "population": 85326000,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Turkey",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 181,
+        "name": "Turkmenistan",
+        "capital": "Ashgabat",
+        "currency": "Turkmenistan manat",
+        "primaryLanguage": "Turkmen",
+        "areaSqMi": 188456,
+        "population": 6431000,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Turkmenistan",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 182,
+        "name": "Tuvalu",
+        "capital": "Funafuti",
+        "currency": "Australian dollar",
+        "primaryLanguage": "Tuvaluan, English",
+        "areaSqMi": 10,
+        "population": 11312,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Tuvalu",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 183,
+        "name": "Uganda",
+        "capital": "Kampala",
+        "currency": "Ugandan shilling",
+        "primaryLanguage": "English, Swahili",
+        "areaSqMi": 93065,
+        "population": 48582334,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Uganda",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 184,
+        "name": "Ukraine",
+        "capital": "Kyiv",
+        "currency": "Ukrainian hryvnia",
+        "primaryLanguage": "Ukrainian",
+        "areaSqMi": 233031,
+        "population": 43733762,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Ukraine",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 185,
+        "name": "United Arab Emirates",
+        "capital": "Abu Dhabi",
+        "currency": "United Arab Emirates dirham",
+        "primaryLanguage": "Arabic",
+        "areaSqMi": 32278,
+        "population": 9441129,
+        "sources": [
+            "https://en.wikipedia.org/wiki/United_Arab_Emirates",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 186,
+        "name": "United Kingdom",
+        "capital": "London",
+        "currency": "Pound sterling",
+        "primaryLanguage": "English",
+        "areaSqMi": 93628,
+        "population": 67326569,
+        "sources": [
+            "https://en.wikipedia.org/wiki/United_Kingdom",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 187,
+        "name": "United States",
+        "capital": "Washington, D.C.",
+        "currency": "United States dollar",
+        "primaryLanguage": "English",
+        "areaSqMi": 3796742,
+        "population": 333287557,
+        "sources": [
+            "https://en.wikipedia.org/wiki/United_States",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 188,
+        "name": "Uruguay",
+        "capital": "Montevideo",
+        "currency": "Uruguayan peso",
+        "primaryLanguage": "Spanish",
+        "areaSqMi": 68037,
+        "population": 3422794,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Uruguay",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 189,
+        "name": "Uzbekistan",
+        "capital": "Tashkent",
+        "currency": "Uzbekistani som",
+        "primaryLanguage": "Uzbek",
+        "areaSqMi": 172742,
+        "population": 35163944,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Uzbekistan",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 190,
+        "name": "Vanuatu",
+        "capital": "Port Vila",
+        "currency": "Vanuatu vatu",
+        "primaryLanguage": "Bislama, English, French",
+        "areaSqMi": 4707,
+        "population": 326747,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Vanuatu",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 191,
+        "name": "Vatican City",
+        "capital": "Vatican City",
+        "currency": "Euro",
+        "primaryLanguage": "Italian, Latin",
+        "areaSqMi": 0.19,
+        "population": 825,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Vatican_City",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 192,
+        "name": "Venezuela",
+        "capital": "Caracas",
+        "currency": "Venezuelan bolívar",
+        "primaryLanguage": "Spanish",
+        "areaSqMi": 353841,
+        "population": 28301696,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Venezuela",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 193,
+        "name": "Vietnam",
+        "capital": "Hanoi",
+        "currency": "Vietnamese đồng",
+        "primaryLanguage": "Vietnamese",
+        "areaSqMi": 127817,
+        "population": 98186856,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Vietnam",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 194,
+        "name": "Yemen",
+        "capital": "Sana'a",
+        "currency": "Yemeni rial",
+        "primaryLanguage": "Arabic",
+        "areaSqMi": 203850,
+        "population": 33696614,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Yemen",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 195,
+        "name": "Zambia",
+        "capital": "Lusaka",
+        "currency": "Zambian kwacha",
+        "primaryLanguage": "English",
+        "areaSqMi": 290587,
+        "population": 20017675,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Zambia",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    },
+    {
+        "id": 196,
+        "name": "Zimbabwe",
+        "capital": "Harare",
+        "currency": "Zimbabwean dollar",
+        "primaryLanguage": "English, Shona, Ndebele",
+        "areaSqMi": 150872,
+        "population": 16665409,
+        "sources": [
+            "https://en.wikipedia.org/wiki/Zimbabwe",
+            "https://github.com/mledoze/countries",
+            "https://data.worldbank.org/"
+        ]
+    }
+]

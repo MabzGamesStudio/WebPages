@@ -1,0 +1,56 @@
+mem-quiz/
+├── public/
+│   └── favicon.ico
+├── src/
+│   ├── assets/
+│   │   └── (images, fonts, etc.)
+│   ├── components/
+│   │   ├── ui/
+│   │   │   ├── Button.tsx
+│   │   │   ├── Button.module.scss
+│   │   │   ├── TextInput.tsx
+│   │   │   ├── TextInput.module.scss
+│   │   │   ├── MultipleChoice.tsx
+│   │   │   └── MultipleChoice.module.scss
+│   │   ├── quiz/
+│   │   │   ├── QuizHeader.tsx
+│   │   │   ├── QuizHeader.module.scss
+│   │   │   ├── BatchSelector.tsx
+│   │   │   └── BatchSelector.module.scss
+│   │   └── layout/
+│   │       ├── Navbar.tsx
+│   │       └── Navbar.module.scss
+│   ├── data/
+│   │   ├── modules.json            # Registry of all quiz modules
+│   │   ├── periodic-table.json     # Data for periodic table module
+│   │   └── countries-capitals.json # Data for countries module
+│   ├── hooks/
+│   │   ├── useQuizState.ts         # Skeleton for quiz logic
+│   │   └── useBatching.ts          # Skeleton for chunking logic
+│   ├── pages/
+│   │   ├── Home/
+│   │   │   ├── index.tsx
+│   │   │   └── Home.module.scss
+│   │   ├── ModuleSelect/
+│   │   │   ├── index.tsx
+│   │   │   └── ModuleSelect.module.scss
+│   │   └── QuizPlay/
+│   │       ├── index.tsx
+│   │       └── QuizPlay.module.scss
+│   ├── styles/
+│   │   ├── _variables.scss
+│   │   ├── _mixins.scss
+│   │   └── global.scss
+│   ├── types/
+│   │   └── index.ts                # Core TypeScript interfaces
+│   ├── utils/
+│   │   └── dataLoader.ts           # Skeleton for loading JSONs
+│   ├── App.tsx
+│   ├── App.module.scss
+│   ├── main.tsx
+│   └── vite-env.d.ts
+├── index.html
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+└── LLM_CONTEXT_AND_INSTRUCTIONS.txt
