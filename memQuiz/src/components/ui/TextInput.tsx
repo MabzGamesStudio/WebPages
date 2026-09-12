@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './TextInput.module.scss';
 
 // ✅ Define only the props we actually use, plus inputMode
 interface TextInputProps {
@@ -25,9 +26,10 @@ const TextInput = ({
     className
 }: TextInputProps) => {
 
-    const baseClass = "text-input";
-    const invalidClass = isInvalid ? "text-input--invalid" : "";
-    const closeClass = isCloseButNotExact ? "text-input--close" : "";
+    const inputClass = `${styles['text-input']} 
+                        ${isInvalid ? styles['text-input--invalid'] : ''} 
+                        ${isCloseButNotExact ? styles['text-input--close'] : ''} 
+                        ${className || ''}`;
 
     return (
         <input
@@ -37,7 +39,7 @@ const TextInput = ({
             placeholder={placeholder}
             disabled={disabled}
             inputMode={inputMode} // ✅ Pass it to the HTML input
-            className={`${baseClass} ${invalidClass} ${closeClass} ${className || ''}`}
+            className={inputClass}
         />
     );
 };

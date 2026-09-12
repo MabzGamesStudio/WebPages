@@ -7,6 +7,7 @@ import { useSettings } from '../../hooks/useSettings';
 import TopBar from '../../components/layout/TopBar';
 import InputStack from '../../components/quiz/InputStack';
 import styles from './QuizPlay.module.scss';
+import { getDataModule } from '../../data';
 
 const QuizPlay = () => {
     const { moduleId } = useParams();
@@ -22,7 +23,12 @@ const QuizPlay = () => {
         if (stored) setSessionConfig(JSON.parse(stored));
 
         if (config) {
-            import(`../../data/${config.dataFile}`).then((mod: any) => setData(mod.default));
+            const d = getDataModule(config.dataFile);
+            if (d) {
+                setData(d);
+            } else {
+                console.error(`Failed to load data for ${config.dataFile}`);
+            }
         }
     }, [config]);
 

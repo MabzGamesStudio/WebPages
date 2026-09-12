@@ -1,0 +1,37 @@
+.input-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.input-stack__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-stack__label {
+    font-weight: 600;
+    color: #334155;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.input-stack__type {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    background: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.input-stack__error-msg {
+    color: #ef4444;
+    font-size: 0.85rem;
+    margin-top: 4px;
+}

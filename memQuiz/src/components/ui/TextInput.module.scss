@@ -58,3 +58,43 @@
         }
     }
 }
+
+.text-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: all 0.2s ease;
+    outline: none;
+
+    &:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    &:disabled {
+        background-color: #f8fafc;
+        color: #94a3b8;
+        cursor: not-allowed;
+    }
+}
+
+.text-input--invalid {
+    border-color: #ef4444;
+    background-color: #fef2f2;
+
+    &:focus {
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+}
+
+.text-input--close {
+    border-color: #f59e0b;
+    background-color: #fffbeb;
+
+    &:focus {
+        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+    }
+}

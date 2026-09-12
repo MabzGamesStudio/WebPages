@@ -5,6 +5,7 @@ import { GenericOutputType } from '../../types';
 import { useSettings } from '../../hooks/useSettings';
 import TopBar from '../../components/layout/TopBar';
 import styles from './ModuleSelect.module.scss';
+import { getDataModule } from '../../data';
 
 interface QuizHistoryEntry {
     moduleId: string;
@@ -39,48 +40,44 @@ const ModuleSelect = () => {
 
     useEffect(() => {
         if (config) {
-            import(`../../data/${config.dataFile}`).then((mod: any) => {
-                const d = mod.default;
-                setModuleData(d);
-                setDataLength(d.length);
+            const d = getDataModule(config.dataFile);
 
-                // 1. Check for recent settings for this module
-                const storedRecent = localStorage.getItem(`memquiz_recent_${moduleId}`);
+            if (!d) {
+                console.error(`Data file not found: ${config.dataFile}`);
+                alert(`Could not load data file: ${config.dataFile}. Ensure it exists in src/data/`);
+                return;
+            }
 
-                if (storedRecent) {
-                    const parsedRecent: RecentSetting[] = JSON.parse(storedRecent);
-                    setRecentSettings(parsedRecent);
+            setModuleData(d);
+            setDataLength(d.length);
+            setSelectedBatches([0]);
 
-                    if (parsedRecent.length > 0) {
-                        const mostRecent = parsedRecent[0];
+            // Check for recent settings
+            const storedRecent = localStorage.getItem(`memquiz_recent_${moduleId}`);
 
-                        // Apply saved settings
-                        setActiveOutputs(mostRecent.activeOutputs);
-                        setSelectedBatches(mostRecent.selectedBatches);
-                        updateSettings({ batchSize: mostRecent.batchSize });
-                    } else {
-                        // Fallback to defaults if array is empty
-                        setSelectedBatches([0]);
-                        initializeDefaultOutputs();
-                    }
+            if (storedRecent) {
+                const parsedRecent: RecentSetting[] = JSON.parse(storedRecent);
+                setRecentSettings(parsedRecent);
+
+                if (parsedRecent.length > 0) {
+                    const mostRecent = parsedRecent[0];
+                    setActiveOutputs(mostRecent.activeOutputs);
+                    setSelectedBatches(mostRecent.selectedBatches && mostRecent.selectedBatches.length > 0 ? mostRecent.selectedBatches : [0]);
+                    updateSettings({ batchSize: mostRecent.batchSize });
                 } else {
-                    // Fallback to defaults if no history exists
-                    setSelectedBatches([0]);
                     initializeDefaultOutputs();
                 }
-            });
+            } else {
+                initializeDefaultOutputs();
+            }
         }
     }, [config, moduleId]);
 
     const initializeDefaultOutputs = () => {
         if (!config) return;
-
         const initialOutputs: Record<string, GenericOutputType> = {};
-
-        // ✅ Explicitly type the entries to avoid implicit any errors
         Object.entries(config.availableOutputTypes).forEach(([key, types]: [string, any]) => {
             if (config!.defaultOutputs.includes(key)) {
-                // Ensure we only assign if types exists and has items
                 if (Array.isArray(types) && types.length > 0) {
                     initialOutputs[key] = types[0];
                 }
