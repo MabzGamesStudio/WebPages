@@ -58,6 +58,12 @@ function rewritePaths(html) {
         .replace(/\.\.\/pages\/webTools\//g, "./");
 }
 
+// NEW: in source, tools live at webPages/pages/webTools/<id>.html, so "../../" = webPages/.
+// In the build, tools sit beside css/, js/ and index.html, so "../../" becomes "./".
+function rewriteToolPaths(html) {
+    return html.replace(/(["'(=])\.\.\/\.\.\//g, "$1./");
+}
+
 // ---------- main ----------
 async function clean() {
     if (await exists(OUT)) {
@@ -110,9 +116,11 @@ async function writeStatic() {
         if (!(await exists(src))) { console.warn("⚠ missing", from); continue; }
         const dest = join(OUT, to);
         await ensureDir(dirname(dest));
-        let content = await readFile(src, "utf8");
-        if (to.endsWith(".html")) content = rewritePaths(content);
-        await writeFile(dest, content);
+        if (to.endsWith(".html")) {
+            await writeFile(dest, rewritePaths(await readFile(src, "utf8")));
+        } else {
+            await copyFile(src, dest);   // byte-for-byte, safe for any asset type
+        }
         console.log("✓", to);
     }
 }
@@ -120,7 +128,7 @@ async function writeStatic() {
 async function writeTools(tools) {
     for (const t of tools) {
         const dest = join(OUT, `${t.id}.html`);
-        await writeFile(dest, t.html);
+        await writeFile(dest, rewriteToolPaths(t.html));   // ← changed
         console.log("✓ tool:", t.id);
     }
 }
