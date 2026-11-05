@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Web Tools</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+</head>
+
+<body>
+    <header class="top">
+        <h1>🧰 Web Tools</h1>
+        <nav>
+            <a href="./index.html" class="active"><span class="nav-icon">🔍</span>Home</a>
+            <a href="./add.html"><span class="nav-icon">➕</span>Add</a>
+            <button class="nav" id="exportBtn"><span class="nav-icon">📤</span>Export</button>
+            <button class="nav" id="importBtn"><span class="nav-icon">📥</span>Import</button>
+            <button class="nav" id="sendBtn"><span class="nav-icon">📱</span>Send (QR)</button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h2>Find a tool</h2>
+            <div class="row" style="align-items:center">
+                <input id="q" type="search" placeholder="Search tools (fuzzy + embeddings)…" autofocus style="flex:3" />
+                <button class="secondary" id="rescanBtn" style="flex:0 0 auto">Rescan</button>
+            </div>
+            <div id="results" class="grid" style="margin-top:12px"></div>
+        </section>
+    </main>
+
+    <footer>Built as a static site · Data stored locally in your browser</footer>
+
+    <script type="module">
+        import { Tools, searchTools } from "./js/app.js";
+
+        /* ---------- Seed manifest if present ---------- */
+        (async () => {
+            try {
+                const res = await fetch("./tools-manifest.json", { cache: "no-store" });
+                if (res.ok) {
+                    const manifest = await res.json();
+                    const have = new Set(Tools.list().map(t => t.id));
+                    for (const t of manifest) {
+                        if (!have.has(t.id)) {
+                            Tools.add({
+                                id: t.id, name: t.name, description: t.description, tags: t.tags,
+                                code: "", _manifest: true
+                            });
+                        }
+                    }
+                    render(await searchTools(""));
+                }
+            } catch { }
+        })();
+
+        /* ---------- Search ---------- */
+        function render(list) {
+            const el = document.getElementById("results");
+            if (!list.length) {
+                el.innerHTML = `<div class="muted">No tools yet. <a href="./add.html">Add one</a>.</div>`;
+                return;
+            }
+            el.innerHTML = list.map(({ doc }) => `
+    <a class="card" href="./${doc.id}.html" style="text-decoration:none;color:inherit">
+      <h3 style="margin:0 0 6px">${escape(doc.name)}</h3>
+      <div class="muted small">${escape(doc.description || "")}</div>
+      <div style="margin-top:8px">${(doc.tags || []).map(t => `<span class="tag">${escape(t)}</span>`).join("")}</div>
+    </a>`).join("");
+        }
+        function escape(s) { return (s || "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])) }
+
+        let debounce;
+        document.getElementById("q").addEventListener("input", e => {
+            clearTimeout(debounce);
+            debounce = setTimeout(async () => {
+                render(await searchTools(e.target.value));
+            }, 150);
+        });
+        render(await searchTools(""));
+
+        /* ---------- Export / Import / Send ---------- */
+        document.getElementById("exportBtn").onclick = () => {
+            const blob = new Blob([Tools.exportJSON()], { type: "application/json" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "tools.json";
+            a.click();
+        };
+        document.getElementById("importBtn").onclick = () => {
+            const inp = document.createElement("input");
+            inp.type = "file"; inp.accept = "application/json";
+            inp.onchange = () => {
+                const f = inp.files[0]; if (!f) return;
+                const r = new FileReader();
+                r.onload = () => {
+                    try { const n = Tools.importJSON(r.result); alert(`Imported ${n} tools.`); location.reload(); }
+                    catch { alert("Invalid JSON"); }
+                };
+                r.readAsText(f);
+            };
+            inp.click();
+        };
+        document.getElementById("sendBtn").onclick = async () => {
+            const { openSendDialog } = await import("./js/transfer-ui.js");
+            openSendDialog(Tools.list(), "Send all tools via QR");
+        };
+        async function seedFromManifest() {
+            try {
+                const res = await fetch("./tools-manifest.json?t=" + Date.now(), { cache: "no-store" });
+                if (!res.ok) return 0;
+                const manifest = await res.json();
+                const have = new Set(Tools.list().map(t => t.id));
+                let added = 0;
+                for (const t of manifest) {
+                    if (!have.has(t.id)) {
+                        Tools.add({
+                            id: t.id, name: t.name, description: t.description, tags: t.tags,
+                            code: "", _manifest: true
+                        });
+                        added++;
+                    }
+                }
+                return added;
+            } catch { return 0; }
+        }
+
+        await seedFromManifest();
+
+        document.getElementById("rescanBtn").onclick = async () => {
+            const btn = document.getElementById("rescanBtn");
+            btn.textContent = "Scanning…";
+            const n = await seedFromManifest();
+            render(await searchTools(document.getElementById("q").value));
+            btn.textContent = n ? `Added ${n}` : "Up to date";
+            setTimeout(() => { btn.textContent = "Rescan"; }, 1500);
+        };
+    </script>
+</body>
+
+</html>

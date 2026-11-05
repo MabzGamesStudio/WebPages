@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Add Tool · Web Tools</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+</head>
+
+<body>
+    <header class="top">
+        <h1>🧰 Web Tools — Add</h1>
+        <nav>
+            <a href="./index.html"><span class="nav-icon">🔍</span>Home</a>
+            <a href="./add.html" class="active"><span class="nav-icon">➕</span>Add</a>
+            <button class="nav" id="exportBtn"><span class="nav-icon">📤</span>Export</button>
+            <button class="nav" id="importBtn"><span class="nav-icon">📥</span>Import</button>
+            <button class="nav" id="sendBtn"><span class="nav-icon">📱</span>Send (QR)</button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- PROMPT TEMPLATE -->
+        <section class="card alt">
+            <h2>Prompt template</h2>
+            <p class="muted small">
+                Describe the tool you want, then copy the prompt and paste it into your AI.
+            </p>
+
+            <textarea id="toolDesc"
+                placeholder="Describe your tool… e.g. A pomodoro timer with 25/5 minute cycles, start/pause/reset buttons, a circular progress ring, and a sound alert when the session ends."></textarea>
+
+            <div class="row" style="margin-top:10px">
+                <button id="copyPrompt">Copy prompt</button>
+                <details class="secondary" style="flex:1;margin:0">
+                    <summary style="padding:10px 14px;cursor:pointer">Advanced — edit prompt context</summary>
+                    <div style="padding:10px 14px 14px">
+                        <div class="muted small" style="margin-bottom:6px">
+                            Use <code>{{TOOL_DESCRIPTION}}</code> as the placeholder for your description above.
+                        </div>
+                        <textarea id="promptTpl"></textarea>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- CREATE TOOL FROM AI RESPONSE -->
+        <section class="card">
+            <h2>Create tool from AI response</h2>
+            <p class="muted small">
+                Paste the HTML your AI generated. We'll extract the <code>&lt;!-- TOOL_META --&gt;</code> block
+                (name, description, tags) and save the tool locally.
+            </p>
+
+            <textarea id="code" placeholder="<!doctype html>..."></textarea>
+
+            <div class="row" style="margin-top:10px">
+                <button id="previewBtn">Preview</button>
+                <button id="saveBtn">Save tool</button>
+                <button class="secondary" id="autoTags">Auto-tag from description</button>
+            </div>
+
+            <section class="card alt" id="metaCard" style="display:none;margin-top:14px">
+                <h3 style="margin-top:0">Metadata</h3>
+                <div class="row">
+                    <div><label class="small muted">Name</label><input id="mName" type="text" /></div>
+                    <div><label class="small muted">ID (filename)</label><input id="mId" type="text" /></div>
+                </div>
+                <div style="margin-top:8px"><label class="small muted">Description</label>
+                    <textarea id="mDesc" style="min-height:80px"></textarea>
+                </div>
+                <div style="margin-top:8px"><label class="small muted">Tags (comma separated)</label>
+                    <input id="mTags" type="text" />
+                </div>
+            </section>
+
+            <section class="card" id="previewCard" style="display:none;margin-top:14px">
+                <h3 style="margin-top:0">Preview</h3>
+                <iframe id="previewFrame"
+                    style="width:100%;height:520px;border:1px solid var(--border);border-radius:10px;background:#000"></iframe>
+            </section>
+        </section>
+    </main>
+
+    <footer>Built as a static site · Data stored locally in your browser</footer>
+
+    <script type="module">
+        import { Tools, extractTags } from "./js/app.js";
+
+        /* ---------- Prompt template ---------- */
+        const DEFAULT_TEMPLATE = `You are generating a SINGLE static HTML file for a web tool.
+Output ONLY the complete HTML document (no markdown, no commentary).
+
+REQUIREMENTS
+- Self-contained: inline <style> and <script>. No external assets except CDN libraries if required.
+- Dark theme using these CSS variables:
+  --bg:#0b0d12; --bg2:#11141b; --panel:#161a23; --panel2:#1c2130;
+  --border:#262c3a; --text:#e6e8ee; --muted:#9aa3b2;
+  --accent:#7c9cff; --accent2:#22d3ee; --ok:#34d399; --warn:#fbbf24; --err:#f87171;
+- Mobile responsive (flex/grid, media queries for <=640px).
+- Accessible: semantic HTML, labels on inputs, keyboard-friendly buttons.
+- Include a small header with the tool name and a brief description.
+- All state in JS; no backend.
+
+METADATA (must appear as a JSON block inside <!-- TOOL_META ... -->):
+{
+  "name": "Human readable name",
+  "description": "One or two sentence description",
+  "tags": ["keyword1","keyword2","keyword3"]
+}
+
+TOOL DESCRIPTION
+{{TOOL_DESCRIPTION}}
+
+Return ONLY the HTML file.`;
+
+        const TPL_KEY = "webtools.promptTemplate.v1";
+        const tplEl = document.getElementById("promptTpl");
+        const descEl = document.getElementById("toolDesc");
+        tplEl.value = localStorage.getItem(TPL_KEY) || DEFAULT_TEMPLATE;
+        tplEl.addEventListener("input", () => localStorage.setItem(TPL_KEY, tplEl.value));
+
+        function buildFinalPrompt() {
+            const desc = descEl.value.trim();
+            const tpl = tplEl.value;
+            if (!desc) return null;
+            return tpl.includes("{{TOOL_DESCRIPTION}}")
+                ? tpl.replace("{{TOOL_DESCRIPTION}}", desc)
+                : tpl + "\n\nTOOL DESCRIPTION\n" + desc;
+        }
+        document.getElementById("copyPrompt").onclick = async () => {
+            const text = buildFinalPrompt();
+            const btn = document.getElementById("copyPrompt");
+            if (!text) {
+                btn.textContent = "Enter a description first";
+                setTimeout(() => { btn.textContent = "Copy prompt"; }, 1800);
+                return;
+            }
+            await navigator.clipboard.writeText(text);
+            btn.textContent = "Copied ✓";
+            setTimeout(() => { btn.textContent = "Copy prompt"; }, 1500);
+        };
+
+        /* ---------- Create tool from AI response ---------- */
+        function parseMeta(html) {
+            const m = html.match(/<!--\s*TOOL_META\s*([\s\S]*?)-->/i);
+            if (!m) return null;
+            try { return JSON.parse(m[1]); } catch { return null; }
+        }
+        function slug(s) { return (s || "tool").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "tool"; }
+
+        const codeEl = document.getElementById("code");
+        const metaCard = document.getElementById("metaCard");
+        const previewCard = document.getElementById("previewCard");
+
+        document.getElementById("previewBtn").onclick = () => {
+            const html = codeEl.value;
+            document.getElementById("previewFrame").srcdoc = html;
+            previewCard.style.display = "block";
+            const meta = parseMeta(html);
+            if (meta) {
+                document.getElementById("mName").value = meta.name || "";
+                document.getElementById("mDesc").value = meta.description || "";
+                document.getElementById("mTags").value = (meta.tags || []).join(", ");
+                document.getElementById("mId").value = slug(meta.name);
+                metaCard.style.display = "block";
+            }
+        };
+        document.getElementById("autoTags").onclick = () => {
+            document.getElementById("mTags").value = extractTags(document.getElementById("mDesc").value).join(", ");
+        };
+        document.getElementById("saveBtn").onclick = () => {
+            const html = codeEl.value;
+            if (!html.trim()) { alert("Paste the HTML first."); return; }
+            const name = document.getElementById("mName").value.trim() || "Untitled";
+            const id = document.getElementById("mId").value.trim() || slug(name);
+            const description = document.getElementById("mDesc").value.trim();
+            const tags = document.getElementById("mTags").value.split(",").map(s => s.trim()).filter(Boolean);
+            const tool = { id, name, description, tags, code: html };
+            Tools.add(tool);
+            const blob = new Blob([html], { type: "text/html" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = `${id}.html`;
+            a.click();
+            alert(`Saved locally as "${name}" (${id}).\nAlso downloaded ${id}.html — drop it into pages/webTools/ then run "npm run build".`);
+            location.href = "./index.html";
+        };
+
+        /* ---------- Export / Import / Send ---------- */
+        document.getElementById("exportBtn").onclick = () => {
+            const blob = new Blob([Tools.exportJSON()], { type: "application/json" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "tools.json";
+            a.click();
+        };
+        document.getElementById("importBtn").onclick = () => {
+            const inp = document.createElement("input");
+            inp.type = "file"; inp.accept = "application/json";
+            inp.onchange = () => {
+                const f = inp.files[0]; if (!f) return;
+                const r = new FileReader();
+                r.onload = () => {
+                    try { const n = Tools.importJSON(r.result); alert(`Imported ${n} tools.`); location.reload(); }
+                    catch { alert("Invalid JSON"); }
+                };
+                r.readAsText(f);
+            };
+            inp.click();
+        };
+        document.getElementById("sendBtn").onclick = async () => {
+            const { openSendDialog } = await import("./js/transfer-ui.js");
+            openSendDialog(Tools.list(), "Send all tools via QR");
+        };
+    </script>
+</body>
+
+</html>
