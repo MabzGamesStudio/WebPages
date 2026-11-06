@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   base: './',
   build: {
-    outDir: '../pages/tempSpiral',
+    outDir: '../pages/weatherSpiral',
     emptyOutDir: true,
   },
 });

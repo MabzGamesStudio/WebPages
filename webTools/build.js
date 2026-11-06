@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = __dirname;
-const SRC_TOOLS = join(ROOT, "pages", "webTools");
+const SRC_TOOLS = join(ROOT, "tools");
 const OUT = join(ROOT, "..", "pages", "webTools");
 
 const STATIC_FILES = [

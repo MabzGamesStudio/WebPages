@@ -64,7 +64,7 @@
                 return;
             }
             el.innerHTML = list.map(({ doc }) => `
-    <a class="card" href="./pages/webTools/${doc.id}.html" style="text-decoration:none;color:inherit">
+    <a class="card" href="./tools/${doc.id}.html" style="text-decoration:none;color:inherit">
       <h3 style="margin:0 0 6px">${escape(doc.name)}</h3>
       <div class="muted small">${escape(doc.description || "")}</div>
       <div style="margin-top:8px">${(doc.tags || []).map(t => `<span class="tag">${escape(t)}</span>`).join("")}</div>

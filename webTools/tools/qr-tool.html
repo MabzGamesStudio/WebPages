@@ -313,11 +313,13 @@
             });
         });
         document.querySelectorAll(".tabs > button[data-ot]").forEach(b => {
-            b.addEventListener("click", () => {
-                document.querySelectorAll(".tabs > button[data-ot]").forEach(x => x.classList.toggle("active", x === b));
-                const t = b.dataset.ot;
+            function showOutTab(t) {
+                document.querySelectorAll(".tabs > button[data-ot]").forEach(x => x.classList.toggle("active", x.dataset.ot === t));
                 document.getElementById("outText").style.display = t === "text" ? "" : "none";
                 document.getElementById("outMedia").style.display = t === "text" ? "none" : "";
+            }
+            document.querySelectorAll(".tabs > button[data-ot]").forEach(b => {
+                b.addEventListener("click", () => showOutTab(b.dataset.ot));
             });
         });
 
@@ -620,27 +622,73 @@
             return code ? code.data : null;
         }
 
+        let lastDecoded = null;   // { name, mime, data } of the last decoded image/file
+
+        const MIME_EXT = {
+            "image/jpeg": "jpg", "image/png": "png", "image/gif": "gif", "image/webp": "webp",
+            "image/svg+xml": "svg", "image/bmp": "bmp", "image/avif": "avif",
+            "application/pdf": "pdf", "text/plain": "txt", "video/mp4": "mp4", "video/webm": "webm"
+        };
+        // keep the original filename (IMG_0003.jpeg); only add an extension if the name has none
+        function fileNameFor(obj) {
+            let name = obj.name || "file";
+            if (!/\.[A-Za-z0-9]{1,6}$/.test(name) && MIME_EXT[obj.mime]) name += "." + MIME_EXT[obj.mime];
+            return name;
+        }
+        async function downloadDataUrl(dataUrl, name) {
+            const blob = await (await fetch(dataUrl)).blob();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url; a.download = name;
+            document.body.appendChild(a); a.click(); a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+
         function showDecoded(payloadStr) {
             let obj;
             try { obj = JSON.parse(b64decode(payloadStr)); }
-            catch { document.getElementById("outText").value = payloadStr; return; }
+            catch {
+                lastDecoded = null;
+                document.getElementById("outText").value = payloadStr;
+                showOutTab("text");
+                return;
+            }
+
+            const m = document.getElementById("outMedia");
+            lastDecoded = null;
 
             if (obj.kind === "text") {
                 document.getElementById("outText").value = b64decode(obj.data);
+                showOutTab("text");
             } else if (obj.kind === "image" || obj.kind === "file") {
                 document.getElementById("outText").value = "";
-                const m = document.getElementById("outMedia"); m.innerHTML = "";
+                m.innerHTML = "";
+                const name = fileNameFor(obj);
+                lastDecoded = { name, mime: obj.mime, data: obj.data };
+
                 if (obj.mime && obj.mime.startsWith("image/")) {
-                    const img = document.createElement("img"); img.src = obj.data; img.className = "thumb"; m.appendChild(img);
+                    const img = document.createElement("img");
+                    img.src = obj.data; img.className = "thumb";
+                    img.style.maxHeight = "70vh"; img.style.display = "block"; img.style.marginBottom = "8px";
+                    m.appendChild(img);
                 } else if (obj.mime && obj.mime.startsWith("video/")) {
-                    const v = document.createElement("video"); v.src = obj.data; v.controls = true; v.style.maxWidth = "100%"; m.appendChild(v);
-                } else {
-                    const a = document.createElement("a"); a.href = obj.data; a.download = obj.name || "file"; a.textContent = "Download file";
-                    m.appendChild(a);
+                    const v = document.createElement("video");
+                    v.src = obj.data; v.controls = true; v.style.maxWidth = "100%"; v.style.marginBottom = "8px";
+                    m.appendChild(v);
                 }
+
+                const info = document.createElement("div");
+                info.className = "small muted"; info.style.marginBottom = "8px";
+                info.textContent = `${name} · ${obj.mime || "unknown type"}`;
+                const btn = document.createElement("button");
+                btn.textContent = `Download ${name}`;
+                btn.onclick = () => downloadDataUrl(obj.data, name);
+                m.append(info, btn);
+
+                showOutTab(obj.kind === "image" ? "image" : "file");
             } else if (obj.kind === "video") {
                 document.getElementById("outText").value = "";
-                const m = document.getElementById("outMedia"); m.innerHTML = "";
+                m.innerHTML = "";
                 try {
                     const vobj = JSON.parse(b64decode(obj.data.replace(/^data:[^;]+;base64,/, "")));
                     const c = document.createElement("canvas"); c.width = vobj.w; c.height = vobj.h;
@@ -655,6 +703,7 @@
                     };
                     draw(); setInterval(draw, 160);
                 } catch (e) { m.textContent = "Could not render video."; }
+                showOutTab("file");
             }
             document.getElementById("scanStat").innerHTML = `<span class="ok">Decoded successfully.</span>`;
         }
@@ -846,6 +895,7 @@
             await navigator.clipboard.writeText(t); alert("Copied.");
         };
         document.getElementById("saveOut").onclick = () => {
+            if (lastDecoded) { downloadDataUrl(lastDecoded.data, lastDecoded.name); return; }   // image/file → real file
             const t = document.getElementById("outText").value;
             const blob = new Blob([t], { type: "text/plain" });
             const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "decoded.txt"; a.click();
@@ -853,6 +903,7 @@
         document.getElementById("clearOut").onclick = () => {
             document.getElementById("outText").value = "";
             document.getElementById("outMedia").innerHTML = "";
+            lastDecoded = null;
             recv.reset();
         };
 

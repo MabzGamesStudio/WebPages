@@ -113,7 +113,7 @@ METADATA (must appear as a JSON block inside <!-- TOOL_META ... -->):
 TOOL DESCRIPTION
 {{TOOL_DESCRIPTION}}
 
-Return ONLY the HTML file.`;
+Return ONLY the HTML file in a code block that I can copy and paste.`;
 
         const TPL_KEY = "webtools.promptTemplate.v1";
         const tplEl = document.getElementById("promptTpl");
@@ -184,7 +184,7 @@ Return ONLY the HTML file.`;
             a.href = URL.createObjectURL(blob);
             a.download = `${id}.html`;
             a.click();
-            alert(`Saved locally as "${name}" (${id}).\nAlso downloaded ${id}.html — drop it into pages/webTools/ then run "npm run build".`);
+            alert(`Saved locally as "${name}" (${id}).\nAlso downloaded ${id}.html — drop it into tools/ then run "npm run build".`);
             location.href = "./index.html";
         };
 
