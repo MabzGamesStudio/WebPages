@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Tool</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+
+        #frame {
+            flex: 1;
+            min-height: 0;
+            width: 100%;
+            border: 0;
+            background: #fff;
+        }
+
+        #msg {
+            padding: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top">
+        <h1 id="title">🧰 Tool</h1>
+        <nav><a href="../index.html">← Home</a></nav>
+    </header>
+
+    <div id="msg" class="muted" hidden></div>
+    <iframe id="frame" hidden
+        allow="camera; microphone; fullscreen; clipboard-read; clipboard-write; geolocation; autoplay"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-popups allow-downloads allow-pointer-lock"></iframe>
+
+    <script type="module">
+        import { Tools } from "../js/app.js";
+
+        // The tool id arrives as ?id=<id> (a #<id> fallback is accepted too).
+        const id = new URLSearchParams(location.search).get("id") || decodeURIComponent(location.hash.slice(1));
+        const msg = document.getElementById("msg");
+        const frame = document.getElementById("frame");
+
+        function fail(html) { msg.innerHTML = html; msg.hidden = false; }
+
+        const tool = id ? Tools.get(id) : null;
+
+        if (!id) {
+            fail(`No tool id was given. <a href="../index.html">Pick a tool</a>.`);
+        } else if (!tool) {
+            fail(`No local tool with id <code></code> was found in this browser. It may have been created on another device. <a href="../index.html">Back home</a>.`);
+            msg.querySelector("code").textContent = id;
+        } else if (tool._manifest) {
+            // Site tool, not a local one: it has a real page.
+            location.replace(`./${encodeURIComponent(tool.id)}.html`);
+        } else if (!tool.code) {
+            fail(`This tool has no code saved. <a href="../add.html">Add it again</a>.`);
+        } else {
+            document.title = tool.name || "Tool";
+            document.getElementById("title").textContent = "🧰 " + (tool.name || "Tool");
+            // Saved code may be a full page or just a fragment; wrap fragments so they render properly.
+            const isPage = /<!doctype|<html[\s>]/i.test(tool.code);
+            frame.srcdoc = isPage ? tool.code :
+                `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>${tool.code}</body></html>`;
+            frame.hidden = false;
+        }
+    </script>
+</body>
+
+</html>

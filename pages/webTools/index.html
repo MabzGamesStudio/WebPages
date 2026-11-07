@@ -6,6 +6,49 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Web Tools</title>
     <link rel="stylesheet" href="./css/styles.css" />
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 6px);
+            min-width: 190px;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 6px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+        }
+
+        .dropdown-menu[hidden] {
+            display: none;
+        }
+
+        .dropdown-menu button {
+            text-align: left;
+            background: transparent;
+            border: 0;
+            color: inherit;
+            padding: 9px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font: inherit;
+        }
+
+        .dropdown-menu button:hover,
+        .dropdown-menu button:focus-visible {
+            background: var(--panel2, rgba(255, 255, 255, .08));
+            outline: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -14,9 +57,15 @@
         <nav>
             <a href="./index.html" class="active"><span class="nav-icon">🔍</span>Home</a>
             <a href="./add.html"><span class="nav-icon">➕</span>Add</a>
-            <button class="nav" id="exportBtn"><span class="nav-icon">📤</span>Export</button>
+            <div class="dropdown" id="exportMenu">
+                <button class="nav" id="exportBtn" aria-haspopup="menu" aria-expanded="false"><span
+                        class="nav-icon">📤</span>Export ▾</button>
+                <div class="dropdown-menu" id="exportList" role="menu" hidden>
+                    <button role="menuitem" data-export="download">⬇️ Download (JSON)</button>
+                    <button role="menuitem" data-export="qr">📱 QR</button>
+                </div>
+            </div>
             <button class="nav" id="importBtn"><span class="nav-icon">📥</span>Import</button>
-            <button class="nav" id="sendBtn"><span class="nav-icon">📱</span>Send (QR)</button>
         </nav>
     </header>
 
@@ -34,7 +83,10 @@
     <footer>Built as a static site · Data stored locally in your browser</footer>
 
     <script type="module">
-        import { Tools, searchTools } from "./js/app.js";
+        import { Tools, searchTools, toolHref, localOnlyTools } from "./js/app.js";
+
+        // Where the QR Studio tool lives (same URL scheme the tool cards already use for site tools).
+        const QR_TOOL_URL = "./tools/qr-tool.html";
 
         /* ---------- Seed manifest if present ---------- */
         (async () => {
@@ -64,7 +116,7 @@
                 return;
             }
             el.innerHTML = list.map(({ doc }) => `
-    <a class="card" href="./${doc.id}.html" style="text-decoration:none;color:inherit">
+    <a class="card" href="${escape(toolHref(doc))}" style="text-decoration:none;color:inherit">
       <h3 style="margin:0 0 6px">${escape(doc.name)}</h3>
       <div class="muted small">${escape(doc.description || "")}</div>
       <div style="margin-top:8px">${(doc.tags || []).map(t => `<span class="tag">${escape(t)}</span>`).join("")}</div>
@@ -82,13 +134,40 @@
         render(await searchTools(""));
 
         /* ---------- Export / Import / Send ---------- */
-        document.getElementById("exportBtn").onclick = () => {
-            const blob = new Blob([Tools.exportJSON()], { type: "application/json" });
-            const a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = "tools.json";
-            a.click();
-        };
+        const exportBtn = document.getElementById("exportBtn");
+        const exportList = document.getElementById("exportList");
+        function setMenu(open) {
+            exportList.hidden = !open;
+            exportBtn.setAttribute("aria-expanded", String(open));
+        }
+        exportBtn.onclick = (e) => { e.stopPropagation(); setMenu(exportList.hidden); };
+        document.addEventListener("click", (e) => { if (!e.target.closest("#exportMenu")) setMenu(false); });
+        document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+
+        exportList.addEventListener("click", async (e) => {
+            const item = e.target.closest("[data-export]");
+            if (!item) return;
+            setMenu(false);
+            // Only local tools that don't already exist on the site are exported.
+            const local = await localOnlyTools();
+            if (!local.length) { alert("No local tools to export yet."); return; }
+            const json = JSON.stringify(local, null, 2);
+
+            if (item.dataset.export === "download") {
+                const blob = new Blob([json], { type: "application/json" });
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(blob);
+                a.download = "local-tools.json";
+                document.body.appendChild(a); a.click(); a.remove();
+                setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+            } else {
+                // QR: hand the manifest to QR Studio (Communicate tab, send mode) through localStorage.
+                try {
+                    localStorage.setItem("qrstudio.handoff", JSON.stringify({ ts: Date.now(), name: "local-tools.json", data: json }));
+                } catch { alert("Could not hand the tools to QR Studio (storage is full or blocked)."); return; }
+                location.href = QR_TOOL_URL;
+            }
+        });
         document.getElementById("importBtn").onclick = () => {
             const inp = document.createElement("input");
             inp.type = "file"; inp.accept = "application/json";
@@ -102,10 +181,6 @@
                 r.readAsText(f);
             };
             inp.click();
-        };
-        document.getElementById("sendBtn").onclick = async () => {
-            const { openSendDialog } = await import("./js/transfer-ui.js");
-            openSendDialog(Tools.list(), "Send all tools via QR");
         };
         async function seedFromManifest() {
             try {

@@ -20,6 +20,27 @@ export const Tools = {
     }
 };
 
+/* ---------- Tool routing ----------
+   Tools that ship with the site (seeded from tools-manifest.json, flagged _manifest) have a
+   real page at tools/<id>.html. Everything created locally (Add page, Import, QR transfer) has
+   no page on disk, so it is opened through the generic runner tools/local.html?id=<id>. */
+export const LOCAL_RUNNER = "tools/local.html";
+export function toolHref(tool, base = "./") {
+    return tool._manifest
+        ? `${base}tools/${encodeURIComponent(tool.id)}.html`
+        : `${base}${LOCAL_RUNNER}?id=${encodeURIComponent(tool.id)}#${encodeURIComponent(tool.id)}`;
+}
+// Local tools that don't already exist on the site: not seeded from the manifest and
+// not listed in it. This is what Export (Download / QR) sends.
+export async function localOnlyTools(manifestUrl = "./tools-manifest.json") {
+    let known = new Set();
+    try {
+        const res = await fetch(manifestUrl, { cache: "no-store" });
+        if (res.ok) known = new Set((await res.json()).map(t => t.id));
+    } catch { }
+    return Tools.list().filter(t => !t._manifest && !known.has(t.id));
+}
+
 // Fuzzy search (Fuse.js-like) — tiny built-in
 function fuzzyScore(query, text) {
     const q = query.toLowerCase(), t = text.toLowerCase();

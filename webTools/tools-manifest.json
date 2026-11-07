@@ -1,19 +1,8 @@
 [
   {
-    "id": "qr-tool",
-    "name": "QR Studio",
-    "description": "Create single or dynamic (looping) QR codes from text, files, images, or video. Scan QRs with your camera and save the decoded result.",
-    "tags": [
-      "qr",
-      "qrcode",
-      "camera",
-      "scanner",
-      "encoder",
-      "file",
-      "image",
-      "video",
-      "transfer",
-      "offline"
-    ]
+    "id": "local",
+    "name": "local",
+    "description": "",
+    "tags": []
   }
 ]
