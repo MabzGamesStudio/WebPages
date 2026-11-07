@@ -1,0 +1,1777 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>QR Studio</title>
+    <!-- TOOL_META
+{
+  "name": "QR Studio",
+  "description": "Create single or dynamic (looping) QR codes from text, files, images, or video. Scan QRs with your camera and save the decoded result.",
+  "tags": ["qr","qrcode","camera","scanner","encoder","file","image","video","transfer","offline"]
+}
+-->
+    <link rel="stylesheet" href="../../css/styles.css" />
+    <style>
+        .io {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px
+        }
+
+        @media(max-width:820px) {
+            .io {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* FIX: the drop zone is now a block-level <div> (it used to be an inline <label>,
+           which is why the dashed border/padding rendered wrongly). The line colour is a
+           local custom property so it stays visible even if --border is very dark. */
+        .drop {
+            --drop-line: #5b6794;
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            border: 2px dashed var(--drop-line);
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color .15s, background .15s;
+        }
+
+        .drop:focus-visible {
+            outline: 2px solid var(--accent, #7c9cff);
+            outline-offset: 2px;
+        }
+
+        .drop.hover {
+            border-color: var(--accent, #7c9cff);
+            background: #0f1422
+        }
+
+        .thumb {
+            max-width: 100%;
+            max-height: 220px;
+            border-radius: 10px;
+            border: 1px solid var(--border)
+        }
+
+        .seg {
+            background: var(--panel2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px
+        }
+
+        #qrContainer {
+            cursor: zoom-in;
+        }
+
+        #qrContainer canvas {
+            width: 100%;
+            max-width: 320px;
+            /* on-page display size, whatever you prefer */
+            height: auto;
+            aspect-ratio: 1;
+            image-rendering: pixelated;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* FIX: fullscreen squish. The on-page rule above sets max-width:320px, which was
+           still applied in fullscreen while the height grew to the full viewport.
+           Here we lift every cap and force a square, and zero out any padding the
+           container inherits from the shared stylesheet. */
+        #qrContainer:fullscreen {
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            padding: 0 !important;
+            margin: 0 !important;
+            width: 100vw;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        #qrContainer:fullscreen canvas,
+        #qrContainer:fullscreen img {
+            width: min(100vw, 100vh) !important;
+            height: min(100vw, 100vh) !important;
+            max-width: none !important;
+            max-height: none !important;
+            aspect-ratio: 1 / 1;
+            flex: none;
+            margin: 0;
+            image-rendering: pixelated;
+        }
+
+        /* ---------- Communicate tab ---------- */
+        .comm-stage {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            align-items: center;
+            padding: 8px;
+            margin-top: 14px;
+            background: #000;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        @media(max-width:820px) {
+            .comm-stage {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .comm-stage[hidden],
+        .comm-stage [hidden] {
+            display: none !important;
+        }
+
+        .comm-stage video {
+            width: 100%;
+            max-height: 60vh;
+            object-fit: contain;
+            background: #111;
+            border-radius: 8px;
+        }
+
+        .comm-stage #commQR {
+            width: 100%;
+            max-width: 420px;
+            max-height: 60vh;
+            aspect-ratio: 1;
+            justify-self: center;
+            image-rendering: pixelated;
+            background: #000;
+        }
+
+        .comm-hud {
+            position: absolute;
+            left: 10px;
+            top: 8px;
+            right: 10px;
+            z-index: 5;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            pointer-events: none;
+            font: 12px system-ui, sans-serif;
+            color: #e2e8f0;
+        }
+
+        .comm-hud span {
+            background: rgba(0, 0, 0, .65);
+            padding: 3px 9px;
+            border-radius: 999px;
+        }
+
+        .comm-exit {
+            display: none;
+            position: absolute;
+            right: 10px;
+            top: 8px;
+            z-index: 9;
+        }
+
+        /* "full screen": native Fullscreen API when available, this fixed layout everywhere (iPhone Safari has no element fullscreen) */
+        body.comm-fs {
+            overflow: hidden;
+        }
+
+        .comm-stage.fs {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: block;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            border-radius: 0;
+        }
+
+        .comm-stage.fs .comm-exit {
+            display: block;
+        }
+
+        .comm-stage.fs .comm-hud {
+            right: 230px;
+            /* keep the chips clear of the Exit / Stop buttons */
+        }
+
+        /* sender: big data QR in the middle, small camera preview tucked in the larger margin */
+        .comm-stage.fs.role-send #commQR {
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: min(80vw, 80vh);
+            height: min(80vw, 80vh);
+            max-width: none;
+            max-height: none;
+        }
+
+        .comm-stage.fs.role-send video {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            z-index: 3;
+            border: 2px solid #334155;
+            max-height: none;
+            width: clamp(70px, calc((100vw - 80vh) / 2 - 24px), 280px);
+        }
+
+        @media (orientation: portrait) {
+            .comm-stage.fs.role-send video {
+                width: clamp(70px, min(40vw, calc(((100vh - 80vw) / 2 - 24px) * 1.33)), 240px);
+            }
+        }
+
+        /* receiver: camera fills the screen, small reply QR in the corner */
+        .comm-stage.fs.role-recv video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            max-height: none;
+            border-radius: 0;
+        }
+
+        .comm-stage.fs.role-recv #commQR {
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+            z-index: 3;
+            width: min(44vw, 44vh);
+            height: min(44vw, 44vh);
+            max-width: none;
+            max-height: none;
+            border: 6px solid #000;
+        }
+
+        /* transfer-complete screen check */
+        .comm-done {
+            position: absolute;
+            inset: 0;
+            z-index: 8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(4, 18, 10, .93);
+            color: #fff;
+            text-align: center;
+            padding: 16px;
+        }
+
+        .comm-done-card {
+            max-width: 420px;
+        }
+
+        .comm-check {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            background: #16a34a;
+            font-size: 72px;
+            line-height: 110px;
+            animation: commPop .45s cubic-bezier(.2, 1.4, .4, 1);
+        }
+
+        @keyframes commPop {
+            from {
+                transform: scale(.2);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        #commDoneQR {
+            width: min(34vmin, 240px);
+            height: min(34vmin, 240px);
+            margin-top: 10px;
+            image-rendering: pixelated;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top">
+        <h1>📷 QR Studio</h1>
+        <nav><a href="../../index.html">← Home</a></nav>
+    </header>
+
+    <main class="container">
+        <div class="tabs">
+            <button class="active" data-tab="create">Create</button>
+            <button data-tab="read">Read</button>
+            <button data-tab="communicate">Communicate</button>
+        </div>
+
+        <!-- CREATE -->
+        <section id="tab-create">
+            <div class="card">
+                <h3>Input</h3>
+                <div class="row">
+                    <div>
+                        <label class="small muted">Mode</label>
+                        <select id="mode">
+                            <option value="text">Text</option>
+                            <option value="file">File (any)</option>
+                            <option value="image">Image → data URL</option>
+                            <option value="video">Video (first N seconds) → data URL</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="small muted">Encoding</label>
+                        <select id="enc">
+                            <option value="single">Single QR</option>
+                            <option value="dynamic">Dynamic (looping chunks)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="small muted">QR width (px)</label>
+                        <input id="qrPx" type="number" value="256" min="128" max="1024" step="16" />
+                    </div>
+                </div>
+
+                <div id="textInput" style="margin-top:10px">
+                    <textarea id="text" placeholder="Type or paste text…"></textarea>
+                </div>
+                <div id="fileInput" style="margin-top:10px;display:none">
+                    <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a file">
+                        <div>Drop a file here or <u>browse</u></div>
+                        <input id="file" type="file" style="display:none" />
+                    </div>
+                    <div id="fileInfo" class="small muted" style="margin-top:6px"></div>
+                </div>
+                <div id="videoInput" style="margin-top:10px;display:none">
+                    <div class="row">
+                        <div><label class="small muted">Seconds to capture</label>
+                            <input id="vSec" type="number" value="3" min="1" max="10" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top:12px">
+                    <button id="genBtn">Generate QR</button>
+                    <button class="secondary" id="copyDataBtn">Copy payload (base64)</button>
+                </div>
+            </div>
+
+            <div class="card alt">
+                <h3>Output</h3>
+                <div class="io">
+                    <div class="seg">
+                        <div class="qr-stage" id="qrContainer"></div>
+                        <div class="row" style="margin-top:8px">
+                            <button class="secondary" id="savePng">Save PNG</button>
+                            <span id="qrInfo" class="status"></span>
+                        </div>
+                        <div id="dynControls" style="display:none;margin-top:8px" class="row">
+                            <label class="small muted" style="flex:2">Frame interval (ms)
+                                <input id="interval" type="number" value="350" min="120" max="2000" />
+                            </label>
+                            <button class="secondary" id="pauseBtn">Pause</button>
+                        </div>
+                    </div>
+                    <div class="seg">
+                        <div class="small muted">Payload preview</div>
+                        <pre id="preview">—</pre>
+                        <div class="small muted" id="sizeLbl">Size: 0 B · Frames: 0</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- READ -->
+        <section id="tab-read" style="display:none">
+            <div class="card">
+                <h3>Camera scanner</h3>
+
+                <!-- Container: full frame, no crop/squish -->
+                <div style="position:relative; width:100%; background:#000; border-radius:10px; overflow:hidden;">
+                    <video id="vid" autoplay playsinline muted style="width:100%; display:block;"></video>
+                    <canvas id="freezeCanvas"
+                        style="width:100%; height:100%; display:none; position:absolute; top:0; left:0;"></canvas>
+                    <canvas id="calibCanvas"
+                        style="width:100%; height:100%; display:none; position:absolute; top:0; left:0; pointer-events:none; touch-action:none;"></canvas>
+                </div>
+
+                <div class="row" style="margin-top:10px; flex-wrap: wrap; gap: 8px;">
+                    <button id="startCam">Start camera</button>
+                    <button class="secondary" id="pauseScanBtn" style="display:none">Pause</button>
+                    <button class="secondary" id="forceScanBtn" style="display:none">Scan Paused Frame</button>
+                    <button class="secondary" id="calibBtn" style="display:none">Mark QR Corners</button>
+                    <button class="secondary" id="stopCam">Stop</button>
+                    <button class="secondary" id="uploadImg">Scan from image</button>
+                    <input id="scanFile" type="file" accept="image/*" style="display:none" />
+                </div>
+                <div class="status" id="scanStat" style="margin-top:8px">Idle.</div>
+            </div>
+            <div class="card alt">
+                <h3>Decoded output</h3>
+                <div class="tabs" style="margin-bottom:8px">
+                    <button class="active" data-ot="text">Text</button>
+                    <button data-ot="image">Image</button>
+                    <button data-ot="file">File</button>
+                </div>
+                <textarea id="outText" placeholder="Decoded text will appear here…"></textarea>
+                <div id="outMedia" style="display:none"></div>
+                <div class="row" style="margin-top:10px">
+                    <button id="copyOut">Copy text</button>
+                    <button class="secondary" id="saveOut">Save as file</button>
+                    <button class="ghost" id="clearOut">Clear</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMMUNICATE -->
+        <section id="tab-communicate" style="display:none">
+            <div class="card">
+                <h3>Device-to-device transfer</h3>
+                <div class="small muted">
+                    Face the two devices' screens toward each other's cameras (front cameras on phones and laptops).
+                    The sender loops dynamic QR chunks. The receiver shows reply QR codes listing the chunks it is
+                    missing and asking the sender to change the tick speed or the QR width. Both sides tune
+                    themselves, so there is nothing to configure.
+                </div>
+
+                <div class="row" style="margin-top:12px;align-items:center">
+                    <div class="tabs" id="roleToggle" style="margin:0">
+                        <button class="active" data-role="send">Send</button>
+                        <button data-role="recv">Receive</button>
+                    </div>
+                    <button id="commCamBtn">Turn on camera</button>
+                    <button class="secondary" id="commFlipBtn" style="display:none">Flip camera</button>
+                    <button class="secondary" id="commFsBtn" style="display:none">Full screen</button>
+                    <button class="danger" id="commStopBtn" style="display:none">Stop</button>
+                </div>
+
+                <!-- sender: same inputs as the Create tab -->
+                <div id="commSendSetup" style="margin-top:12px">
+                    <div class="row">
+                        <div>
+                            <label class="small muted">Data to send</label>
+                            <select id="cMode">
+                                <option value="text">Text</option>
+                                <option value="file">File (any)</option>
+                                <option value="image">Image → data URL</option>
+                                <option value="video">Video (first N seconds) → data URL</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="small muted">Encoding</label>
+                            <select id="cEnc" disabled>
+                                <option>Dynamic QR (auto-tuned)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="cTextInput" style="margin-top:10px">
+                        <textarea id="cText" placeholder="Type or paste text…"></textarea>
+                    </div>
+                    <div id="cFileInput" style="margin-top:10px;display:none">
+                        <div class="drop" id="cDrop" tabindex="0" role="button" aria-label="Choose a file">
+                            <div>Drop a file here or <u>browse</u></div>
+                            <input id="cFile" type="file" style="display:none" />
+                        </div>
+                        <div id="cFileInfo" class="small muted" style="margin-top:6px"></div>
+                    </div>
+                    <div id="cVideoInput" style="margin-top:10px;display:none">
+                        <label class="small muted">Seconds to capture</label>
+                        <input id="cVSec" type="number" value="3" min="1" max="10" />
+                    </div>
+                    <div id="cHandoffInfo" class="small muted" style="margin-top:10px;display:none"></div>
+                    <div class="row" style="margin-top:12px">
+                        <button id="commStartBtn">Start sending</button>
+                    </div>
+                </div>
+
+                <!-- receiver -->
+                <div id="commRecvSetup" style="margin-top:12px;display:none" class="small muted">
+                    Turn on the camera and point it at the sender's screen. It goes full screen automatically and shows
+                    a small reply QR in the corner. Keep that corner visible to the sender's camera.
+                </div>
+
+                <div class="status" id="commStatus" style="margin-top:10px">Idle.</div>
+            </div>
+
+            <div class="comm-stage" id="commStage" hidden>
+                <div class="comm-hud" id="commHud"></div>
+                <div class="comm-exit">
+                    <button class="secondary" id="commExitFs">Exit full screen</button>
+                    <button class="danger" id="commStopFs">Stop</button>
+                </div>
+                <video id="commVid" autoplay playsinline muted></video>
+                <canvas id="commQR" width="320" height="320"></canvas>
+
+                <div class="comm-done" id="commDone" hidden>
+                    <div class="comm-done-card">
+                        <div class="comm-check">✓</div>
+                        <h2 id="commDoneTitle" style="margin:0 0 6px">Transfer complete</h2>
+                        <div id="commDoneInfo" class="small"></div>
+                        <canvas id="commDoneQR" hidden></canvas>
+                        <div class="row" id="commDoneBtns" style="justify-content:center;margin-top:12px"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>QR Studio · static · runs fully offline after first load</footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+    <script src="../../js/lib/jsQR.js"></script>
+    <script>
+        if (typeof qrcode === "undefined" || typeof jsQR === "undefined") {
+            document.querySelector("main").innerHTML =
+                `<div class="card" style="border-color:var(--err)">
+       <h3 style="color:var(--err)">Libraries failed to load</h3>
+       <p>Could not find <code>QRCode</code> or <code>jsQR</code>. Make sure
+       <code>js/lib/qrcode.min.js</code> and <code>js/lib/jsQR.js</code> exist
+       and are served from your site (not opened via <code>file://</code>).</p>
+     </div>`;
+            throw new Error("QR libraries missing");
+        }
+
+        /* ---------- helpers ---------- */
+        function b64encode(str) {
+            const bytes = new TextEncoder().encode(str);
+            let bin = ""; for (const b of bytes) bin += String.fromCharCode(b);
+            return btoa(bin);
+        }
+        function b64decode(b64) {
+            const bin = atob(b64); const bytes = new Uint8Array(bin.length);
+            for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+            return new TextDecoder().decode(bytes);
+        }
+        function fileToDataURL(file) {
+            return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(file); });
+        }
+        function chunkify(b64, size) {
+            const parts = [];
+            for (let i = 0; i < b64.length; i += size) parts.push(b64.slice(i, i + size));
+            return parts;
+        }
+        function frameOf(i, n, id, d) { return JSON.stringify({ i, n, id, d }); }
+        function fmtBytes(n) {
+            if (n < 1024) return n + " B";
+            if (n < 1048576) return (n / 1024).toFixed(1) + " KB";
+            return (n / 1048576).toFixed(2) + " MB";
+        }
+
+        function showFrozen(on) {
+            vid.style.display = on ? "none" : "block";
+            freezeCanvas.style.display = on ? "block" : "none";
+            freezeCanvas.style.position = on ? "static" : "absolute";
+        }
+        const frameW = () => isPaused ? freezeCanvas.width : vid.videoWidth;
+        const frameH = () => isPaused ? freezeCanvas.height : vid.videoHeight;
+        async function openStream() {
+            stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+            vid.srcObject = stream;
+            await vid.play();
+        }
+        function closeStream() {
+            if (stream) stream.getTracks().forEach(t => t.stop());
+            stream = null;
+            vid.srcObject = null;
+        }
+
+        /* ---------- tabs ---------- */
+        document.querySelectorAll(".tabs > button[data-tab]").forEach(b => {
+            b.addEventListener("click", () => {
+                document.querySelectorAll(".tabs > button[data-tab]").forEach(x => x.classList.toggle("active", x === b));
+                const t = b.dataset.tab;
+                document.getElementById("tab-create").style.display = t === "create" ? "" : "none";
+                document.getElementById("tab-read").style.display = t === "read" ? "" : "none";
+                if (t !== "create") stopLoop();
+            });
+        });
+        // (was declared inside a forEach callback, so showDecoded() couldn't see it and threw a ReferenceError)
+        function showOutTab(t) {
+            document.querySelectorAll(".tabs > button[data-ot]").forEach(x => x.classList.toggle("active", x.dataset.ot === t));
+            document.getElementById("outText").style.display = t === "text" ? "" : "none";
+            document.getElementById("outMedia").style.display = t === "text" ? "none" : "";
+        }
+        document.querySelectorAll(".tabs > button[data-ot]").forEach(b => {
+            b.addEventListener("click", () => showOutTab(b.dataset.ot));
+        });
+
+        /* ---------- mode switching (+ persisted across reloads) ---------- */
+        const mode = document.getElementById("mode");
+        const enc = document.getElementById("enc");
+        const qrPxEl = document.getElementById("qrPx");
+        const intervalEl = document.getElementById("interval");
+        const vSecEl = document.getElementById("vSec");
+
+        function syncMode() {
+            document.getElementById("textInput").style.display = mode.value === "text" ? "" : "none";
+            document.getElementById("fileInput").style.display = (mode.value !== "text") ? "" : "none";
+            document.getElementById("videoInput").style.display = mode.value === "video" ? "" : "none";
+        }
+        function syncEnc() {
+            document.getElementById("dynControls").style.display = enc.value === "dynamic" ? "" : "none";
+        }
+
+        const PREF_KEY = "qrstudio.prefs";
+        function savePrefs() {
+            try {
+                localStorage.setItem(PREF_KEY, JSON.stringify({
+                    mode: mode.value, enc: enc.value,
+                    qrPx: qrPxEl.value, interval: intervalEl.value, vSec: vSecEl.value
+                }));
+            } catch { }
+        }
+        function applyPrefs() {
+            let p = {};
+            try { p = JSON.parse(localStorage.getItem(PREF_KEY)) || {}; } catch { }
+            const hasOpt = (sel, v) => [...sel.options].some(o => o.value === v);
+            if (p.mode && hasOpt(mode, p.mode)) mode.value = p.mode;
+            if (p.enc && hasOpt(enc, p.enc)) enc.value = p.enc;
+            if (p.qrPx) qrPxEl.value = p.qrPx;
+            if (p.interval) intervalEl.value = p.interval;
+            if (p.vSec) vSecEl.value = p.vSec;
+            // Always sync the visible panels to whatever the controls now say
+            // (covers saved prefs AND the browser restoring form values on reload).
+            syncMode(); syncEnc();
+        }
+
+        mode.addEventListener("change", () => { syncMode(); savePrefs(); });
+        enc.addEventListener("change", () => { syncEnc(); savePrefs(); });
+        vSecEl.addEventListener("change", savePrefs);
+
+        /* ---------- drag & drop ---------- */
+        const drop = document.getElementById("drop"), fileEl = document.getElementById("file");
+        drop.addEventListener("click", ev => { if (ev.target !== fileEl) fileEl.click(); });
+        drop.addEventListener("keydown", ev => {
+            if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); fileEl.click(); }
+        });
+        ["dragenter", "dragover"].forEach(e => drop.addEventListener(e, ev => { ev.preventDefault(); drop.classList.add("hover"); }));
+        ["dragleave", "drop"].forEach(e => drop.addEventListener(e, ev => { ev.preventDefault(); drop.classList.remove("hover"); }));
+        drop.addEventListener("drop", ev => { if (ev.dataTransfer.files[0]) { fileEl.files = ev.dataTransfer.files; showFile(); } });
+        fileEl.addEventListener("change", showFile);
+        let currentFile = null;
+        async function showFile() {
+            currentFile = fileEl.files[0] || null;
+            const info = document.getElementById("fileInfo");
+            if (!currentFile) { info.textContent = ""; return; }
+            info.textContent = `${currentFile.name} · ${fmtBytes(currentFile.size)} · ${currentFile.type || "unknown type"}`;
+        }
+
+        /* ---------- generate QR ---------- */
+        let loopTimer = null, frames = [], frameIdx = 0, currentB64 = "", qrInstance = null;
+        let currentPx = 256, currentVersion = 0;
+
+        const QUIET = 2;            // quiet-zone width in modules
+        const MIN_MODULE_PX = 4;    // smallest module size (screen px) we allow when sizing dynamic frames
+        const MIN_CHUNK = 16;       // never go below this many payload bytes per frame
+
+        // Byte-mode capacity at error-correction level H, QR versions 1..40 (index = version)
+        const H_CAP = [0, 7, 14, 24, 36, 46, 60, 66, 86, 100, 122, 140, 158, 180, 197, 223, 253, 283, 313, 341,
+            385, 406, 442, 464, 514, 538, 596, 628, 661, 701, 745, 793, 845, 901, 961, 986, 1054, 1096, 1142, 1222, 1273];
+
+        // Highest QR version whose modules still come out >= MIN_MODULE_PX at this width
+        function versionForWidth(px) {
+            const maxModules = Math.floor(px / MIN_MODULE_PX) - QUIET * 2;
+            const v = Math.floor((maxModules - 17) / 4);
+            return Math.max(1, Math.min(40, v));
+        }
+        // Width decides the QR version, the version decides bytes per frame,
+        // and bytes per frame decides how many frames the payload needs.
+        function planDynamic(px, overhead) {
+            let v = versionForWidth(px);
+            while (v < 40 && H_CAP[v] - overhead < MIN_CHUNK) v++;   // width too tiny: bump up to something usable
+            return { version: v, chunk: H_CAP[v] - overhead };
+        }
+
+        // typeNumber 0 = auto (single QR); a fixed number keeps every dynamic frame the same grid size
+        function drawQR(text, px, typeNumber = 0) {
+            const qr = qrcode(typeNumber, "H");
+            qr.addData(text, "Byte");
+            qr.make();
+            const n = qr.getModuleCount(), total = n + QUIET * 2;
+
+            const container = document.getElementById("qrContainer");
+            let cv = container.querySelector("canvas");
+            if (!cv) { container.innerHTML = ""; cv = document.createElement("canvas"); container.appendChild(cv); }
+            cv.width = cv.height = px;          // real resolution = the width field
+            const ctx = cv.getContext("2d");
+            ctx.fillStyle = "#000"; ctx.fillRect(0, 0, px, px);
+            ctx.fillStyle = "#fff";
+            for (let r = 0; r < n; r++) {
+                for (let c = 0; c < n; c++) {
+                    if (!qr.isDark(r, c)) continue;
+                    const x0 = Math.round((c + QUIET) * px / total), x1 = Math.round((c + QUIET + 1) * px / total);
+                    const y0 = Math.round((r + QUIET) * px / total), y1 = Math.round((r + QUIET + 1) * px / total);
+                    ctx.fillRect(x0, y0, x1 - x0, y1 - y0);
+                }
+            }
+        }
+
+        // Create tab: reads its own inputs. The Communicate tab calls buildPayloadFrom() with its own.
+        async function buildPayload() {
+            return buildPayloadFrom({
+                mode: mode.value, text: document.getElementById("text").value,
+                file: currentFile, sec: parseInt(document.getElementById("vSec").value) || 3
+            });
+        }
+        async function buildPayloadFrom({ mode: m, text, file, sec }) {
+            if (m === "text") {
+                return { kind: "text", data: b64encode(text) };
+            }
+            if (m === "file" || m === "image") {
+                if (!file) throw new Error("Choose a file first.");
+                const dataUrl = await fileToDataURL(file);
+                return {
+                    kind: file.type.startsWith("image/") ? "image" : "file",
+                    name: file.name, mime: file.type, data: dataUrl
+                };
+            }
+            if (m === "video") {
+                if (!file) throw new Error("Choose a video file first.");
+                const url = URL.createObjectURL(file);
+                const v = document.createElement("video"); v.src = url; v.muted = true; v.playsInline = true;
+                return new Promise((res, rej) => {
+                    v.onloadedmetadata = () => {
+                        const c = document.createElement("canvas");
+                        c.width = v.videoWidth || 640; c.height = v.videoHeight || 360;
+                        const ctx = c.getContext("2d");
+                        const fps = 6, total = fps * sec, captured = [];
+                        v.play();
+                        let got = 0;
+                        const grab = () => {
+                            if (got >= total) {
+                                const payload = JSON.stringify({ w: c.width, h: c.height, frames: captured });
+                                res({
+                                    kind: "video", name: file.name, mime: file.type || "video/webm",
+                                    data: "data:application/x-qrvideo+json;base64," + b64encode(payload)
+                                });
+                                URL.revokeObjectURL(url);
+                                return;
+                            }
+                            ctx.drawImage(v, 0, 0, c.width, c.height);
+                            captured.push(c.toDataURL("image/jpeg", 0.6));
+                            got++;
+                            setTimeout(grab, 1000 / fps);
+                        };
+                        grab();
+                    };
+                    v.onerror = () => rej(new Error("Could not load video."));
+                });
+            }
+        }
+
+        function clampPx() {
+            const px = Math.max(128, Math.min(1024, parseInt(qrPxEl.value) || 256));
+            qrPxEl.value = px;
+            return px;
+        }
+
+        // Renders (or re-renders) the QR(s) for an already-built base64 payload at a given width.
+        function renderFromB64(b64, px) {
+            stopLoop();
+            frames = []; frameIdx = 0; currentPx = px; currentVersion = 0;
+            document.getElementById("pauseBtn").textContent = "Pause";
+            const info = document.getElementById("qrInfo");
+            const sizeLbl = document.getElementById("sizeLbl");
+            const sizeText = `Size: ${fmtBytes(b64.length)} (base64)`;
+
+            if (enc.value === "single") {
+                // STRICT LIMIT: Max capacity for Version 40, Level H is 1273 bytes.
+                // We cap at 1200 to prevent the qrcode library from throwing.
+                if (b64.length > 1200) {
+                    alert(`Payload is too large for a single QR code (Max ~1200 bytes for highest density).\n\nCurrent size: ${b64.length} bytes.\nPlease switch to "Dynamic (looping chunks)" mode.`);
+                    return false;
+                }
+                drawQR(b64, px); qrInstance = true;
+                info.textContent = `Single frame · ${fmtBytes(b64.length)}`;
+                sizeLbl.textContent = `${sizeText} · Frames: 1`;
+                return true;
+            }
+
+            // Dynamic: QR width -> QR version -> bytes per frame -> number of frames
+            const id = Math.random().toString(36).slice(2, 10);
+            const overhead = frameOf(99999, 99999, id, "").length;     // JSON wrapper cost, worst case
+            const plan = planDynamic(px, overhead);
+            const parts = chunkify(b64, plan.chunk);
+            if (parts.length > 99999) throw new Error("Payload needs too many frames. Increase the QR width or use a smaller file.");
+
+            frames = parts.map((d, i) => frameOf(i, parts.length, id, d));
+            currentVersion = plan.version;
+
+            const modules = 17 + 4 * plan.version;
+            const modPx = px / (modules + QUIET * 2);
+            info.textContent = `Dynamic · ${frames.length} frames · v${plan.version} (${modules}×${modules}) · ${plan.chunk} B/frame · ${modPx.toFixed(1)} px/module`
+                + (modPx < MIN_MODULE_PX - 0.01 ? " ⚠ width is small for this much data, increase it for easier scanning" : "");
+            sizeLbl.textContent = `${sizeText} · Frames: ${frames.length}`;
+
+            qrInstance = true;
+            loopFrames();
+            return true;
+        }
+
+        document.getElementById("genBtn").onclick = async () => {
+            try {
+                stopLoop();
+                const px = clampPx();
+                const payload = await buildPayload();
+                const json = JSON.stringify(payload);
+                const b64 = b64encode(json);
+                currentB64 = b64;
+                renderFromB64(b64, px);
+            } catch (e) {
+                alert(e.message || e);
+            }
+        };
+
+        function loopFrames() {
+            if (!frames.length || !qrInstance) return;
+            const draw = () => {
+                drawQR(frames[frameIdx], currentPx, currentVersion);
+                frameIdx = (frameIdx + 1) % frames.length;
+                loopTimer = setTimeout(draw, parseInt(intervalEl.value) || 350);
+            };
+            draw();
+        }
+        function stopLoop() { if (loopTimer) { clearTimeout(loopTimer); loopTimer = null; } }
+
+        intervalEl.addEventListener("change", () => {
+            savePrefs();
+            stopLoop(); if (enc.value === "dynamic" && frames.length) loopFrames();
+        });
+        document.getElementById("pauseBtn").onclick = () => {
+            if (loopTimer) { stopLoop(); document.getElementById("pauseBtn").textContent = "Resume"; }
+            else { loopFrames(); document.getElementById("pauseBtn").textContent = "Pause"; }
+        };
+        document.getElementById("savePng").onclick = () => {
+            const generatedCanvas = document.querySelector("#qrContainer canvas");
+            const generatedImg = document.querySelector("#qrContainer img");
+            let href = "";
+            if (generatedCanvas) href = generatedCanvas.toDataURL("image/png");
+            else if (generatedImg) href = generatedImg.src;
+
+            if (href) {
+                const a = document.createElement("a"); a.download = "qr.png"; a.href = href; a.click();
+            } else {
+                alert("Generate a QR first.");
+            }
+        };
+        document.getElementById("copyDataBtn").onclick = async () => {
+            if (!currentB64) { alert("Generate a QR first."); return; }
+            await navigator.clipboard.writeText(currentB64); alert("Payload copied.");
+        };
+
+        /* ---------- READER ---------- */
+        const vid = document.getElementById("vid");
+        const freezeCanvasEl = document.getElementById("freezeCanvas");
+
+        // Safety check: if the element isn't found, create a dummy one to prevent crashes
+        const freezeCanvas = freezeCanvasEl || document.createElement("canvas");
+        const freezeCtx = freezeCanvas.getContext("2d", { willReadFrequently: true });
+
+        let stream = null, raf = null;
+        let isScanning = false, isPaused = false;
+
+        let calibActive = false;
+        let dragIndex = -1;
+
+        const recv = {
+            frames: new Map(), id: null, total: 0,
+            add(str) {
+                let o; try { o = JSON.parse(str); } catch { return { kind: "raw", data: str }; }
+                if (!(typeof o.i === "number" && typeof o.n === "number" && o.id && typeof o.d === "string")) {
+                    return { kind: "raw", data: str };
+                }
+                if (!this.id) { this.id = o.id; this.total = o.n; }
+                if (o.id !== this.id) return null;
+                this.frames.set(o.i, o.d);
+                if (this.frames.size === this.total) {
+                    const ordered = [...Array(this.total)].map((_, i) => this.frames.get(i)).join("");
+                    // Hand back the base64 payload itself: showDecoded() does the (single) base64 decode.
+                    // This used to decode here too, so showDecoded() decoded twice and failed.
+                    return { kind: "dynamic", data: ordered };
+                }
+                return { kind: "pending", left: this.total - this.frames.size, total: this.total };
+            },
+            reset() { this.frames = new Map(); this.id = null; this.total = 0; }
+        };
+
+        function decodeImageData(imgData) {
+            const code = jsQR(imgData.data, imgData.width, imgData.height, {
+                inversionAttempts: "attemptBoth"
+            });
+            return code ? code.data : null;
+        }
+
+        let lastDecoded = null;   // { name, mime, data } of the last decoded image/file
+
+        const MIME_EXT = {
+            "image/jpeg": "jpg", "image/png": "png", "image/gif": "gif", "image/webp": "webp",
+            "image/svg+xml": "svg", "image/bmp": "bmp", "image/avif": "avif",
+            "application/pdf": "pdf", "text/plain": "txt", "video/mp4": "mp4", "video/webm": "webm"
+        };
+        // keep the original filename (IMG_0003.jpeg); only add an extension if the name has none
+        function fileNameFor(obj) {
+            let name = obj.name || "file";
+            if (!/\.[A-Za-z0-9]{1,6}$/.test(name) && MIME_EXT[obj.mime]) name += "." + MIME_EXT[obj.mime];
+            return name;
+        }
+        async function downloadDataUrl(dataUrl, name) {
+            const blob = await (await fetch(dataUrl)).blob();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url; a.download = name;
+            document.body.appendChild(a); a.click(); a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+
+        function showDecoded(payloadStr) {
+            let obj;
+            try { obj = JSON.parse(b64decode(payloadStr)); }
+            catch {
+                lastDecoded = null;
+                document.getElementById("outText").value = payloadStr;
+                showOutTab("text");
+                return;
+            }
+            showPayload(obj);
+        }
+
+        // A tool list sent by Home → Export → QR (or Download) arrives as a JSON file payload.
+        function toolsIn(obj) {
+            try {
+                if (obj.kind !== "file" || !/json/i.test(obj.mime || "")) return null;
+                const arr = JSON.parse(b64decode(obj.data.slice(obj.data.indexOf(",") + 1)));
+                return Array.isArray(arr) && arr.length && arr.every(t => t && typeof t.id === "string" && typeof t.name === "string") ? arr : null;
+            } catch { return null; }
+        }
+        // Merges into the same localStorage list the Home page uses (window.WebTools is set by the module script below).
+        function importToolsList(list) {
+            const T = window.WebTools;
+            const have = new Set(T.list().map(t => t.id));
+            const fresh = list.filter(t => !have.has(t.id)).map(({ _manifest, ...t }) => t);   // received tools are always local
+            if (fresh.length) T.save([...T.list(), ...fresh]);
+            return fresh.length;
+        }
+
+        function showPayload(obj) {
+            const m = document.getElementById("outMedia");
+            lastDecoded = null;
+
+            if (obj.kind === "text") {
+                document.getElementById("outText").value = b64decode(obj.data);
+                showOutTab("text");
+            } else if (obj.kind === "image" || obj.kind === "file") {
+                document.getElementById("outText").value = "";
+                m.innerHTML = "";
+                const name = fileNameFor(obj);
+                lastDecoded = { name, mime: obj.mime, data: obj.data };
+
+                if (obj.mime && obj.mime.startsWith("image/")) {
+                    const img = document.createElement("img");
+                    img.src = obj.data; img.className = "thumb";
+                    img.style.maxHeight = "70vh"; img.style.display = "block"; img.style.marginBottom = "8px";
+                    m.appendChild(img);
+                } else if (obj.mime && obj.mime.startsWith("video/")) {
+                    const v = document.createElement("video");
+                    v.src = obj.data; v.controls = true; v.style.maxWidth = "100%"; v.style.marginBottom = "8px";
+                    m.appendChild(v);
+                }
+
+                const info = document.createElement("div");
+                info.className = "small muted"; info.style.marginBottom = "8px";
+                info.textContent = `${name} · ${obj.mime || "unknown type"}`;
+                const btn = document.createElement("button");
+                btn.textContent = `Download ${name}`;
+                btn.onclick = () => downloadDataUrl(obj.data, name);
+                m.append(info, btn);
+
+                const tl = toolsIn(obj);
+                if (tl && window.WebTools) {
+                    const ib = document.createElement("button");
+                    ib.className = "secondary"; ib.style.marginLeft = "8px";
+                    ib.textContent = `Import ${tl.length} tool${tl.length === 1 ? "" : "s"}`;
+                    ib.onclick = () => {
+                        const n = importToolsList(tl);
+                        ib.textContent = n ? `Imported ${n} new` : "Already imported"; ib.disabled = true;
+                    };
+                    m.append(ib);
+                }
+
+                showOutTab(obj.kind === "image" ? "image" : "file");
+            } else if (obj.kind === "video") {
+                document.getElementById("outText").value = "";
+                m.innerHTML = "";
+                try {
+                    const vobj = JSON.parse(b64decode(obj.data.replace(/^data:[^;]+;base64,/, "")));
+                    const c = document.createElement("canvas"); c.width = vobj.w; c.height = vobj.h;
+                    c.style.maxWidth = "100%"; m.appendChild(c);
+                    const ctx = c.getContext("2d"); let i = 0;
+                    const draw = () => {
+                        ctx.clearRect(0, 0, c.width, c.height);
+                        const im = new Image();
+                        im.onload = () => { ctx.drawImage(im, 0, 0, c.width, c.height); };
+                        im.src = vobj.frames[i];
+                        i = (i + 1) % vobj.frames.length;
+                    };
+                    draw(); setInterval(draw, 160);
+                } catch (e) { m.textContent = "Could not render video."; }
+                showOutTab("file");
+            }
+            document.getElementById("scanStat").innerHTML = `<span class="ok">Decoded successfully.</span>`;
+        }
+
+        const WARP = 400, WARP_MARGIN = 0.08;   // margin keeps the QR quiet zone in the crop
+        const warpOut = new ImageData(WARP, WARP);
+
+        // square (0..1) -> quad homography (Heckbert), points order TL, TR, BR, BL
+        function squareToQuad(p) {
+            const [x0, y0] = [p[0].x, p[0].y], [x1, y1] = [p[1].x, p[1].y],
+                [x2, y2] = [p[2].x, p[2].y], [x3, y3] = [p[3].x, p[3].y];
+            const dx1 = x1 - x2, dx2 = x3 - x2, dx3 = x0 - x1 + x2 - x3;
+            const dy1 = y1 - y2, dy2 = y3 - y2, dy3 = y0 - y1 + y2 - y3;
+            let g = 0, h = 0;
+            if (dx3 || dy3) {
+                const den = dx1 * dy2 - dx2 * dy1;
+                g = (dx3 * dy2 - dx2 * dy3) / den;
+                h = (dx1 * dy3 - dx3 * dy1) / den;
+            }
+            return {
+                a: x1 - x0 + g * x1, b: x3 - x0 + h * x3, c: x0,
+                d: y1 - y0 + g * y1, e: y3 - y0 + h * y3, f: y0, g, h
+            };
+        }
+
+        function warpFrame(src) {
+            const H = squareToQuad(calibPoints);
+            const out = warpOut.data, s = src.data, sw = src.width, sh = src.height;
+            let o = 0;
+            for (let py = 0; py < WARP; py++) {
+                const v = (py / (WARP - 1)) * (1 + 2 * WARP_MARGIN) - WARP_MARGIN;
+                for (let px = 0; px < WARP; px++, o += 4) {
+                    const u = (px / (WARP - 1)) * (1 + 2 * WARP_MARGIN) - WARP_MARGIN;
+                    const w = H.g * u + H.h * v + 1;
+                    let x = Math.round((H.a * u + H.b * v + H.c) / w);
+                    let y = Math.round((H.d * u + H.e * v + H.f) / w);
+                    x = x < 0 ? 0 : x >= sw ? sw - 1 : x;
+                    y = y < 0 ? 0 : y >= sh ? sh - 1 : y;
+                    const i = (y * sw + x) * 4;
+                    out[o] = s[i]; out[o + 1] = s[i + 1]; out[o + 2] = s[i + 2]; out[o + 3] = 255;
+                }
+            }
+            return warpOut;
+        }
+
+        function decodeFrame(img) {
+            if (calibActive) {
+                const d = decodeImageData(warpFrame(img));
+                if (d) return d;
+            }
+            return decodeImageData(img);   // fallback
+        }
+
+        function tick() {
+            if (!isScanning || isPaused) return;
+            if (vid.readyState >= 2) {
+                freezeCanvas.width = vid.videoWidth;
+                freezeCanvas.height = vid.videoHeight;
+                freezeCtx.drawImage(vid, 0, 0, freezeCanvas.width, freezeCanvas.height);
+
+                const img = freezeCtx.getImageData(0, 0, freezeCanvas.width, freezeCanvas.height);
+                const data = decodeFrame(img);
+
+                if (data) {
+                    const r = recv.add(data);
+                    if (r && r.kind === "dynamic") { recv.reset(); showDecoded(r.data); stopScanning(); return; }
+                    else if (r && r.kind === "raw") { recv.reset(); showDecoded(r.data); stopScanning(); return; }
+                    else if (r && r.kind === "pending") {
+                        document.getElementById("scanStat").textContent = `Receiving… ${r.total - r.left}/${r.total}`;
+                    }
+                }
+            }
+            raf = requestAnimationFrame(tick);
+        }
+
+        function startScanning() {
+            if (isScanning) return;
+            isScanning = true;
+            isPaused = false;
+
+            vid.play();
+            showFrozen(false);
+            document.getElementById("pauseScanBtn").textContent = "Pause";
+            document.getElementById("forceScanBtn").style.display = "none";
+            tick();
+            document.getElementById("scanStat").textContent = "Scanning…";
+        }
+
+        function stopScanning() {
+            isScanning = false;
+            isPaused = false;
+            cancelAnimationFrame(raf);
+
+            vid.pause();
+            showFrozen(false);
+            document.getElementById("pauseScanBtn").textContent = "Pause";
+            document.getElementById("forceScanBtn").style.display = "none";
+        }
+
+        document.getElementById("startCam").onclick = async () => {
+            try {
+                await openStream();
+                document.getElementById("pauseScanBtn").style.display = "";
+                document.getElementById("forceScanBtn").style.display = "none";
+                document.getElementById("calibBtn").style.display = ""; // Show calib button
+                startScanning();
+            } catch (e) {
+                document.getElementById("scanStat").innerHTML = `<span class="err">Camera unavailable.</span>`;
+            }
+        };
+
+        document.getElementById("pauseScanBtn").onclick = async () => {
+            if (isPaused) {
+                try { await openStream(); } catch { document.getElementById("scanStat").innerHTML = `<span class="err">Camera unavailable.</span>`; return; }
+                isPaused = false;
+                showFrozen(false);
+                document.getElementById("pauseScanBtn").textContent = "Pause";
+                document.getElementById("forceScanBtn").style.display = "none";
+                document.getElementById("scanStat").textContent = "Scanning…";
+                tick();
+            } else {
+                if (vid.readyState >= 2) {
+                    freezeCanvas.width = vid.videoWidth;
+                    freezeCanvas.height = vid.videoHeight;
+                    freezeCtx.drawImage(vid, 0, 0);
+                }
+                isPaused = true;
+                cancelAnimationFrame(raf);
+                closeStream();                       // camera off
+                showFrozen(true);
+                document.getElementById("pauseScanBtn").textContent = "Resume";
+                document.getElementById("forceScanBtn").style.display = "";
+                document.getElementById("scanStat").textContent = "Paused (camera off). Click 'Scan Paused Frame'.";
+            }
+        };
+
+        document.getElementById("forceScanBtn").onclick = () => {
+            const img = freezeCtx.getImageData(0, 0, freezeCanvas.width, freezeCanvas.height);
+            const data = decodeFrame(img);
+            if (data) {
+                const r = recv.add(data);
+                if (r && (r.kind === "dynamic" || r.kind === "raw")) { recv.reset(); showDecoded(r.data); stopScanning(); }
+                else if (r && r.kind === "pending") document.getElementById("scanStat").textContent = `Receiving… ${r.total - r.left}/${r.total}`;
+                else document.getElementById("scanStat").textContent = "QR found, but incomplete or unrecognized format.";
+            } else {
+                document.getElementById("scanStat").innerHTML = `<span class="warn">No QR code found in this frame.</span>`;
+            }
+        };
+
+        document.getElementById("stopCam").onclick = () => {
+            stopScanning();
+            closeStream();
+            vid.srcObject = null;
+            document.getElementById("pauseScanBtn").style.display = "none";
+            document.getElementById("forceScanBtn").style.display = "none";
+            document.getElementById("calibBtn").style.display = "none";
+            document.getElementById("scanStat").textContent = "Stopped.";
+            if (calibActive) stopCalibration();
+        };
+
+        document.getElementById("uploadImg").onclick = () => document.getElementById("scanFile").click();
+        document.getElementById("scanFile").onchange = async (e) => {
+            const f = e.target.files[0]; if (!f) return;
+            const url = URL.createObjectURL(f);
+            const img = new Image();
+            img.onload = () => {
+                freezeCanvas.width = img.naturalWidth;
+                freezeCanvas.height = img.naturalHeight;
+                freezeCtx.drawImage(img, 0, 0);
+                const data = decodeImageData(freezeCtx.getImageData(0, 0, freezeCanvas.width, freezeCanvas.height));
+                if (!data) {
+                    document.getElementById("scanStat").innerHTML = `<span class="warn">No QR found in image.</span>`;
+                    return;
+                }
+                const r = recv.add(data);
+                if (r && r.kind === "dynamic") { recv.reset(); showDecoded(r.data); }
+                else if (r && r.kind === "raw") { recv.reset(); showDecoded(r.data); }
+                else if (r && r.kind === "pending") {
+                    document.getElementById("scanStat").textContent = `Partial dynamic QR — need all frames in one image.`;
+                }
+                URL.revokeObjectURL(url);
+            };
+            img.src = url;
+        };
+
+        document.getElementById("copyOut").onclick = async () => {
+            const t = document.getElementById("outText").value;
+            if (!t) { alert("Nothing to copy."); return; }
+            await navigator.clipboard.writeText(t); alert("Copied.");
+        };
+        document.getElementById("saveOut").onclick = () => {
+            if (lastDecoded) { downloadDataUrl(lastDecoded.data, lastDecoded.name); return; }   // image/file → real file
+            const t = document.getElementById("outText").value;
+            const blob = new Blob([t], { type: "text/plain" });
+            const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "decoded.txt"; a.click();
+        };
+        document.getElementById("clearOut").onclick = () => {
+            document.getElementById("outText").value = "";
+            document.getElementById("outMedia").innerHTML = "";
+            lastDecoded = null;
+            recv.reset();
+        };
+
+        /* ---------- QR CORNER CALIBRATION OVERLAY ---------- */
+        const calibCanvas = document.getElementById("calibCanvas");
+        const calibCtx = calibCanvas.getContext("2d");
+        let calibPoints = [
+            { x: 0, y: 0, label: "TL" },
+            { x: 0, y: 0, label: "TR" },
+            { x: 0, y: 0, label: "BR" },
+            { x: 0, y: 0, label: "BL" }
+        ];
+        const ARM = 22;   // crosshair arm length
+        const HIT = 40;   // grab radius
+        const COLORS = ["#34d399", "#fbbf24", "#f87171", "#7c9cff"];
+
+        function initCalibPoints() {
+            const w = frameW(), h = frameH();
+            calibPoints[0] = { x: w * 0.22, y: h * 0.22, label: "TL" };
+            calibPoints[1] = { x: w * 0.78, y: h * 0.22, label: "TR" };
+            calibPoints[2] = { x: w * 0.78, y: h * 0.78, label: "BR" };
+            calibPoints[3] = { x: w * 0.22, y: h * 0.78, label: "BL" };
+        }
+
+        function getComputedBR() {
+            // The 4th corner (bottom-right) is inferred: BR = TR + BL - TL
+            const [tl, tr, bl] = calibPoints;
+            return { x: tr.x + bl.x - tl.x, y: tr.y + bl.y - tl.y, label: "BR" };
+        }
+
+        function drawCalib() {
+            const c = calibCtx;
+            c.clearRect(0, 0, calibCanvas.width, calibCanvas.height);
+            const [tl, tr, br, bl] = calibPoints;
+
+            c.beginPath();
+            c.moveTo(tl.x, tl.y); c.lineTo(tr.x, tr.y);
+            c.lineTo(br.x, br.y); c.lineTo(bl.x, bl.y); c.closePath();
+            c.fillStyle = "rgba(124,156,255,0.12)"; c.fill();
+            c.setLineDash([10, 6]); c.strokeStyle = "#7c9cff"; c.lineWidth = 2; c.stroke();
+            c.setLineDash([]);
+
+            calibPoints.forEach((p, i) => {
+                // dark outline so it shows on any background
+                c.lineWidth = 5; c.strokeStyle = "rgba(0,0,0,.6)";
+                c.beginPath();
+                c.moveTo(p.x - ARM, p.y); c.lineTo(p.x + ARM, p.y);
+                c.moveTo(p.x, p.y - ARM); c.lineTo(p.x, p.y + ARM);
+                c.stroke();
+                // colored crosshair
+                c.lineWidth = 2; c.strokeStyle = COLORS[i];
+                c.beginPath();
+                c.moveTo(p.x - ARM, p.y); c.lineTo(p.x + ARM, p.y);
+                c.moveTo(p.x, p.y - ARM); c.lineTo(p.x, p.y + ARM);
+                c.stroke();
+                // small center ring
+                c.beginPath(); c.arc(p.x, p.y, 6, 0, Math.PI * 2); c.stroke();
+                // label offset so it doesn't cover the center
+                c.fillStyle = COLORS[i];
+                c.font = "bold 12px system-ui, sans-serif";
+                c.textAlign = "left"; c.textBaseline = "bottom";
+                c.fillText(p.label, p.x + 8, p.y - 8);
+            });
+        }
+
+        function calibPointerToVideo(e) {
+            const rect = calibCanvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            const cssX = clientX - rect.left;
+            const cssY = clientY - rect.top;
+            // Map CSS pixels → video pixels
+            const scaleX = calibCanvas.width / rect.width;
+            const scaleY = calibCanvas.height / rect.height;
+            return { x: cssX * scaleX, y: cssY * scaleY };
+        }
+
+        function findNearestPoint(pos) {
+            let minDist = Infinity, minIdx = -1;
+            calibPoints.forEach((p, i) => {
+                const d = Math.hypot(p.x - pos.x, p.y - pos.y);
+                if (d < minDist && d < HIT) { minDist = d; minIdx = i; }
+            });
+            return minIdx;
+        }
+
+        function onCalibDown(e) {
+            e.preventDefault();
+            const pos = calibPointerToVideo(e);
+            dragIndex = findNearestPoint(pos);
+        }
+        function onCalibMove(e) {
+            if (dragIndex < 0) return;
+            e.preventDefault();
+            const pos = calibPointerToVideo(e);
+            calibPoints[dragIndex].x = Math.max(0, Math.min(calibCanvas.width, pos.x));
+            calibPoints[dragIndex].y = Math.max(0, Math.min(calibCanvas.height, pos.y));
+            drawCalib();
+        }
+        function onCalibUp() { dragIndex = -1; }
+
+        function startCalibration() {
+            if (!isPaused && vid.readyState < 2) return;
+
+            // Size canvas internal resolution to match video pixels
+            calibCanvas.width = frameW(); calibCanvas.height = frameH();
+            calibCanvas.style.display = "block";
+            calibCanvas.style.pointerEvents = "auto";
+
+            initCalibPoints();
+            drawCalib();
+            calibActive = true;
+
+            calibCanvas.addEventListener("mousedown", onCalibDown);
+            window.addEventListener("mousemove", onCalibMove);
+            window.addEventListener("mouseup", onCalibUp);
+            calibCanvas.addEventListener("touchstart", onCalibDown, { passive: false });
+            window.addEventListener("touchmove", onCalibMove, { passive: false });
+            window.addEventListener("touchend", onCalibUp);
+
+            document.getElementById("calibBtn").textContent = "Clear Corners";
+            document.getElementById("scanStat").innerHTML =
+                `<span class="ok">Calibration active.</span> Drag each crosshair onto a QR corner. All four move independently, so you can match perspective and depth.`;
+        }
+
+        function stopCalibration() {
+            calibActive = false;
+            calibCanvas.style.display = "none";
+            calibCanvas.style.pointerEvents = "none";
+            calibCtx.clearRect(0, 0, calibCanvas.width, calibCanvas.height);
+
+            calibCanvas.removeEventListener("mousedown", onCalibDown);
+            window.removeEventListener("mousemove", onCalibMove);
+            window.removeEventListener("mouseup", onCalibUp);
+            calibCanvas.removeEventListener("touchstart", onCalibDown);
+            window.removeEventListener("touchmove", onCalibMove);
+            window.removeEventListener("touchend", onCalibUp);
+
+            document.getElementById("calibBtn").textContent = "Mark QR Corners";
+            document.getElementById("scanStat").textContent = isPaused ? "Paused." : "Idle.";
+        }
+
+        document.getElementById("calibBtn").onclick = () => {
+            if (calibActive) stopCalibration();
+            else startCalibration();
+        };
+
+        // Show/hide the calib button alongside the pause button
+        const origStartCam = document.getElementById("startCam").onclick;
+        document.getElementById("startCam").onclick = async function () {
+            await origStartCam.call(this);
+            if (stream) document.getElementById("calibBtn").style.display = "";
+        };
+        const origStopCam = document.getElementById("stopCam").onclick;
+        document.getElementById("stopCam").onclick = function () {
+            origStopCam.call(this);
+            document.getElementById("calibBtn").style.display = "none";
+            if (calibActive) stopCalibration();
+        };
+
+        // Changing the width re-renders from the cached payload (no re-reading files / re-capturing video).
+        // In dynamic mode this also re-chunks: smaller width => fewer bytes per frame => more frames.
+        qrPxEl.addEventListener("change", () => {
+            const px = clampPx();
+            savePrefs();
+            if (!currentB64) return;
+            try { renderFromB64(currentB64, px); }
+            catch (e) { alert(e.message || e); }
+        });
+
+        document.getElementById("qrContainer").addEventListener("click", () => {
+            const el = document.getElementById("qrContainer");
+            if (!el.firstChild) return;                    // nothing generated yet
+            if (document.fullscreenElement) document.exitFullscreen();
+            else el.requestFullscreen().catch(() => alert("Fullscreen not available."));
+        });
+
+        /* ---------- init: reflect saved / browser-restored mode on load ---------- */
+        applyPrefs();
+        // pageshow fires after load (and when restored from the back/forward cache), after the
+        // browser has finished restoring form values, so re-sync once more here.
+        window.addEventListener("pageshow", applyPrefs);
+    </script>
+
+    <!-- COMMUNICATE tab: two devices, each showing QR codes to the other's camera.
+         Protocol (framing, missing-chunk reports, tick/width tuning) lives in js/qr-comm.js. -->
+    <script type="module">
+        import { Tools } from "../../js/app.js";
+        import { SenderCore, ReceiverCore } from "../../js/qr-comm.js";
+
+        window.WebTools = Tools;    // used by the Read tab's "Import tools" button (same localStorage list as Home)
+
+        if (typeof qrcode !== "undefined" && typeof jsQR !== "undefined") initCommunicate();
+
+        function initCommunicate() {
+            const $ = id => document.getElementById(id);
+            const els = {
+                stage: $("commStage"), vid: $("commVid"), qr: $("commQR"), hud: $("commHud"), status: $("commStatus"),
+                camBtn: $("commCamBtn"), flipBtn: $("commFlipBtn"), fsBtn: $("commFsBtn"), stopBtn: $("commStopBtn"),
+                startBtn: $("commStartBtn"), sendSetup: $("commSendSetup"), recvSetup: $("commRecvSetup"),
+                cMode: $("cMode"), text: $("cText"), vsec: $("cVSec"), file: $("cFile"), drop: $("cDrop"), fileInfo: $("cFileInfo"),
+                handoffInfo: $("cHandoffInfo"),
+                done: $("commDone"), doneTitle: $("commDoneTitle"), doneInfo: $("commDoneInfo"), doneQR: $("commDoneQR"), doneBtns: $("commDoneBtns")
+            };
+            const QZ = 4;                                   // quiet zone, in modules, around every QR drawn here
+            const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+            const C = {
+                role: "send", stream: null, facing: "user", raf: 0, lastT: -1,
+                sender: null, receiver: null, sendTimer: 0, replyTimer: 0, hudTimer: 0,
+                startedAt: 0, finished: false, b64: "", blind: false, wake: null, nativeFs: false,
+                mode: "text", file: null, handoff: null
+            };
+            const setStatus = html => { els.status.innerHTML = html; };
+            const errMsg = m => `<span class="err">${esc(m)}</span>`;
+
+            /* ---------- QR drawing: black on white, standard polarity, so the reader can skip the slower inverted pass ---------- */
+            function renderQR(cv, text, px, typeNumber, ecl) {
+                const qr = qrcode(typeNumber, ecl);
+                qr.addData(text, "Byte");
+                qr.make();
+                const n = qr.getModuleCount(), total = n + QZ * 2;
+                const size = px || total * 8;               // px = 0: crisp 8 px modules
+                if (cv.width !== size) cv.width = cv.height = size;
+                const ctx = cv.getContext("2d");
+                ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, size, size);
+                ctx.fillStyle = "#000";
+                for (let r = 0; r < n; r++) {
+                    for (let c = 0; c < n; c++) {
+                        if (!qr.isDark(r, c)) continue;
+                        const x0 = Math.round((c + QZ) * size / total), x1 = Math.round((c + QZ + 1) * size / total);
+                        const y0 = Math.round((r + QZ) * size / total), y1 = Math.round((r + QZ + 1) * size / total);
+                        ctx.fillRect(x0, y0, x1 - x0, y1 - y0);
+                    }
+                }
+            }
+
+            /* ---------- UI state ---------- */
+            const sessionActive = () => !!(C.sender || C.receiver);
+            function syncUi() {
+                const cam = !!C.stream, active = sessionActive() || cam;
+                els.sendSetup.style.display = C.role === "send" ? "" : "none";
+                els.recvSetup.style.display = C.role === "recv" ? "" : "none";
+                els.camBtn.style.display = cam || sessionActive() ? "none" : "";
+                els.flipBtn.style.display = cam ? "" : "none";
+                els.fsBtn.style.display = cam && !els.stage.classList.contains("fs") ? "" : "none";
+                els.stopBtn.style.display = active ? "" : "none";
+                els.startBtn.disabled = !!C.sender && !C.finished;
+                els.startBtn.textContent = C.sender && !C.finished ? "Sending…" : "Start sending";
+                document.querySelectorAll("#roleToggle button").forEach(b => b.classList.toggle("active", b.dataset.role === C.role));
+                els.stage.classList.toggle("role-send", C.role === "send");
+                els.stage.classList.toggle("role-recv", C.role === "recv");
+            }
+            function setHud(parts) { els.hud.innerHTML = parts.filter(Boolean).map(p => `<span>${p}</span>`).join(""); }
+            function updateHud() {
+                if (C.role === "send") {
+                    const s = C.sender;
+                    if (!s) return setHud(["Camera on", "press Start sending"]);
+                    setHud([
+                        `Sending ${Math.round(100 * s.got / s.N)}%`, `${s.got}/${s.N} chunks`, `tick ${s.iv} ms`, `QR ${s.px} px`,
+                        C.blind ? "no camera: can't hear the receiver" : s.receiverSeen ? "receiver ✓" : "looking for the receiver…"
+                    ]);
+                } else {
+                    const r = C.receiver;
+                    if (!r) return;
+                    if (!r.id) return setHud(["Receiving", "waiting for the sender…"]);
+                    setHud([
+                        `Receiving ${Math.round(100 * r.got / r.n)}%`, `${r.got}/${r.n} chunks`,
+                        r.iv ? `sender tick ${r.iv} ms` : "", r.w ? `QR ${r.w} px` : "",
+                        r.missRate != null ? `lost ${Math.max(0, Math.round(r.missRate * 100))}% of frames` : ""
+                    ]);
+                }
+            }
+
+            /* ---------- full screen: native API where it exists, fixed-position layout everywhere ---------- */
+            function enterFs() {
+                els.stage.classList.add("fs");
+                document.body.classList.add("comm-fs");
+                if (els.stage.requestFullscreen) {
+                    els.stage.requestFullscreen().then(() => { C.nativeFs = true; }).catch(() => { });
+                }
+                syncUi();
+            }
+            function exitFs() {
+                els.stage.classList.remove("fs");
+                document.body.classList.remove("comm-fs");
+                if (document.fullscreenElement) document.exitFullscreen().catch(() => { });
+                C.nativeFs = false;
+                syncUi();
+            }
+            document.addEventListener("fullscreenchange", () => {
+                // Esc / system gesture left native full screen: drop the fixed layout too
+                if (!document.fullscreenElement && C.nativeFs) { C.nativeFs = false; exitFs(); }
+            });
+            document.addEventListener("keydown", e => { if (e.key === "Escape" && els.stage.classList.contains("fs")) exitFs(); });
+
+            /* ---------- camera ---------- */
+            async function camOn() {
+                if (C.stream) return true;
+                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                    setStatus(errMsg("This browser has no camera access here (it needs HTTPS or localhost)."));
+                    return false;
+                }
+                if (typeof stream !== "undefined" && stream) $("stopCam").click();     // free the Read tab's camera
+                try {
+                    C.stream = await navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: C.facing, width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false
+                    });
+                } catch (e) {
+                    setStatus(errMsg("Camera denied or unavailable."));
+                    return false;
+                }
+                els.vid.srcObject = C.stream;
+                try { await els.vid.play(); } catch { }
+                if (!C.raf) C.raf = requestAnimationFrame(scanLoop);
+                syncUi();
+                return true;
+            }
+            async function flipCamera() {
+                if (!C.stream) return;
+                C.facing = C.facing === "user" ? "environment" : "user";
+                C.stream.getTracks().forEach(t => t.stop()); C.stream = null;
+                if (!(await camOn())) { C.facing = C.facing === "user" ? "environment" : "user"; stopAll(); }
+            }
+            async function keepAwake() { try { C.wake = (navigator.wakeLock && await navigator.wakeLock.request("screen")) || null; } catch { C.wake = null; } }
+
+            /* ---------- reading the other device's QR from the camera ---------- */
+            const scanCv = document.createElement("canvas");
+            const scanCtx = scanCv.getContext("2d", { willReadFrequently: true });
+            function scanLoop() {
+                C.raf = requestAnimationFrame(scanLoop);
+                const v = els.vid;
+                if (!C.stream || C.finished || v.readyState < 2 || !v.videoWidth || v.currentTime === C.lastT) return;
+                if (!C.sender && !C.receiver) return;                     // camera preview only
+                C.lastT = v.currentTime;
+                // The receiver has to read big dense codes, the sender only small coarse ones.
+                const maxW = C.role === "recv" ? 1280 : 640;
+                const k = Math.min(1, maxW / v.videoWidth), w = Math.round(v.videoWidth * k), h = Math.round(v.videoHeight * k);
+                if (scanCv.width !== w || scanCv.height !== h) { scanCv.width = w; scanCv.height = h; }
+                scanCtx.drawImage(v, 0, 0, w, h);
+                const img = scanCtx.getImageData(0, 0, w, h);
+                const code = jsQR(img.data, w, h, { inversionAttempts: "dontInvert" });
+                if (code) onScan(code.data);
+            }
+            function onScan(text) {
+                let o; try { o = JSON.parse(text); } catch { return; }
+                if (!o || typeof o !== "object") return;
+                if (C.role === "send" && C.sender && o.t === "C") {
+                    if (C.sender.handleControl(o) === "done") finishSender();
+                } else if (C.role === "recv" && C.receiver && o.t === "D") {
+                    if (C.receiver.handleData(o) === "done") finishReceiver();
+                }
+            }
+
+            /* ---------- sender ---------- */
+            function sendTick() {
+                const s = C.sender;
+                if (!s || C.finished) return;
+                const f = s.nextFrame();
+                try { renderQR(els.qr, f.text, s.px, f.version, "H"); }
+                catch (e) { console.error(e); setStatus(errMsg("Could not draw a QR frame: " + (e.message || e))); }
+                C.sendTimer = setTimeout(sendTick, s.iv);
+            }
+            function syncModeUi() {
+                C.mode = els.cMode.value;
+                $("cTextInput").style.display = C.mode === "text" ? "" : "none";
+                $("cFileInput").style.display = (C.mode === "file" || C.mode === "image" || C.mode === "video") ? "" : "none";
+                $("cVideoInput").style.display = C.mode === "video" ? "" : "none";
+                els.handoffInfo.style.display = C.mode === "handoff" ? "" : "none";
+            }
+            async function startSending() {
+                // Quick checks first, so full screen (which wants the click's user gesture) is only entered for a real send.
+                if (C.mode === "text" && !els.text.value) { setStatus(errMsg("Type or paste something to send first.")); return; }
+                if ((C.mode === "file" || C.mode === "image" || C.mode === "video") && !C.file) { setStatus(errMsg("Choose a file first.")); return; }
+                if (C.mode === "handoff" && !C.handoff) { setStatus(errMsg("Nothing was handed over from Home.")); return; }
+                els.stage.hidden = false; enterFs();
+                els.done.hidden = true;
+                try {
+                    setStatus("Preparing data…");
+                    const payload = C.mode === "handoff" ? C.handoff.payload
+                        : await buildPayloadFrom({ mode: C.mode, text: els.text.value, file: C.file, sec: parseInt(els.vsec.value) || 3 });
+                    C.b64 = b64encode(JSON.stringify(payload));
+                    C.sender = new SenderCore(C.b64, { iv: 350, px: 320 });     // throws when empty or too big
+                } catch (e) { setStatus(errMsg(e.message || e)); stopAll(true); return; }
+                C.finished = false; C.startedAt = Date.now();
+                const cam = await camOn();
+                C.blind = !cam;
+                setStatus(cam
+                    ? "Sending. Point this device's camera at the receiver's screen so it can hear the receiver's replies."
+                    : errMsg("No camera: sending anyway, but the receiver can't ask for missing chunks, so you'll have to stop it by hand."));
+                clearTimeout(C.sendTimer); sendTick();
+                clearInterval(C.hudTimer); C.hudTimer = setInterval(updateHud, 250); updateHud();
+                keepAwake(); syncUi();
+            }
+            function finishSender() {
+                C.finished = true; clearTimeout(C.sendTimer);
+                const secs = ((Date.now() - C.startedAt) / 1000).toFixed(1);
+                showDone("Transfer complete", `${fmtBytes(C.b64.length)} sent in ${secs} s · the receiver confirmed everything arrived.`, [
+                    ["Close", "", () => stopAll()],
+                    ["Send again", "secondary", () => {
+                        els.done.hidden = true;
+                        C.sender = new SenderCore(C.b64, { iv: 350, px: 320 }); C.finished = false; C.startedAt = Date.now();
+                        sendTick(); syncUi();
+                    }]
+                ]);
+                setStatus(`<span class="ok">Transfer complete.</span>`);
+            }
+
+            /* ---------- receiver ---------- */
+            async function startReceiving() {
+                els.stage.hidden = false; enterFs();            // the receiver defaults to full screen
+                els.done.hidden = true; els.doneQR.hidden = true;
+                if (!(await camOn())) { stopAll(true); return; }
+                C.receiver = new ReceiverCore(); C.finished = false; C.startedAt = Date.now();
+                setStatus("Listening. Point the camera at the sender's screen and keep the small reply code in the corner visible to the sender's camera.");
+                clearTimeout(C.replyTimer); replyTick();
+                clearInterval(C.hudTimer); C.hudTimer = setInterval(updateHud, 250); updateHud();
+                keepAwake(); syncUi();
+            }
+            function replyTick() {
+                const r = C.receiver;
+                if (!r || C.finished) return;
+                r.evaluate();
+                try { renderQR(els.qr, r.buildControl(), 0, 0, "M"); } catch (e) { console.error(e); }
+                C.replyTimer = setTimeout(replyTick, 300);
+            }
+            function describe(obj) {
+                if (obj.kind === "text") return `Text · ${b64decode(obj.data).length} characters`;
+                const tl = toolsIn(obj);
+                if (tl) return `${tl.length} local tool${tl.length === 1 ? "" : "s"} · ${fileNameFor(obj)}`;
+                if (obj.kind === "image" || obj.kind === "file" || obj.kind === "video") return `${fileNameFor(obj)} · ${obj.mime || "unknown type"}`;
+                return "Data received";
+            }
+            function finishReceiver() {
+                C.finished = true; clearTimeout(C.replyTimer);
+                const r = C.receiver, b64 = r.assemble();
+                const secs = ((Date.now() - C.startedAt) / 1000).toFixed(1);
+                let obj = null;
+                try { obj = JSON.parse(b64decode(b64)); } catch { }
+                // Keep showing a big "all received" code so the sender's camera can still pick it up.
+                try { renderQR(els.doneQR, r.buildControl(), 0, 0, "M"); els.doneQR.hidden = false; } catch (e) { console.error(e); }
+                const buttons = [];
+                if (obj) {
+                    const tl = toolsIn(obj);
+                    if (tl) buttons.push([`Import ${tl.length} tool${tl.length === 1 ? "" : "s"}`, "", function () {
+                        const n = importToolsList(tl);
+                        this.textContent = n ? `Imported ${n} new` : "Already imported"; this.disabled = true;
+                    }]);
+                    if (obj.kind === "file" || obj.kind === "image") buttons.push(["Download", "secondary", () => downloadDataUrl(obj.data, fileNameFor(obj))]);
+                    buttons.push(["View result", "secondary", () => {
+                        stopAll();
+                        document.querySelector('.tabs > button[data-tab="read"]').click();
+                        showPayload(obj);
+                    }]);
+                }
+                buttons.push(["Close", "ghost", () => stopAll()]);
+                showDone("Transfer complete",
+                    `${fmtBytes(b64.length)} received in ${secs} s` + (obj ? ` · ${describe(obj)}` : " · not in a format QR Studio recognises"),
+                    buttons);
+                setStatus(`<span class="ok">Transfer complete.</span>`);
+            }
+
+            /* ---------- "transfer complete" screen check, on both devices ---------- */
+            function showDone(title, info, buttons) {
+                els.doneTitle.textContent = title;
+                els.doneInfo.textContent = info;
+                els.doneBtns.innerHTML = "";
+                for (const [label, cls, fn] of buttons) {
+                    const b = document.createElement("button");
+                    b.textContent = label; if (cls) b.className = cls;
+                    b.onclick = fn;
+                    els.doneBtns.appendChild(b);
+                }
+                els.done.hidden = false;
+                syncUi();
+            }
+
+            function stopAll(keepStatus) {
+                clearTimeout(C.sendTimer); clearTimeout(C.replyTimer); clearInterval(C.hudTimer);
+                cancelAnimationFrame(C.raf); C.raf = 0;
+                C.sender = null; C.receiver = null; C.finished = false; C.blind = false;
+                if (C.stream) C.stream.getTracks().forEach(t => t.stop());
+                C.stream = null; els.vid.srcObject = null;
+                if (C.wake) { C.wake.release().catch(() => { }); C.wake = null; }
+                els.done.hidden = true; els.doneQR.hidden = true;
+                els.stage.hidden = true;
+                exitFs();
+                if (!keepStatus) setStatus("Idle.");
+                syncUi();
+            }
+
+            /* ---------- wiring ---------- */
+            document.querySelectorAll("#roleToggle button").forEach(b => b.addEventListener("click", () => {
+                if (C.role === b.dataset.role) return;
+                stopAll(); C.role = b.dataset.role; syncUi();
+            }));
+            els.camBtn.onclick = async () => {
+                if (C.role === "recv") return startReceiving();
+                els.stage.hidden = false;
+                if (await camOn()) {
+                    setStatus("Camera on. Choose what to send, then press Start sending.");
+                    clearInterval(C.hudTimer); C.hudTimer = setInterval(updateHud, 250); updateHud();
+                } else els.stage.hidden = true;
+            };
+            els.startBtn.onclick = startSending;
+            els.flipBtn.onclick = flipCamera;
+            els.fsBtn.onclick = enterFs;
+            els.stopBtn.onclick = () => stopAll();
+            $("commExitFs").onclick = exitFs;
+            $("commStopFs").onclick = () => stopAll();
+            els.cMode.addEventListener("change", syncModeUi);
+            document.querySelectorAll(".tabs > button[data-tab]").forEach(b => b.addEventListener("click", () => {
+                $("tab-communicate").style.display = b.dataset.tab === "communicate" ? "" : "none";
+                if (b.dataset.tab !== "communicate") stopAll();
+            }));
+            window.addEventListener("pagehide", () => stopAll());
+            document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && sessionActive() && !C.wake) keepAwake(); });
+
+            // file picker / drop zone: same behaviour as the Create tab
+            const pick = () => { C.file = els.file.files[0] || null; els.fileInfo.textContent = C.file ? `${C.file.name} · ${fmtBytes(C.file.size)} · ${C.file.type || "unknown type"}` : ""; };
+            els.drop.addEventListener("click", e => { if (e.target !== els.file) els.file.click(); });
+            els.drop.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); els.file.click(); } });
+            ["dragenter", "dragover"].forEach(ev => els.drop.addEventListener(ev, e => { e.preventDefault(); els.drop.classList.add("hover"); }));
+            ["dragleave", "drop"].forEach(ev => els.drop.addEventListener(ev, e => { e.preventDefault(); els.drop.classList.remove("hover"); }));
+            els.drop.addEventListener("drop", e => { if (e.dataTransfer.files[0]) { els.file.files = e.dataTransfer.files; pick(); } });
+            els.file.addEventListener("change", pick);
+
+            /* ---------- hand-over from Home → Export → QR ---------- */
+            function loadHandoff() {
+                let h = null;
+                try { h = JSON.parse(localStorage.getItem("qrstudio.handoff") || "null"); localStorage.removeItem("qrstudio.handoff"); } catch { }
+                if (!h || typeof h.data !== "string" || Date.now() - (h.ts || 0) > 10 * 60 * 1000) return;
+                let count = 0; try { const a = JSON.parse(h.data); count = Array.isArray(a) ? a.length : 0; } catch { return; }
+                const name = h.name || "local-tools.json";
+                C.handoff = { payload: { kind: "file", name, mime: "application/json", data: "data:application/json;base64," + b64encode(h.data) } };
+                els.cMode.add(new Option("Local tools (from Home)", "handoff"), 0);
+                els.cMode.value = "handoff";
+                els.handoffInfo.textContent = `${count} local tool${count === 1 ? "" : "s"} from Home (${name}, ${fmtBytes(h.data.length)}). Turn on the camera, then press Start sending.`;
+                C.role = "send";
+                document.querySelector('.tabs > button[data-tab="communicate"]').click();
+            }
+
+            syncModeUi(); syncUi(); loadHandoff(); syncModeUi(); syncUi();
+        }
+    </script>
+</body>
+
+</html>

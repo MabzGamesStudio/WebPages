@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+    <!-- Prevents VS Code Live Server from injecting its reload script into this file -->
+    <!-- nolivereload -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Add a tool · Web Tools</title>
@@ -125,7 +127,7 @@
                 <textarea id="desc" rows="3" class="prompt-textarea" placeholder="Describe the app you want to build. First line is the name, next lines are the description. E.g.,
 
 Pomodoro
-A pomodoro timer with adjustable work/break intervals, audio notifications, and a dark mode toggle.'"></textarea>
+A pomodoro timer with adjustable work/break intervals, audio notifications, and a dark mode toggle."></textarea>
             </div>
 
             <!-- STEP 2 -->
@@ -218,8 +220,12 @@ Return ONLY the HTML file in a code block that I can copy and paste.`;
 
         // Helper: Wrap fragments so they render properly in preview/save
         function asPage(code) {
-            return /<!doctype|<html[\s>]/i.test(code) ? code :
-                `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>${code}</body></html>`;
+            const closeTag = '<' + '/script>';
+            const pattern = new RegExp('<script[^>]*livereload\\.js[^>]*>[\\s\\S]*?' + closeTag, 'gi');
+            const cleanCode = code.replace(pattern, '');
+
+            return /<!doctype|<html[\s>]/i.test(cleanCode) ? cleanCode :
+                '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>' + cleanCode + '</body></html>';
         }
 
         // Helper: Auto-generate tags
@@ -242,14 +248,14 @@ Return ONLY the HTML file in a code block that I can copy and paste.`;
             }
 
             const template = $("promptTemplate").value;
-            const finalPrompt = template.replace('{{TOOL_DESCRIPTION}}', desc);
+            const finalPrompt = template.replace('{{ TOOL_DESCRIPTION }}', desc);
 
             try {
                 await navigator.clipboard.writeText(finalPrompt);
                 $("stat").innerHTML = `<span class="ok">✅ Prompt copied to clipboard! Paste it into your AI.</span>`;
             } catch (err) {
                 // Fallback for older browsers
-                $("promptTemplate").value = finalPrompt; // ensure it has the replaced text
+                $("promptTemplate").value = finalPrompt;
                 $("promptTemplate").select();
                 document.execCommand('copy');
                 $("stat").innerHTML = `<span class="ok">✅ Prompt copied to clipboard! (fallback method)</span>`;
@@ -266,7 +272,8 @@ Return ONLY the HTML file in a code block that I can copy and paste.`;
         $("previewBtn").onclick = () => {
             const code = $("code").value;
             if (!code.trim()) {
-                $("stat").innerHTML = `<span class="warn">⚠️ Nothing to preview. Paste the AI response in Step 3 first.</span>`;
+                $("stat").innerHTML = `<span class="warn">⚠️ Nothing to preview. Paste the AI response in Step 3
+                first.</span>`;
                 return;
             }
             $("previewCard").hidden = false;
@@ -304,8 +311,9 @@ Return ONLY the HTML file in a code block that I can copy and paste.`;
                 return;
             }
 
-            $("stat").innerHTML = `<span class="ok">✅ Saved “${esc(name)}”.</span> Tags: ${tags.length ? tags.map(t => `<span class="tag">${esc(t)}</span>`).join(" ") : "<span class='muted'>none found</span>"}
-                · <a href="${esc(toolHref(tool))}">Open it</a> · <a href="./index.html">Home</a>`;
+            $("stat").innerHTML = `<span class="ok">✅ Saved “${esc(name)}”.</span> Tags: ${tags.length ? tags.map(t =>
+                `<span class="tag">${esc(t)}</span>`).join(" ") : "<span class='muted'>none found</span>"}
+                            · <a href="${esc(toolHref(tool))}">Open it</a> · <a href="./index.html">Home</a>`;
 
             // Optional: clear form after successful save
             $("desc").value = "";

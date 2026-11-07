@@ -27,7 +27,7 @@ export const Tools = {
 export const LOCAL_RUNNER = "tools/local.html";
 export function toolHref(tool, base = "./") {
     return tool._manifest
-        ? `${base}tools/${encodeURIComponent(tool.id)}.html`
+        ? `${base}tools/${encodeURIComponent(tool.id)}/index.html`
         : `${base}${LOCAL_RUNNER}?id=${encodeURIComponent(tool.id)}#${encodeURIComponent(tool.id)}`;
 }
 // Local tools that don't already exist on the site: not seeded from the manifest and
