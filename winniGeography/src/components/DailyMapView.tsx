@@ -1,8 +1,9 @@
 import React, { useRef, useEffect } from 'react';
-import { MapContainer, TileLayer, GeoJSON, useMap } from 'react-leaflet';
+import { MapContainer, GeoJSON, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { IslandFeature } from '../types';
+import BaseMapLayers from './BaseMapLayers';
 
 interface DailyMapViewProps {
     islands: IslandFeature[];
@@ -67,10 +68,7 @@ const DailyMapView: React.FC<DailyMapViewProps> = ({ islands, targetIsland }) =>
             keyboard={false}
             zoomControl={false}
         >
-            <TileLayer
-                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CARTO</a>'
-            />
+            <BaseMapLayers variant="light" />
             <MapFocuser targetIsland={targetIsland} />
             <GeoJSON
                 ref={geoJsonRef}

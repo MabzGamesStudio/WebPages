@@ -1,7 +1,10 @@
 /// <reference types="vite/client" />
 
 declare module '*.geojson' {
-    import { FeatureCollection, Geometry } from 'geojson';
-    const value: FeatureCollection;
+    const value: {
+        type: 'FeatureCollection';
+        name: string;
+        features: any[];
+    };
     export default value;
 }

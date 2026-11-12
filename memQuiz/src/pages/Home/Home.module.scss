@@ -1,54 +1,255 @@
 // src/pages/Home/Home.module.scss
 
+.toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: $card-bg;
+    border: 1px solid $border;
+    border-radius: $radius;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.search-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.search-input {
+    flex: 1;
+    padding: 0.55rem 0.85rem;
+    border: 1px solid $border;
+    border-radius: $radius;
+    font-size: 0.9rem;
+    outline: none;
+    background: $bg;
+    transition: border-color 0.2s;
+    color: $text;
+
+    &::placeholder {
+        color: $text-muted;
+    }
+
+    &:focus {
+        border-color: $primary;
+        box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
+    }
+}
+
+.filter-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.filter-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    min-width: 3rem;
+    flex-shrink: 0;
+}
+
+.divider {
+    width: 1px;
+    height: 1.5rem;
+    background: $border;
+    flex-shrink: 0;
+}
+
+.row-divider {
+    width: 100%;
+    height: 1px;
+    background: $border;
+    flex-shrink: 0;
+}
+
+.tag-pills,
+.type-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    flex: 1;
+}
+
+.tag-pill,
+.type-pill {
+    padding: 0.35rem 0.75rem;
+    border: 1px solid $border;
+    border-radius: 9999px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    background: $card-bg;
+    color: $text-muted;
+    transition: all 0.15s;
+    user-select: none;
+    white-space: nowrap;
+
+    &:hover {
+        border-color: $primary;
+        color: $primary;
+        background: #f5f3ff;
+    }
+
+    &.active {
+        background: $primary;
+        color: white;
+        border-color: $primary;
+    }
+}
+
+.type-pill {
+    &.active {
+        background: #0d9488;
+        border-color: #0d9488;
+    }
+
+    &:hover {
+        border-color: #0d9488;
+        color: #0d9488;
+    }
+}
+
+.sort-group {
+    display: flex;
+    gap: 0;
+    margin-left: auto;
+    border: 1px solid $border;
+    border-radius: $radius;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.sort-btn {
+    padding: 0.4rem 0.75rem;
+    border: none;
+    background: $card-bg;
+    color: $text-muted;
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+
+    &:not(:last-child) {
+        border-right: 1px solid $border;
+    }
+
+    &:hover {
+        background: $bg;
+        color: $text;
+    }
+
+    &.active {
+        background: $primary;
+        color: white;
+    }
+}
+
+.result-count {
+    font-size: 0.8rem;
+    color: $text-muted;
+    margin-bottom: 1rem;
+    padding-left: 0.25rem;
+}
+
 .module-grid {
     display: grid;
-    // Prevents cards from squishing too small
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
 }
 
 .module-card {
-    // Reset default anchor styles to look like a clean card
     text-decoration: none;
     color: inherit;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-    // Ensure content doesn't overflow or overlap
     overflow: hidden;
-
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    height: 100%; // Ensures equal height in grid row
+    height: 100%;
+    padding: 1.2rem;
 
     &:hover {
         transform: translateY(-4px);
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        border-color: var(--primary, #4f46e5); // Fallback if variable isn't loaded
+        border-color: $primary;
     }
 
     h3 {
-        margin: 0 0 1rem 0;
-        font-size: 1.25rem;
-        line-height: 1.4;
+        margin: 0 0 0.75rem 0;
+        font-size: 1rem;
+        line-height: 1.35;
     }
 }
 
 .tags {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.4rem;
     flex-wrap: wrap;
-    margin-top: auto; // Pushes tags to bottom of card
+    margin-top: auto;
 }
 
 .tag {
     background: #e0e7ff;
     color: #3730a3;
-    padding: 0.25rem 0.75rem;
+    padding: 0.2rem 0.6rem;
     border-radius: 9999px;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
     letter-spacing: 0.025em;
-    white-space: nowrap; // Prevents tag text from breaking awkwardly
+    white-space: nowrap;
+}
+
+.subtitle {
+    color: $text-muted;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: $text-muted;
+
+    p {
+        font-size: 1rem;
+    }
+}
+
+// Mobile adjustments
+@media (max-width: 640px) {
+    .toolbar {
+        padding: 0.85rem 1rem;
+    }
+
+    .filter-label {
+        min-width: 100%;
+        margin-bottom: -0.15rem;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .sort-group {
+        margin-left: 0;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .filter-row {
+        gap: 0.4rem;
+    }
+
+    .module-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
 }

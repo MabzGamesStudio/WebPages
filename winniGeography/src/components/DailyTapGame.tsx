@@ -1,21 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapContainer, TileLayer, GeoJSON, Marker, Circle, useMapEvents } from 'react-leaflet';
+import { MapContainer, GeoJSON, Marker, Circle, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { getDailyTapSeed, getDailyTapIslands, getDailyDateString } from '../utils/dailySeed';
 import { saveDailyTapScore, getDailyTapScore } from '../utils/storage';
-import geoDataUrl from '../../data/WinnipesaukeeIslands.geojson?url';
-
-interface IslandFeature {
-    type: 'Feature';
-    properties: {
-        id: string;
-        name: string;
-        [key: string]: any;
-    };
-    geometry: { type: string; coordinates: any };
-}
+import { IslandFeature } from '../types';
+import geoData from '../../data/WinnipesaukeeIslands.geojson';
+import BaseMapLayers from './BaseMapLayers';
 
 const BASE_POINTS = 100;
 const DISTANCE_FACTOR = 0.0002; // ⚙️ CONFIGURE THIS: Higher = points drop off faster. (0.005 means ~50% points at 200m)
@@ -153,8 +145,7 @@ const DailyTapGame: React.FC = () => {
     const navigate = useNavigate();
     const dailySeed = getDailyTapSeed();
 
-    const [geoData, setGeoData] = useState<any>(null);
-    const [roundIslands, setRoundIslands] = useState<IslandFeature[]>([]);
+    const roundIslands = useMemo(() => getDailyTapIslands(geoData.features as IslandFeature[], dailySeed), [dailySeed]);
     const [round, setRound] = useState(0);
     const [guessLatLng, setGuessLatLng] = useState<L.LatLng | null>(null);
     const [showNextButton, setShowNextButton] = useState(false);
@@ -162,21 +153,13 @@ const DailyTapGame: React.FC = () => {
     const [gameOver, setGameOver] = useState(false);
     const [copied, setCopied] = useState(false);
 
+    // Restore saved daily tap score on mount
     useEffect(() => {
-        fetch(geoDataUrl)
-            .then(res => res.json())
-            .then((data: any) => {
-                setGeoData(data);
-                const islands = getDailyTapIslands(data.features, dailySeed);
-                setRoundIslands(islands);
-
-                const saved = getDailyTapScore(dailySeed);
-                if (saved) {
-                    setRoundResults(saved.results);
-                    setGameOver(true);
-                }
-            })
-            .catch(err => console.error('Failed to load GeoJSON:', err));
+        const saved = getDailyTapScore(dailySeed);
+        if (saved) {
+            setRoundResults(saved.results);
+            setGameOver(true);
+        }
     }, [dailySeed]);
 
     const targetIsland = roundIslands[round];
@@ -249,7 +232,7 @@ const DailyTapGame: React.FC = () => {
         }
     };
 
-    if (!geoData || roundIslands.length === 0) {
+    if (roundIslands.length === 0) {
         return <div className="daily-loading">Loading today's islands...</div>;
     }
 
@@ -296,10 +279,7 @@ const DailyTapGame: React.FC = () => {
                     {/* Listen for clicks on the map */}
                     <MapClickHandler onMapClick={handleMapClick} />
 
-                    <TileLayer
-                        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-                        attribution='&copy; OpenStreetMap contributors, &copy; CARTO'
-                    />
+                    <BaseMapLayers variant="light" />
 
                     {targetIsland && (
                         <>

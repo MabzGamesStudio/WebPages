@@ -1,12 +1,12 @@
 // ArraysModule.tsx
-import React, { useState } from 'react';
+import React from 'react';
 
 // Import components
 import WikipediaHeader from './Wikipedia';
 import AnimationSection from './Animations';
 import BigONotationSection from './BigONotation';
 import ProsConsSection from './ProsCons';
-import CodeSandboxSection, { defaultCode } from './CodeExample';
+import CodeSandboxSection from './CodeExample';
 import UseCasesSection from './UseCases';
 import RelatedStructuresSection from './Related';
 

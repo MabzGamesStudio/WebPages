@@ -1,46 +1,10 @@
 // QuizGame.tsx
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import MapView from './MapView';
 import { saveScore } from '../utils/storage';
-import { QuizMode } from '../types';
-import geoDataUrl from '../../data/WinnipesaukeeIslands.geojson?url';
-
-interface IslandFeature {
-    type: 'Feature';
-    properties: {
-        id: string;
-        '@id'?: string;
-        alt_name?: string | null;
-        ele?: string;
-        'gnis:feature_id'?: string;
-        leaf_cycle?: string | null;
-        leaf_type?: string | null;
-        name: string;
-        natural?: string | null;
-        place?: string;
-        type?: string;
-        wikidata?: string;
-        wikipedia?: string | null;
-        town: string;
-    };
-    geometry: {
-        type: string;
-        coordinates: any;
-    };
-}
-
-interface GeoJSONData {
-    type: 'FeatureCollection';
-    name: string;
-    crs?: {
-        type: string;
-        properties: {
-            name: string;
-        };
-    };
-    features: IslandFeature[];
-}
+import { QuizMode, IslandFeature } from '../types';
+import geoData from '../../data/WinnipesaukeeIslands.geojson';
 
 const QuizGame: React.FC = () => {
     const { townId } = useParams<{ townId: string }>();
@@ -51,24 +15,16 @@ const QuizGame: React.FC = () => {
     const [correctCount, setCorrectCount] = useState(0);
     const [startTime, setStartTime] = useState<number | null>(null);
     const [isFinished, setIsFinished] = useState(false);
-    const [geoData, setGeoData] = useState<GeoJSONData | null>(null);
     const [showAnswer, setShowAnswer] = useState(false);
     const [lastGuess, setLastGuess] = useState<string | null>(null);
     const [isCorrect, setIsCorrect] = useState(false);
 
-    useEffect(() => {
-        fetch(geoDataUrl)
-            .then(res => res.json())
-            .then(data => setGeoData(data))
-            .catch(err => console.error('Failed to load GeoJSON:', err));
-    }, []);
-
     const townIslands = useMemo(() => {
-        if (!geoData || !geoData.features) return [];
-        return geoData.features.filter((f) =>
+        if (!geoData.features) return [];
+        return geoData.features.filter((f: IslandFeature) =>
             townId === 'All' || f.properties.town === townId
         );
-    }, [geoData, townId]);
+    }, [townId]);
 
     const islandNames = useMemo(() =>
         townIslands.map((f) => f.properties.name).filter(Boolean),
@@ -153,10 +109,6 @@ const QuizGame: React.FC = () => {
             }, 1000);
         }
     };
-
-    if (!geoData) {
-        return <div>Loading map data...</div>;
-    }
 
     if (townIslands.length === 0) {
         return <div>No islands found for this town. Check your GeoJSON properties.</div>;

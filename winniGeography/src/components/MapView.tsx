@@ -1,9 +1,10 @@
 // MapView.tsx
 import React, { useRef, useEffect } from 'react';
-import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
+import { MapContainer, GeoJSON } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { IslandFeature, QuizMode } from '../types';
+import BaseMapLayers from './BaseMapLayers';
 
 interface MapViewProps {
     islands: IslandFeature[];
@@ -143,11 +144,9 @@ const MapView: React.FC<MapViewProps> = ({
     }, [lastGuess, correctAnswer, isCorrect, showAnswer, mode]);
 
     return (
-        <MapContainer center={center} zoom={12} style={{ height: '100%', width: '100%' }}>
-            <TileLayer
-                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CARTO</a>'
-            />
+        <MapContainer center={center} zoom={12} style={{ height: '100%', width: '100%' }}
+            zoomControl={true} dragging={true} touchZoom={true} scrollWheelZoom={true}>
+            <BaseMapLayers variant="dark" />
             <GeoJSON
                 ref={geoJsonRef}
                 key={JSON.stringify(islands) + mode + lastGuess + correctAnswer + showAnswer}

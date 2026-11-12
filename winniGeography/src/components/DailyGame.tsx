@@ -1,37 +1,10 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DailyMapView from './DailyMapView';
 import { getDailyIsland, getDailySeed, getDailyDateString } from '../utils/dailySeed';
 import { saveDailyScore, getDailyScore } from '../utils/storage';
-import geoDataUrl from '../../data/WinnipesaukeeIslands.geojson?url';
-
-interface IslandFeature {
-    type: 'Feature';
-    properties: {
-        id: string;
-        '@id'?: string;
-        alt_name?: string | null;
-        ele?: string;
-        'gnis:feature_id'?: string;
-        leaf_cycle?: string | null;
-        leaf_type?: string | null;
-        name: string;
-        natural?: string | null;
-        place?: string;
-        type?: string;
-        wikidata?: string;
-        wikipedia?: string | null;
-        town: string;
-    };
-    geometry: { type: string; coordinates: any };
-}
-
-interface GeoJSONData {
-    type: 'FeatureCollection';
-    name: string;
-    crs?: { type: string; properties: { name: string } };
-    features: IslandFeature[];
-}
+import { IslandFeature } from '../types';
+import geoData from '../../data/WinnipesaukeeIslands.geojson';
 
 interface GuessResult {
     guess: string;
@@ -94,39 +67,32 @@ function computeDistance(guess: string, answer: string): number {
 
 const DailyGame: React.FC = () => {
     const navigate = useNavigate();
-    const [geoData, setGeoData] = useState<GeoJSONData | null>(null);
-    const [targetIsland, setTargetIsland] = useState<IslandFeature | null>(null);
     const [guesses, setGuesses] = useState<GuessResult[]>([]);
     const [currentGuess, setCurrentGuess] = useState('');
     const [gameOver, setGameOver] = useState(false);
     const [won, setWon] = useState(false);
     const [copied, setCopied] = useState(false);
+    const [savedLoaded, setSavedLoaded] = useState(false);
 
     const dailySeed = getDailySeed();
 
-    useEffect(() => {
-        fetch(geoDataUrl)
-            .then(res => res.json())
-            .then((data: GeoJSONData) => {
-                setGeoData(data);
-                const target = getDailyIsland(data.features);
-                setTargetIsland(target);
-
-                const saved = getDailyScore(dailySeed);
-                if (saved?.guessResults && saved.guessResults.length > 0) {
-                    setGuesses(saved.guessResults);
-                    const finished = saved.won || saved.guessResults.length >= MAX_GUESSES;
-                    setGameOver(finished);
-                    setWon(saved.won);
-                }
-            })
-            .catch(err => console.error('Failed to load GeoJSON:', err));
-    }, [dailySeed]);
+    const targetIsland = useMemo(() => getDailyIsland(geoData.features as IslandFeature[]), []);
 
     const namedIslands = useMemo(() => {
-        if (!geoData) return [];
-        return geoData.features.filter(f => f.properties.name && f.properties.name.trim().length > 0);
-    }, [geoData]);
+        return (geoData.features as IslandFeature[]).filter((f: IslandFeature) => f.properties.name && f.properties.name.trim().length > 0);
+    }, []);
+
+    // Restore saved daily score on mount
+    React.useEffect(() => {
+        const saved = getDailyScore(dailySeed);
+        if (saved?.guessResults && saved.guessResults.length > 0) {
+            setGuesses(saved.guessResults);
+            const finished = saved.won || saved.guessResults.length >= MAX_GUESSES;
+            setGameOver(finished);
+            setWon(saved.won);
+        }
+        setSavedLoaded(true);
+    }, [dailySeed]);
 
     const generateShareText = useMemo(() => {
         const header = `Lake Winnipesaukee Island Daily ${getDailyDateString()}`;
@@ -191,7 +157,7 @@ const DailyGame: React.FC = () => {
         }
     };
 
-    if (!geoData || !targetIsland) {
+    if (!targetIsland) {
         return <div className="daily-loading">Loading today's island...</div>;
     }
 

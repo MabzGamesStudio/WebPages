@@ -1,4 +1,4 @@
-import type { MonthlyPoint } from '../types/climate';
+import type { ClimatePoint, Precision } from '../types/climate';
 
 export interface SpiralPoint3D {
   x: number;
@@ -7,6 +7,7 @@ export interface SpiralPoint3D {
   anomaly: number;
   year: number;
   month: number;
+  day?: number;
   index: number;
 }
 
@@ -18,16 +19,32 @@ const MIN_RADIUS = 0.5;
 const MAX_RADIUS = 4;
 const YEAR_HEIGHT = 0.1;
 
-export function buildSpiralPoints(points: MonthlyPoint[]): SpiralPoint3D[] {
+/** Day-of-year for a given month (1-based) and day (1-based). */
+function dayOfYear(month: number, day: number): number {
+  const daysBeforeMonth = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+  return daysBeforeMonth[month - 1] + day;
+}
+
+export function buildSpiralPoints(points: ClimatePoint[], precision: Precision = 'month'): SpiralPoint3D[] {
   if (points.length === 0) return [];
   const firstYear = points[0].year;
   const maxAbsAnomaly = points.reduce((m, p) => Math.max(m, Math.abs(p.anomaly)), 0.001);
 
   return points.map((p) => {
-    const angle = ((p.month - 1) / 12) * Math.PI * 2;
+    let angle: number;
+    let yearsElapsed: number;
+
+    if (precision === 'day' && p.day !== undefined) {
+      const doy = dayOfYear(p.month, p.day);
+      angle = ((doy - 1) / 365.25) * Math.PI * 2;
+      yearsElapsed = p.year - firstYear + (doy - 1) / 365.25;
+    } else {
+      angle = ((p.month - 1) / 12) * Math.PI * 2;
+      yearsElapsed = p.year - firstYear + (p.month - 1) / 12;
+    }
+
     const t = p.anomaly / maxAbsAnomaly;
     const radius = MIN_RADIUS + ((t + 1) / 2) * (MAX_RADIUS - MIN_RADIUS);
-    const yearsElapsed = p.year - firstYear + (p.month - 1) / 12;
 
     return {
       x: radius * Math.cos(angle),
@@ -36,6 +53,7 @@ export function buildSpiralPoints(points: MonthlyPoint[]): SpiralPoint3D[] {
       anomaly: p.anomaly,
       year: p.year,
       month: p.month,
+      day: p.day,
       index: p.index,
     };
   });

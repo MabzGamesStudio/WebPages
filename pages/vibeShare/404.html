@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VibeShare</title>
+  </head>
+  <body>
+    <div class="boot">Starting VibeShare…</div>
+    <script>
+      (function () {
+        async function boot(dir) {
+          try {
+            const answer = await fetch(dir + 'index.html');
+            if (!answer.ok) throw new Error(String(answer.status));
+            const html = await answer.text();
+            document.open();
+            document.write(html.replace(/<head[^>]*>/i, (tag) => tag + '<base href="' + dir + '">'));
+            document.close();
+          } catch (error) {
+            location.replace(dir);
+          }
+        }
+        // The client's own folder is the deepest one that holds the service worker.
+        (function find(dir) {
+          fetch(dir + 'sw.js', { method: 'HEAD' })
+            .then((answer) => {
+              if (!answer.ok) throw new Error('not here');
+              return boot(dir);
+            })
+            .catch(() => {
+              const shorter = dir.replace(/[^/]+\/$/, '');
+              if (shorter === dir) return boot('/');
+              find(shorter);
+            });
+        })(location.pathname.replace(/[^/]*$/, ''));
+      })();
+    </script>
+  </body>
+</html>

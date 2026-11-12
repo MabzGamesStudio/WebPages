@@ -1,0 +1,52 @@
+@use '../../styles/variables' as *;
+
+.wrap {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  margin-top: $space-2;
+}
+
+.label {
+  font-family: $font-mono;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: $text-faint;
+  text-transform: uppercase;
+  margin-right: $space-1;
+}
+
+.chip {
+  border: 1px solid $border-hairline;
+  background: transparent;
+  color: $text-muted;
+  font-family: $font-mono;
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 32px;
+
+  &:hover {
+    color: $text-primary;
+    border-color: rgba($amber, 0.4);
+  }
+}
+
+.chipActive {
+  border: 1px solid $amber;
+  background: $amber;
+  color: $bg-void;
+  font-family: $font-mono;
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 32px;
+
+  &:hover {
+    color: $bg-void;
+  }
+}
